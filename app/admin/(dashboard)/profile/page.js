@@ -8,7 +8,7 @@ export default function AdminProfile() {
 
   // 1. Fetch current admin details
   useEffect(() => {
-    fetch('/api/admin/profile')
+    fetch('/api/profile')
       .then((res) => res.json())
       .then((data) => setUser({ name: data.name, email: data.email }));
   }, []);
@@ -16,7 +16,7 @@ export default function AdminProfile() {
   const handleUpdateProfile = async (e) => {
     e.preventDefault();
     setStatus('Updating...');
-    const res = await fetch('/api/admin/profile', {
+    const res = await fetch('/api/profile', {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(user),
