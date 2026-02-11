@@ -18,10 +18,13 @@ a {
 }
 :root {
   --light-gray:#00000018 ;
+  --light-text: #dadada6e;
   /* Next.js Defaults */
   --background: #ffffff;
   --foreground: #171717;
   --font-family: 'fredoka', sans-serif;
+  --red-accent: #ef4444;
+  --accent-blue: #0aa5ffb0;
   /* Phase 5 Theme Engine Variables */
   --accent: #3b82f6; 
   --bg-secondary: #f4f4f5;
@@ -78,7 +81,7 @@ main{
   flex-direction: column;
  
   max-width: 1200px;
-  margin: 0 auto;
+  margin:  auto;
   padding: 2rem;}
 body {
 
@@ -86,6 +89,7 @@ body {
   background: var(--background);
   font-family: var(--font-family);
   transition: background 0.3s ease;
+  overflow:visible;
 }
 
 * {
@@ -97,7 +101,7 @@ body {
   display: flex;
   min-height: 100vh;
 }
-.modern-btn {
+.modern-btn,.delete-btn {
   font-family: var(--font-family);
   width: 100%;
   
@@ -113,7 +117,12 @@ body {
   justify-content: center;
   align-items: center;
 }
-
+.delete-btn:hover {
+  background: #ff4d4d;
+  transform:scale(.95);
+  filter: brightness(.742);
+ 
+}
 .modern-btn:hover {
   filter: brightness(.51);
  
@@ -133,7 +142,28 @@ body {
   border-radius: 16px;
   transition: transform 0.3s ease, border-color 0.3s ease;
 }
+.glass-nav {
+  background-color: var(--light-gray)!important;
 
+  border-radius: 8px;
+
+
+}
+.glass-nav:hover {
+  transform: none;
+  transition:  border 0.2s ease-in;
+  border: 1px solid var(--accent)!important;
+}
+#msg.glass {
+  margin-right: 10%!important;
+  width: 40dvw!important;
+  border: #3b82f6 1px solid!important;
+  display: flex!important;
+}
+#msg.glass:active {
+  border-color: var(--red-accent) !important;
+  transform: scale(.95);
+}
 .project-card:hover {
   transform: translateY(-8px);
   border-color: var(--accent);
@@ -178,6 +208,12 @@ button {
   cursor: pointer;
   transition: all 0.2s ease;
 }
+section#home{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 5rem!important;
+}
 @media (max-width: 468px) {
   main {
     padding: 1rem;
@@ -187,23 +223,36 @@ button {
   }
   .admin-layout-wrapper {
     flex-direction: column;
+    align-items: center;
   }
   .glass{
     font-size: small;
-    width: 100% !important;
     margin: 0px!important;
     border-radius: 8px!important;
      gap: 8px !important  ;
     display: flex!important;
-    overflow: hidden;
-    position: sticky !important ;
-    top: 0px !important;
+    flex-wrap: wrap!important ;
+    align-items: center;
+    width: 98% !important;
+    justify-content: space-around!important;
+      padding: 8px!important;
+    top: 10px !important;
     z-index: 10000!important;
      transition: all 0.5s ease-in-out;
      align-items: center!important;
      padding: 4px!important;
      border: none!important;
 
+     
+  }
+  #profile.glass{
+    gap: 8px !important  ;
+    padding: 8px!important;
+    display: flex !important;
+    flex-direction: column!important;
+    gap: 8px!important;
+    align-items: stretch!important;
+     width: 98% !important;
   }
   .glass-items{
     padding: 8px!important;
@@ -216,7 +265,7 @@ button {
      width: 100% !important;
   }
 .glass span{
-  font-size: large !important;
+  font-size: small !important;
 }
   .glass h3{
     text-align: center;
@@ -238,33 +287,61 @@ button {
     text-align: baseline!important;
     font-size: medium!important;
     margin: 0px !important;
+    
   }
   .glass-nav {
     backdrop-filter: blur(10px) !important;
-    border-radius: 16px !important;
+     border-radius: 8px!important ;
     background-color: var(--glass-bg)!important;
-    height: 60px!important;
-    display: inline;
-    width: 100% !important;
+    height: 35px!important;
+    margin: 0px!important;
+   
+    width: 95% !important;
      gap: 8px !important  ;
     display: flex!important;
     overflow: hidden;
     position: sticky !important ;
-    top: 0px !important;
-    margin: 0px!important;
-    z-index: 1000000!important;
+    top: 10px !important;
+    align-items: center!important;
+     justify-content: space-around!important;
+
+    z-index: 10000!important;
     transition: all 0.5s ease-in-out;
+    padding: .5rem!important;
+     border: none!important;
+     left: 2%!important;
+  }
+  #msg.glass {
+    width: 90vw!important;
+    margin: 0px!important;
+    border: none!important;
+    border-radius: 8px!important;
+    padding: 8px!important;
+    display: flex!important;
+    justify-content: center!important;
+    align-items: center!important;
   }
   .glass-nav:hover {
+   
     transform: none;
     transition: all 0.5s ease-in-out;
-    height: 220px !important;
+    height: 150px !important;
     border-color: var(--glass-border);  
   }
-  .glass-nav h2 {
-    text-align: center;
-    font-size: medium;
+  .glass-nav h2  {
+    
+    font-size: medium!important;
     margin: 0px !important;
+  }
+  nav.glass,a{
+    font-size: small!important;
+     gap: 8px !important  ;
+  }
+  .modern-btn{
+    font-size: small;
+    padding: 0.6rem!important;
+      border-radius: 8px!important;
+      background: var(--accent-blue);
   }
   .nav-link {
     font-size: small;
@@ -304,4 +381,10 @@ button {
  
     gap: 8px!important;
   }
+  label{
+    color: var(--light-text);  ;
+    font-size: small!important;
+     margin-bottom: 0px!important;    
+  }  
+
 }

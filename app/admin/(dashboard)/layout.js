@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation'; // Added this import
+import { useRouter } from 'next/navigation';
 import '../../globals.css';
 
 export default function AdminLayout({ children }) {
@@ -31,13 +31,17 @@ export default function AdminLayout({ children }) {
         flexDirection: 'column', 
         height: 'calc(100vh - 2rem)',
         position: 'sticky',
-        top: '1rem'
+        top: '1rem',
+        border: '1px solid rgba(255, 255, 255, 0.05)',
+        borderRadius: '16px',
+        background: 'rgba(255, 255, 255, 0.05)',
+
       }}>
         <h2 style={{ 
           color: 'var(--accent)', 
           fontSize: '1.8rem', 
           marginBottom: '2rem',
-          fontFamily: 'var(--font-fredoka)' // Use your new heading font
+          fontFamily: 'var(--font-fredoka)'
         }}>
           CMS Admin
         </h2>
@@ -47,23 +51,27 @@ export default function AdminLayout({ children }) {
           <Link href="/admin/projects" className="nav-link">📂 Projects</Link>
           <Link href="/admin/skills" className="nav-link">🛠️ Skills</Link>
           <Link href="/admin/profile" className="nav-link">👤 Profile</Link>
+          
+          {/* NEW CONTACT MESSAGES LINK */}
+          <Link href="/admin/messages" className="nav-link">✉️ Messages</Link>
+          
           <Link href="/admin/settings" className="nav-link">⚙️ Settings</Link>
-           <div style={{ marginTop: 'auto' }}>
-          <button 
-            className="modern-btn secondary" id='logout'// Use the global class we created
-            style={{ 
-              justifyContent: 'space-between',
-              borderColor: 'rgba(255, 77, 77, 0.4)', 
-              color: '#ff4d4d' 
-            }}
-            onClick={handleLogout}
-          >
-            Logout
-          </button>
-        </div>
-        </nav>
 
-       
+          <div style={{ marginTop: 'auto' }}>
+            <button 
+              className="modern-btn secondary" 
+              id='logout'
+              style={{ 
+                width: '100%',
+                borderColor: 'rgba(255, 77, 77, 0.4)', 
+                color: '#ff4d4d' 
+              }}
+              onClick={handleLogout}
+            >
+              Logout
+            </button>
+          </div>
+        </nav>
       </aside>
 
       <main style={{ flex: 1, padding: '2rem 4rem', overflowY: 'auto' }}>

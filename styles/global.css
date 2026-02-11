@@ -30,7 +30,7 @@ body {
   background: var(--background);
   font-family: var(--font-family); /* Fixed font inheritance */
   transition: background 0.3s ease;
-  overflow-x: hidden;
+  overflow: visible;
 }
 
 /* Layout Wrapper Fix */

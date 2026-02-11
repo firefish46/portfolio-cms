@@ -1,26 +1,25 @@
 import { connectDB } from "@/lib/mongodb";
 import Contact from "@/models/contact";
+import SwipeableMessage from "./SwipeableMessage";
 
 export default async function AdminMessages() {
   await connectDB();
-  const messages = await Contact.find().sort({ createdAt: -1 });
+  
+  const rawMessages = await Contact.find().sort({ createdAt: -1 }).lean();
+  const messages = JSON.parse(JSON.stringify(rawMessages));
 
   return (
-    <div>
+    <div style={{ maxWidth: '800px', margin: '0 auto', position: 'relative', padding: '1rem' }}>
       <h1 style={{ fontFamily: 'var(--font-fredoka)', marginBottom: '2rem' }}>Inbox</h1>
+      
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-        {messages.map((msg) => (
-          <div key={msg._id} className="glass" style={{ padding: '1.5rem' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-              <strong style={{ color: 'var(--accent)' }}>{msg.name}</strong>
-              <span style={{ fontSize: '0.8rem', opacity: 0.5 }}>
-                {new Date(msg.createdAt).toLocaleDateString()}
-              </span>
-            </div>
-            <p style={{ fontSize: '0.9rem', marginBottom: '0.5rem' }}>{msg.email}</p>
-            <p style={{ opacity: 0.8 }}>{msg.message}</p>
-          </div>
-        ))}
+        {messages.length === 0 ? (
+          <p style={{ opacity: 0.5 }}>No messages in your inbox yet.</p>
+        ) : (
+          messages.map((msg) => (
+            <SwipeableMessage key={msg._id} msg={msg} />
+          ))
+        )}
       </div>
     </div>
   );

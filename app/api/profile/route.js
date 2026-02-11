@@ -1,40 +1,46 @@
-//app/api/profile/route.js
 import { connectDB } from "@/lib/mongodb";
 import Profile from "@/models/Profile";
 import { requireAdmin } from "@/lib/adminMiddleware";
+import { NextResponse } from "next/server";
 
 export async function GET() {
   await connectDB();
-  const projects = await Profile.find().sort({ order: 1 });
-  return Response.json(projects);
-}
-
-export async function POST(req) {
-  await connectDB();
-  const admin = requireAdmin(req);
-  if (!admin) return Response.json({ error: "Unauthorized" }, { status: 401 });
-
-  const data = await req.json();
-  const project = await Profile.create(data);
-  return Response.json(project);
+  const profile = await Profile.findOne().lean();
+  
+  if (!profile) return Response.json({});
+  
+  // Ensure the ID is a string if the frontend needs it
+  profile._id = profile._id.toString();
+  
+  return Response.json(profile);
 }
 
 export async function PUT(req) {
   await connectDB();
   const admin = requireAdmin(req);
-  if (!admin) return Response.json({ error: "Unauthorized" }, { status: 401 });
+  if (!admin) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-  const { id, ...data } = await req.json();
-  await Profile.findByIdAndUpdate(id, data);
-  return Response.json({ message: "Updated" });
+  const data = await req.json();
+  
+  // We remove 'id' from the logic. 
+  // This finds the first document (empty filter {}) and updates it, 
+  // or creates it if it doesn't exist (upsert: true).
+  const updatedProfile = await Profile.findOneAndUpdate(
+    {}, 
+    { $set: data }, 
+    { upsert: true, new: true }
+  );
+
+  return NextResponse.json(updatedProfile);
 }
 
-export async function DELETE(req) {
+// POST is redundant with the UPSERT logic above, but kept for compatibility
+export async function POST(req) {
   await connectDB();
   const admin = requireAdmin(req);
-  if (!admin) return Response.json({ error: "Unauthorized" }, { status: 401 });
+  if (!admin) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-  const { id } = await req.json();
-  await Profile.findByIdAndDelete(id);
-  return Response.json({ message: "Deleted" });
+  const data = await req.json();
+  const project = await Profile.create(data);
+  return NextResponse.json(project);
 }
