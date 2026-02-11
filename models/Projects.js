@@ -1,13 +1,13 @@
 import mongoose from "mongoose";
 
 const ProjectSchema = new mongoose.Schema({
-  title: { type: String, required: true },
-  description: { type: String },
-  tags: [String],
-  image: { type: String }, // For later use
-  link: { type: String },
-  order: { type: Number, default: 0 },
+  title: String,
+  category: String,
+  description: String,
+  role: String,           // Your role (e.g., Lead Developer)
+  link: String,           // Visit/Checkout URL
+  tools: [String],        // Array of tools (React, Node, etc.)
+  images: [String],       // Array of Base64 strings or URLs
 }, { timestamps: true });
 
-// This prevents the "Cannot overwrite model once compiled" error
 export default mongoose.models.Project || mongoose.model("Project", ProjectSchema);

@@ -5,7 +5,8 @@ import Skill from "@/models/Skill";
 import Contact from "@/models/contact"; // Make sure to create this client component
 import ContactPage from "./contact/page";
 import Image from "next/image";
-export const revalidate = 0;
+ import ProjectGallery from "@/app/components/ProjectGallery";
+
 async function getData() {
   await connectDB();
   
@@ -87,28 +88,71 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* 4. PROJECTS SECTION */}
-      <section id="work" style={{ padding: '100px 2rem', background: 'rgba(255,255,255,0.02)' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-          <h2 style={{ fontSize: '2.5rem', marginBottom: '3rem', textAlign: 'center' }}>Featured Work</h2>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '2rem' }}>
-            {projects.map(project => (
-              <div key={project._id} className="glass project-card" style={{ padding: '0', overflow: 'hidden' }}>
-                <div style={{ height: '200px', background: 'var(--glass-border)' }}></div> {/* Placeholder for image */}
-                <div style={{ padding: '1.5rem' }}>
-                  <h3 style={{ marginBottom: '0.5rem' }}>{project.title}</h3>
-                  <p style={{ opacity: 0.6, fontSize: '0.9rem', marginBottom: '1rem' }}>{project.description}</p>
-                  <div style={{ display: 'flex', gap: '0.5rem' }}>
-                    {project.tags?.map(tag => (
-                      <span key={tag} style={{ color: 'var(--accent)', fontSize: '0.8rem' }}>#{tag}</span>
-                    ))}
-                  </div>
-                </div>
+  {/* 4. PROJECTS SECTION */}
+<section id="work" style={{ padding: '100px 2rem', background: 'rgba(255,255,255,0.02)' }}>
+  <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+    <h2 style={{ fontSize: '3rem', marginBottom: '4rem', textAlign: 'center', fontFamily: 'var(--font-fredoka)' }}>
+      Featured <span style={{ color: 'var(--accent)' }}>Work</span>
+    </h2>
+    
+    <div style={{ 
+      display: 'grid', 
+      gridTemplateColumns: 'repeat(auto-fit, minmax(380px, 1fr))', 
+      gap: '3rem' 
+    }}>
+      {projects.map(project => (
+        <div key={project._id} className="glass project-card" style={{ 
+          padding: '0', 
+          overflow: 'hidden', 
+          display: 'flex', 
+          flexDirection: 'column',
+          transition: 'transform 0.3s ease'
+        }}>
+          
+          {/* MULTI-PHOTO DISPLAY (Horizontal Scroll) */}
+  <ProjectGallery images={project.images} title={project.title} />
+
+          <div style={{ padding: '2rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
+              <div>
+                <span style={{ fontSize: '0.75rem', color: 'var(--accent)', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px' }}>
+                  {project.category}
+                </span>
+                <h3 style={{ fontSize: '1.8rem', marginTop: '0.2rem' }}>{project.title}</h3>
               </div>
-            ))}
+              {project.link && (
+                <a href={project.link} target="_blank" rel="noopener noreferrer" className="modern-btn" style={{ padding: '8px 15px', fontSize: '0.8rem' }}>
+                  Visit Project
+                </a>
+              )}
+            </div>
+
+            <p style={{ fontSize: '0.95rem', opacity: 0.7, marginBottom: '1.5rem', lineHeight: '1.6' }}>
+              <strong>Role:</strong> {project.role || "Developer"}<br/>
+              {project.description}
+            </p>
+
+            {/* TOOLS / TECH STACK */}
+            <div style={{ marginTop: 'auto', display: 'flex', flexWrap: 'wrap', gap: '0.6rem' }}>
+              {project.tools?.map((tool, i) => (
+                <span key={i} style={{ 
+                  fontSize: '0.7rem', 
+                  padding: '5px 12px', 
+                  borderRadius: '20px', 
+                  background: 'rgba(var(--accent-rgb), 0.1)', 
+                  border: '1px solid rgba(var(--accent-rgb), 0.2)',
+                  color: 'var(--accent)'
+                }}>
+                  {tool}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
-      </section>
+      ))}
+    </div>
+  </div>
+</section>
 
       {/* 5. CONTACT SECTION */}
       <section id="contact" style={{ padding: '100px 2rem' }}>
