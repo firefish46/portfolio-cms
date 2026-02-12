@@ -9,17 +9,13 @@ export default function Navbar() {
   if (pathname.startsWith('/admin')) return null;
 
   return (
-    <nav className="glass" style={{
-      position: 'fixed',
-      top: '1.5rem',
-      left: '50%',
-      transform: 'translateX(-50%)',
-      width: '90%',
-      maxWidth: '1100px',
-      padding: '0.8rem 2rem',
+    <nav className="navbar" style={{
+      position: 'sticky',
+      width: '96%',
+      maxWidth: '1800px',
+      padding: '0.5rem 2rem',
       display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center',
+  
       zIndex: 1000,
     }}>
       <div style={{ 
@@ -32,9 +28,9 @@ export default function Navbar() {
       </div>
 
       <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
-        <NavLink href="/" active={pathname === '/'}>Home</NavLink>
-        <NavLink href="/projects" active={pathname === '/projects'}>Work</NavLink>
-        <NavLink href="/contact" active={pathname === '/contact'}>Contact</NavLink>
+        <NavLink className="nav-link" href="/" active={pathname === '/'}>Home</NavLink>
+        <NavLink className="nav-link" href="/projects" active={pathname === '/projects'}>Work</NavLink>
+        <NavLink className="nav-link" href="/contact" active={pathname === '/contact'}>Contact</NavLink>
         
         {/* Call to Action Button */}
         <Link href="/contact">
@@ -56,12 +52,32 @@ function NavLink({ href, children, active }) {
     <Link href={href} style={{
       textDecoration: 'none',
       color: active ? 'var(--accent)' : 'var(--foreground)',
-      fontWeight: active ? '700' : '500',
-      fontSize: '0.95rem',
-      transition: '0.2s opacity',
-      opacity: active ? 1 : 0.7
-    }}>
+      fontSize: active ? '1.05rem' : '1rem',  
+      fontWeight: active ? '600' : '500',
+      position: 'relative',
+      opacity: active ? 1 : 0.5,
+      paddingBottom: '4px',
+    }} className="group">
       {children}
+      {/* The Underline Div */}
+      <div style={{
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        width: '100%',
+        height: '2px',
+        backgroundColor: 'var(--accent)',
+        transform: active ? 'scaleX(1)' : 'scaleX(0)',
+        transformOrigin: 'left',
+        transition: 'transform 0.3s ease',
+      }} className="underline-hover" />
+      
+      {/* Small style tag to handle the hover logic since React inline styles don't support :hover */}
+      <style jsx>{`
+        a:hover .underline-hover {
+          transform: scaleX(1) !important;
+        }
+      `}</style>
     </Link>
   );
 }

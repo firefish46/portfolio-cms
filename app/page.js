@@ -37,7 +37,7 @@ export default async function HomePage() {
 
   return (
     <main style={{ scrollBehavior: 'smooth' }}>
-      
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 <section id="home">
  {profile?.avatar && (
   <div style={{ 
@@ -47,7 +47,7 @@ export default async function HomePage() {
     overflow: 'hidden',
     border: '4px solid var(--accent)', 
     marginBottom: '2rem',
-    position: 'relative' // Required for 'fill' layout if used
+   
   }}>
     <Image 
       src={profile.avatar} 
@@ -62,22 +62,23 @@ export default async function HomePage() {
   
 
   {/* NAME & TITLE */}
-  <h1 style={{ fontSize: 'clamp(3rem, 10vw, 5rem)', fontFamily: 'var(--font-fredoka)' }}>
-    I&apos;m <span style={{ color: 'var(--accent)' }}>{profile?.name || "Mehedi"}</span>
+  <h1 className="name" style={{ fontSize: 'clamp(3rem, 10vw, 5rem)', fontFamily: 'var(--font-fredoka)' }}>
+   <span >{profile?.name || "Mehedi"}</span>
   </h1>
-  <p style={{ fontSize: '1.2rem', opacity: 0.7 }}>
+  <p className="name" style={{ fontSize: '1.2rem', opacity: 0.7,marginTop:'-1rem' }}>
+    <i class="fa-solid fa-layer-group"></i>-
     {profile?.title || "Full Stack Developer"}
   </p>
 </section>
 
 {/* BIO SECTION */}
-<section id="about">
+<section id="about" className="pureglass">
   <h2>About Me</h2>
-  <p>{profile?.bio || "Your bio will appear here once updated in the admin panel."}</p>
+  <p>{profile?.bio || " bio will appear here once updated in the admin panel."}</p>
 </section>
 
       {/* 3. SKILLS SECTION */}
-      <section id="skills" style={{ padding: '100px 2rem' }}>
+      <section className="pureglass" id="skills" style={{ padding: '100px 2rem' }}>
         <h2 style={{ textAlign: 'center', marginBottom: '3rem', fontSize: '2rem' }}>Technical Stack</h2>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', justifyContent: 'center', maxWidth: '900px', margin: '0 auto' }}>
           {skills.map(skill => (
@@ -89,7 +90,7 @@ export default async function HomePage() {
       </section>
 
   {/* 4. PROJECTS SECTION */}
-<section id="work" style={{ padding: '100px 2rem', background: 'rgba(255,255,255,0.02)' }}>
+<section id="work" className="pureglass" style={{ padding: '100px 2rem', background: 'rgba(255,255,255,0.02)' }}>
   <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
     <h2 style={{ fontSize: '3rem', marginBottom: '4rem', textAlign: 'center', fontFamily: 'var(--font-fredoka)' }}>
       Featured <span style={{ color: 'var(--accent)' }}>Work</span>
@@ -155,14 +156,11 @@ export default async function HomePage() {
 </section>
 
       {/* 5. CONTACT SECTION */}
-      <section id="contact" style={{ padding: '100px 2rem' }}>
+      <section className="pureglass" id="contact" style={{ padding: '10px 1rem' }}>
         <div style={{ maxWidth: '600px', margin: '0 auto', textAlign: 'center' }}>
-          <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>Get In Touch</h2>
-          <p style={{ opacity: 0.6, marginBottom: '3rem' }}>Let&apos;s talk about your next project.</p>
-          <div className="glass" style={{ padding: '2rem' }}>
+         
            <ContactPage  contacts={Contact} />
           </div>
-        </div>
       </section>
 
     </main>

@@ -2,7 +2,7 @@ import { handleContact } from "../actions";
 
 export default function ContactPage() {
   return (
-    <div style={{ padding: '8rem 2rem', maxWidth: '600px', margin: '0 auto' }}>
+    <div style={{ padding: '1rem 0rem', maxWidth: '600px', margin: '0 0' }}>
       <h1 style={{ fontFamily: 'var(--font-fredoka)', marginBottom: '1rem' }}>Get in Touch</h1>
       <p style={{ marginBottom: '3rem', opacity: 0.7 }}>Have a project in mind? Let&apos;s build something great together.</p>
 
