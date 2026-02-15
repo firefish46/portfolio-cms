@@ -31,7 +31,7 @@ export default async function RootLayout({ children }) {
           }
         `}</style>
       </head>
-      <body className={`${fredoka.variable} ${gfsNeo.variable} ${geistSans.variable} ${geistMono.variable}`}>
+      <body className={`${fredoka.variable}`}>
         <Navbar />      
         {children}
       </body>

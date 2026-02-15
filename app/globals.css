@@ -265,6 +265,35 @@ button {
   transition: all 0.2s ease;
 }
 
+/* Skill Card Hover Effect */
+.skill-card:hover {
+  transform: translateY(-10px) scale(1.05) !important;
+  border-color: var(--accent) !important;
+  box-shadow: 0 10px 30px rgba(var(--accent-rgb), 0.2);
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+
+.skill-card:hover i {
+  transform: rotate(10deg) scale(1.2);
+  transition: transform 0.3s ease;
+}
+
+/* Entry Animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Fallback for icons that aren't in FontAwesome Brands */
+.fa-code {
+  font-size: 1.5rem;
+}
 @media (max-width: 468px) {
   main {
     padding: 1rem;
@@ -305,6 +334,9 @@ button {
     align-items: stretch!important;
      width: 98% !important;
   }
+  .image-container{
+    display: contents;
+  }
   .glass-items{
     padding: 8px!important;
     display: flex !important;
@@ -315,8 +347,51 @@ button {
      justify-content: space-around!important;
      width: 100% !important;
   }
+  img{
+  position: sticky;
+  height: 100%;
+  width: 100vw;
+  z-index: 4;
+  left: 0;
+  top: 0rem!important;
+  }.small-profile{
+    display: flex!important;
+    height: fit-content!important;
+    width: fit-content!important;
+    overflow: hidden;
+    padding: 0px !important;
+    margin: 10px !important;
+    z-index: 10;
+  }
+  .small-image{
+
+    height:30px;
+    width: 30px;
+    position: relative;
+  }
+  #home{
+    position: relative !important;
+ 
+    top: 0rem!important;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+  }
+  h1.name{
+    font-size: 2rem !important;
+  }
+  nav.navbar{
+    top: 0rem !important;
+    padding: 0.5rem 1rem !important;
+  }
+  .navlink-container{
+    gap: 1rem!important;
+  }
 .glass span{
   font-size: small !important;
+}
+p.name{
+  padding-top: 1rem!important;
 }
   .glass h3{
     text-align: center;

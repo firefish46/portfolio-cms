@@ -1,28 +1,58 @@
 'use client';
 import { useState } from 'react';
+import Image from 'next/image';
+import './projectGallery.css';
 
 export default function ProjectGallery({ images, title }) {
   const [selectedImg, setSelectedImg] = useState(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   if (!images || images.length === 0) {
     return (
-      <div style={{ height: '250px', background: '#111', display: 'grid', placeItems: 'center', opacity: 0.2 }}>
+      <div className="no-images-placeholder">
         <span>No Images Available</span>
       </div>
     );
   }
 
+  const handleImageClick = (img, index) => {
+    setSelectedImg(img);
+    setCurrentIndex(index);
+  };
+
+  const handleNext = (e) => {
+    e.stopPropagation();
+    const nextIndex = (currentIndex + 1) % images.length;
+    setCurrentIndex(nextIndex);
+    setSelectedImg(images[nextIndex]);
+  };
+
+  const handlePrev = (e) => {
+    e.stopPropagation();
+    const prevIndex = (currentIndex - 1 + images.length) % images.length;
+    setCurrentIndex(prevIndex);
+    setSelectedImg(images[prevIndex]);
+  };
+
   return (
     <>
-      <div className="hide-scrollbar" style={{ 
-        display: 'flex', overflowX: 'auto', scrollSnapType: 'x mandatory', height: '250px', background: '#111' 
-      }}>
+      <div className="hide-scrollbar project-gallery">
         {images.map((img, index) => (
-          <img 
-            key={index} src={img} alt={title}
-            onClick={() => setSelectedImg(img)}
-            style={{ flex: '0 0 100%', width: '100%', objectFit: 'cover', scrollSnapAlign: 'start', cursor: 'zoom-in' }} 
-          />
+          <div
+            key={index}
+            onClick={() => handleImageClick(img, index)}
+            className="gallery-image-wrapper"
+          >
+            <Image 
+              src={img} 
+              alt={`${title} - Image ${index + 1}`}
+              width={800}
+              height={500}
+              sizes="(max-width: 768px) 100vw, 800px"
+              className="gallery-image"
+              priority={index === 0}
+            />
+          </div>
         ))}
       </div>
 
@@ -30,15 +60,57 @@ export default function ProjectGallery({ images, title }) {
       {selectedImg && (
         <div 
           onClick={() => setSelectedImg(null)}
-          style={{
-            position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh',
-            backgroundColor: 'rgba(0,0,0,0.95)', zIndex: 1000, display: 'flex',
-            alignItems: 'center', justifyContent: 'center', cursor: 'zoom-out',
-            padding: '20px'
-          }}
+          className="fullscreen-overlay"
         >
-          <img src={selectedImg} style={{ maxWidth: '100%', maxHeight: '100%', borderRadius: '8px', boxShadow: '0 0 50px rgba(0,0,0,0.5)' }} />
-          <span style={{ position: 'absolute', top: '20px', right: '30px', color: '#fff', fontSize: '2rem' }}>&times;</span>
+          <div 
+            className="fullscreen-image-container"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <img 
+              src={selectedImg} 
+              alt={`${title} - Image ${currentIndex + 1}`}
+              className="fullscreen-image"
+            />
+          </div>
+
+          {/* Navigation Arrows (only show if multiple images) */}
+          {images.length > 1 && (
+            <>
+              <button
+                onClick={handlePrev}
+                className="nav-button nav-prev"
+                aria-label="Previous image"
+              >
+                &#8249;
+              </button>
+              <button
+                onClick={handleNext}
+                className="nav-button nav-next"
+                aria-label="Next image"
+              >
+                &#8250;
+              </button>
+            </>
+          )}
+
+          {/* Image Counter */}
+          {images.length > 1 && (
+            <div className="image-counter">
+              {currentIndex + 1} / {images.length}
+            </div>
+          )}
+
+          {/* Close Button */}
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setSelectedImg(null);
+            }}
+            className="close-button"
+            aria-label="Close fullscreen"
+          >
+            &times;
+          </button>
         </div>
       )}
     </>

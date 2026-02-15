@@ -18,7 +18,7 @@ export default function Navbar() {
   
       zIndex: 1000,
     }}>
-      <div style={{ 
+      <div className='navlink-container' style={{ 
         fontFamily: 'var(--font-fredoka)', 
         fontSize: '1.4rem', 
         fontWeight: '700',
