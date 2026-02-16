@@ -1,0 +1,54 @@
+:root{
+    --text:rgb(255, 255, 255);
+    --accent-choco:#3b1414;
+    --fade1:#b6b6b6;
+}
+.body{
+    height: 100vh;
+    width: 100vw;
+}
+.login-container{
+    border-radius: 16px;
+    border: 1px solid var(--accent-choco);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height:fit-content;
+    align-items: stretch;
+    padding: 2rem 2rem!important;
+    width: 50% !important;
+    backdrop-filter: blur(15px);
+    background-color: #ff002b;
+    background-image:
+     radial-gradient(at 80% 10%, rgb(243, 173, 10) 0px, 
+     transparent 50%), /* Top Right Yellow */ radial-gradient(at 0% 0%, rgb(255, 72, 72) 0px, transparent 50%), /* Top Left Pink */ radial-gradient(at 100% 100%, rgb(255, 0, 128) 0px, transparent 60%), /* Bottom Right Dark Blue */ radial-gradient(at 0% 100%, rgb(234, 255, 40) 0px, transparent 50%);
+   
+    z-index: 900;
+    opacity: 1;
+}
+.login-container:hover{
+    backdrop-filter: blur(0px);
+    transition: all 0.1s ease;
+   box-shadow: 0 10px 30px rgb(58, 14, 14);
+}
+input{
+    border: 1px solid var(--fade1);
+    color: var(--text);
+    width: 100% !important;
+}
+button{
+    border: 1px solid var(--accent-choco);
+    background:var(--accent-choco)!important;
+}
+button:hover{
+   background: transparent!important;
+    border: var(--accent-choco) 1px solid!important;
+
+}
+button:active{
+    background: var(--accent-choco)!important;
+
+    transform: scale(.95);
+       opacity: 1;
+}

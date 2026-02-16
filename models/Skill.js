@@ -1,3 +1,4 @@
+//models/skill.js
 import mongoose from "mongoose";
 
 const SkillSchema = new mongoose.Schema({

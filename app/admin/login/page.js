@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import './login.css';
 import { useRouter } from 'next/navigation';
 
 export default function LoginPage() {
@@ -24,13 +25,16 @@ export default function LoginPage() {
   };
 
   return (
+    <>
+    <header className='glass'style={{display:'flex', height:'40px',alignItems:'center',justifyContent:'center ',borderRadius:'0px'  }}>Portolio-cms</header>
     <div style={{ display: 'grid', placeItems: 'center', height: '100vh' }}>
-      <form onSubmit={handleLogin} className="glass" style={{ padding: '2rem', display: 'flex', flexDirection: 'column', gap: '1rem', width: '300px' }}>
+      <form onSubmit={handleLogin} className="login-container" style={{ padding: '2rem', display: 'flex', flexDirection: 'column', gap: '1rem', width: '300px' }}>
         <h2>Admin Login</h2>
         <input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} required />
         <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} required />
         <button type="submit" style={{ background: 'var(--accent)', color: 'white', border: 'none', padding: '0.5rem', cursor: 'pointer' }}>Login</button>
       </form>
     </div>
+    </>
   );
 }
