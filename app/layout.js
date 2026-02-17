@@ -1,4 +1,4 @@
-import { Geist, Geist_Mono, GFS_Neohellenic, Fredoka } from "next/font/google";
+import { Geist, Geist_Mono, GFS_Neohellenic, Fredoka,Cal_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/Navbar";
 import { connectDB } from "@/lib/mongodb";
@@ -8,10 +8,12 @@ import Settings from "@/models/Settings";
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 const gfsNeo = GFS_Neohellenic({ weight: ["400", "700"], subsets: ["greek", "latin"], variable: "--font-gfs-neo" });
-const fredoka = Fredoka({ weight: ["300", "400", "500", "600", "700"], subsets: ["latin"], variable: "--font-fredoka" });
+const fredoka = Fredoka({ weight: ["300", "400", "500", "600", "700"], subsets: ["latin"],display: 'swap', variable: "--font-fredoka" });
+const calSans = Cal_Sans({ weight: [ "400"], subsets: ["latin"],display: 'swap', variable: "--font-cal-sans" });
+
 
 export const metadata = {
-  title: "Modern Portfolio | Creative Developer",
+  title: " Mehedi Hasan | Portfolio",
   description: "Showcasing digital excellence and modern web solutions",
 };
 
@@ -31,8 +33,8 @@ export default async function RootLayout({ children }) {
           }
         `}</style>
       </head>
-      <body className={`${fredoka.variable}`}>
-        <Navbar />      
+      <body className={`${calSans.variable}`}suppressHydrationWarning>
+        <Navbar/>      
         {children}
       </body>
     </html>

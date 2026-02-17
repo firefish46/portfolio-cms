@@ -19,7 +19,7 @@ export default function Navbar() {
       zIndex: 1000,
     }}>
       <div className='navlink-container' style={{ 
-        fontFamily: 'var(--font-fredoka)', 
+        fontFamily: 'var(--font-family)', 
         fontSize: '1.4rem', 
         fontWeight: '700',
         letterSpacing: '-0.5px'
@@ -72,12 +72,7 @@ function NavLink({ href, children, active }) {
         transition: 'transform 0.3s ease',
       }} className="underline-hover" />
       
-      {/* Small style tag to handle the hover logic since React inline styles don't support :hover */}
-      <style jsx>{`
-        a:hover .underline-hover {
-          transform: scaleX(1) !important;
-        }
-      `}</style>
+ 
     </Link>
   );
 }

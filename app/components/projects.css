@@ -2,6 +2,26 @@
 :root{
     --accent-rgb: #9ff63b;
     --accent: #3b82f6;
+    --linear-gradient-bo: linear-gradient(
+    135deg,
+    #ffd500 0%,
+    #ff8c00 20%,
+    #ff4500 35%,
+    #68686d 50%,
+    #575757 60%,
+    #ff8c00 75%,
+    #ff4500 100%
+  );
+   --linear-gradient-bg: linear-gradient(
+    130deg,
+    #d0ff00 0%,
+    #ffd000 20%,
+    #ff0055c7 35%,
+    #ff9900e7 50%,
+    #c4ce39 60%,
+    #fffb2d 75%,
+    #ff6767 100%
+  );
 }
 .projects-section {
   padding: 100px 2rem;
@@ -60,16 +80,7 @@
   /* The Glass Effect */
   backdrop-filter: blur(25px) saturate(180%);
   -webkit-backdrop-filter: blur(25px) saturate(180%);
-   background: linear-gradient(
-    135deg,
-    #ffd500 0%,
-    #ff8c00 20%,
-    #ff4500 35%,
-    #121216 50%,
-    #2b2c30 60%,
-    #16374d 75%,
-    #03000a 100%
-  );
+   background: var(--linear-gradient-bg);
   padding: 20px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
   transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);

@@ -1,9 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=GFS+Neohellenic:ital,wght@0,400;0,700;1,400;1,700&family=Hubot+Sans:ital,wght@0,200..900;1,200..900&family=Metamorphous&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cal+Sans&family=Fredoka:wght@300..700&family=GFS+Neohellenic:ital,wght@0,400;0,700;1,400;1,700&family=Hubot+Sans:ital,wght@0,200..900;1,200..900&family=Metamorphous&display=swap');
+
 .gfs-neohellenic-regular {
   font-family: "GFS Neohellenic";
   font-weight: 400;
   font-style: normal;
 }
+
+
 a {
   text-decoration: none;
 }
@@ -23,7 +26,7 @@ a {
   /* Next.js Defaults */
   --background: #ffffff;
   --foreground: #171717;
-  --font-family: 'fredoka', sans-serif;
+  --font-family: 'Cal sans' ,'fredoka', sans-serif;
   --red-accent: #ef4444;
   --accent-blue: #0aa5ffb0;
   /* Phase 5 Theme Engine Variables */
@@ -45,6 +48,7 @@ a {
   }
 }
 h1.name {
+  font-family: var(--font-family);
  color: transparent;
     background-image: linear-gradient(94deg, #ff00d3, #f700ff, #00d9ff, #00ffb7)! important;
   -webkit-background-clip: text!important;
@@ -58,18 +62,18 @@ h1.name {
   padding: 1rem;
   border-radius: 16px;
   z-index: 3!important;
-}
+}/*
 #home{
   position:sticky;
   top:1rem;
-  background: transparent; /* e.g., rgba(255, 255, 255, 0.05) */
+  background: transparent; 
   backdrop-filter: blur(12px);
   border: 1px solid var(--glass-border);
   padding: 1rem;
   border-radius: 16px;
   z-index: 1!important;
 }
-/* Glassmorphism Utility Class */
+ Glassmorphism Utility Class */
 .glass {
 
   background: var(--glass-bg);
@@ -141,7 +145,7 @@ body {
   border: none;
   background: var(--accent);
   color: white;
-  font-weight: 600;
+  font-weight: 400;
   cursor: pointer;
   transition: all 0.2s ease;
   display: flex;
@@ -350,7 +354,7 @@ button {
   img{
   position: sticky;
   height: 100%;
-  width: 100vw;
+  width: 30vw;
   z-index: 4;
   left: 0;
   top: 0rem!important;
