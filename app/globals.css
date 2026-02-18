@@ -20,37 +20,39 @@ a {
     "wdth" 100;
 }
 :root {
-  --light-gray:#00000018 ;
-    --light-gray2:#2927305d ;
-  --light-text: #dadada6e;
+  --light-gray:#0ea5e91a ;
+    --light-gray2:#0ea5e94d ;
+  --light-text: #64748b;
   /* Next.js Defaults */
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #0f172a;
   --font-family: 'Cal sans' ,'fredoka', sans-serif;
-  --red-accent: #ef4444;
-  --accent-blue: #0aa5ffb0;
+  --red-accent: #f43f5e;
+  --accent-blue: #0ea5e9;
   /* Phase 5 Theme Engine Variables */
-  --accent: #3b82f6; 
-  --bg-secondary: #f4f4f5;
+  --accent: #0ea5e9; 
+  --bg-secondary: #f1f5f9;
   --glass-bg: rgba(255, 255, 255, 0.7);
-  --glass-border: rgba(0, 0, 0, 0.1);
+  --glass-border: rgba(14, 165, 233, 0.15);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #413f3f;
-    --foreground: #ededed;
+    --background: #0f172a;
+    --foreground: #f1f5f9;
     
     /* Dark Mode Glassmorphism */
-    --bg-secondary: #18181b;
-    --glass-bg: rgba(0, 0, 0, 0.4);
-    --glass-border: rgba(255, 255, 255, 0.1);
+    --bg-secondary: #1e293b;
+    --glass-bg: rgba(15, 23, 42, 0.6);
+    --glass-border: rgba(14, 165, 233, 0.2);
+    --light-gray:#0ea5e922 ;
+    --light-gray2:#0ea5e955 ;
   }
 }
 h1.name {
   font-family: var(--font-family);
  color: transparent;
-    background-image: linear-gradient(94deg, #ff00d3, #f700ff, #00d9ff, #00ffb7)! important;
+    background-image: linear-gradient(94deg, #06b6d4, #0ea5e9, #3b82f6, #6366f1)! important;
   -webkit-background-clip: text!important;
     background-clip: text !important;
 }
@@ -153,7 +155,7 @@ body {
   align-items: center;
 }
 .delete-btn:hover {
-  background: #ff4d4d;
+  background: #f43f5e;
   transform:scale(.95);
   filter: brightness(.742);
  
@@ -161,7 +163,7 @@ body {
 .modern-btn:hover {
   filter: brightness(.51);
  
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
 }
 
 .modern-btn.secondary {
@@ -217,7 +219,7 @@ body {
 #msg.glass {
   margin-right: 10%!important;
   width: 40dvw!important;
-  border: #3b82f6 1px solid!important;
+  border: #0ea5e9 1px solid!important;
   display: flex!important;
 }
 #msg.glass:active {
@@ -273,8 +275,8 @@ button {
 .skill-card:hover {
   transform: translateY(-10px) scale(1.05) !important;
   border-color: var(--accent) !important;
-  box-shadow: 0 10px 30px rgba(var(--accent-rgb), 0.2);
-  background: rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 10px 30px rgba(14, 165, 233, 0.2);
+  background: rgba(14, 165, 233, 0.08) !important;
 }
 
 .skill-card:hover i {
@@ -315,7 +317,7 @@ button {
     border-radius: 8px!important;
      gap: 8px !important  ;
     display: flex!important;
-    flex-wrap: wrap!important ;
+
     align-items: center;
     width: 98% !important;
     justify-content: space-around!important;
@@ -405,7 +407,7 @@ p.name{
   .techspans{
     width: 8rem!important ;
     height: 4rem!important;
-    background:rgba(0, 0, 0, 0.096)!important;
+    background:rgba(14, 165, 233, 0.096)!important;
     gap: 2px!important;
     display: flex !important;
     flex-direction: column!important;
