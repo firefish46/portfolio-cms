@@ -119,36 +119,48 @@ export default function HomeSection({ profile }) {
             <span className="hs-cursor" />
           </span>
         </div>
-
-        {/* Social links */}
+{/* Social links */}
         <div className="hs-socials">
+          {/* GitHub */}
           <a
             className="hs-social-link"
-            href={profile?.github || "https://github.com"}
-            target="_blank" rel="noreferrer" aria-label="GitHub"
+            href={profile?.socials?.github || "https://github.com"}
+            target="_blank" 
+            rel="noreferrer" 
+            aria-label="GitHub"
           >
             <i className="fa-brands fa-github" />
             <span className="hs-social-tooltip">GitHub</span>
           </a>
+
+          {/* LinkedIn */}
           <a
             className="hs-social-link"
-            href={profile?.linkedin || "https://linkedin.com"}
-            target="_blank" rel="noreferrer" aria-label="LinkedIn"
+            href={profile?.socials?.linkedin || "https://linkedin.com"}
+            target="_blank" 
+            rel="noreferrer" 
+            aria-label="LinkedIn"
           >
             <i className="fa-brands fa-linkedin" />
             <span className="hs-social-tooltip">LinkedIn</span>
           </a>
+
+          {/* Twitter / X */}
           <a
             className="hs-social-link"
-            href={profile?.twitter || "https://twitter.com"}
-            target="_blank" rel="noreferrer" aria-label="Twitter"
+            href={profile?.socials?.twitter || "https://twitter.com"}
+            target="_blank" 
+            rel="noreferrer" 
+            aria-label="Twitter"
           >
             <i className="fa-brands fa-x-twitter" />
             <span className="hs-social-tooltip">Twitter</span>
           </a>
+
+          {/* Email - Stays directly on profile object based on your model */}
           <a
             className="hs-social-link"
-            href={`mailto:${profile?.email || "hello@mail.com"}`}
+            href={`mailto:${profile?.email || "hello@example.com"}`}
             aria-label="Email"
           >
             <i className="fa-solid fa-envelope" />

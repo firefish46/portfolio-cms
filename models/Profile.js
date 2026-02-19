@@ -8,6 +8,7 @@ const ProfileSchema = new mongoose.Schema({
   avatar: String,
   email: String,
   location: String,
+  available: Boolean,
   socials: {
     github: String,
     linkedin: String,

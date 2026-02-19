@@ -153,6 +153,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+   border: 1px solid transparent;
 }
 .delete-btn:hover {
   background: #f43f5e;
@@ -161,10 +162,15 @@ body {
  
 }
 .modern-btn:hover {
-  filter: brightness(.51);
+  border: 1px solid;
+  filter: brightness(.942);
  
-  box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
 }
+.modern-btn:active {
+  transform: scale(.9721);
+  filter:contrast(.62)
+}
+
 
 .modern-btn.secondary {
   background: transparent;

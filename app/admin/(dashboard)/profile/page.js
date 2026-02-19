@@ -2,25 +2,46 @@
 import { useState, useEffect } from 'react';
 
 export default function AdminProfile() {
-  const [user, setUser] = useState({ name: '', email: '', bio: '', avatar: '' });
+  // 1. Expanded State to match Mongoose Model
+  const [user, setUser] = useState({
+    name: '',
+    email: '',
+    bio: '',
+    avatar: '',
+    title: '',
+    location: '',
+    available: true,
+    socials: { github: '', linkedin: '', twitter: '' }
+  });
+
+  const [isEditing, setIsEditing] = useState(false); // Toggle for Edit mode
   const [passwords, setPasswords] = useState({ current: '', new: '' });
   const [status, setStatus] = useState('');
 
-  // 1. Fetch current admin details
+  // 2. Fetch current admin details
   useEffect(() => {
     fetch('/api/profile')
       .then((res) => res.json())
       .then((data) => {
-        if (data) setUser({ 
-          name: data.name || '', 
-          email: data.email || '', 
-          bio: data.bio || '', 
-          avatar: data.avatar || '' 
-        });
+        if (data) {
+          setUser({
+            name: data.name || '',
+            email: data.email || '',
+            bio: data.bio || '',
+            avatar: data.avatar || '',
+            title: data.title || '',
+            location: data.location || '',
+            available: data.available ?? true,
+            socials: {
+              github: data.socials?.github || '',
+              linkedin: data.socials?.linkedin || '',
+              twitter: data.socials?.twitter || ''
+            }
+          });
+        }
       });
   }, []);
 
-  // 2. Handle Image Conversion to Base64
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -32,27 +53,27 @@ export default function AdminProfile() {
     }
   };
 
-  // 3. Update Profile Info (Bio, Name, Avatar)
-const handleUpdateProfile = async (e) => {
-  e.preventDefault();
-  setStatus('Updating...');
-  
-  // Strip out the _id to avoid Mongoose immutable errors
-  const { _id, ...updateData } = user;
+  const handleUpdateProfile = async (e) => {
+    e.preventDefault();
+    setStatus('Updating...');
+    
+    const { _id, ...updateData } = user;
 
-  const res = await fetch('/api/profile', {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(updateData),
-  });
-  
-  if (res.ok) {
-    const data = await res.json();
-    setUser(data); // This refreshes the state with saved data
-    setStatus('Profile updated successfully!');
-  }
-};
-  // 4. Change Password Logic
+    const res = await fetch('/api/profile', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(updateData),
+    });
+    
+    if (res.ok) {
+      const data = await res.json();
+      setUser(data);
+      setStatus('Profile updated successfully!');
+      setIsEditing(false); // Switch back to view mode
+      setTimeout(() => setStatus(''), 3000);
+    }
+  };
+
   const handleChangePassword = async (e) => {
     e.preventDefault();
     setStatus('Changing password...');
@@ -64,74 +85,113 @@ const handleUpdateProfile = async (e) => {
     if (res.ok) {
       setStatus('Password changed successfully!');
       setPasswords({ current: '', new: '' });
+      setTimeout(() => setStatus(''), 3000);
     } else {
       setStatus('Error: Current password incorrect.');
     }
   };
 
   return (
-    <div style={{ maxWidth: '800px', marginTop: '2rem', display: 'flex', flexDirection: 'column', gap: '2rem', paddingBottom: '4rem', alignItems:'center' }}>
-      <header>
+    <div style={{ maxWidth: '800px', margin: '2rem auto', display: 'flex', flexDirection: 'column', gap: '2rem', paddingBottom: '4rem' }}>
+      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <h1 style={{ fontFamily: 'var(--font-fredoka)' }}>Account Settings</h1>
-        {status && (
-          <div style={{ 
-            padding: '1rem', 
-            background: 'rgba(var(--accent-rgb), 0.1)', 
-            borderLeft: '4px solid var(--accent)',
-            margin: '1rem 0',
-            fontWeight: 'bold'
-          }}>
-            {status}
-          </div>
+        {!isEditing && (
+          <button onClick={() => setIsEditing(true)} className="modern-btn" style={{ background: 'var(--accent)' }}>
+            Edit Profile
+          </button>
         )}
       </header>
 
+      {status && (
+        <div style={{ padding: '1rem', background: 'rgba(var(--accent-rgb), 0.1)', borderLeft: '4px solid var(--accent)', fontWeight: 'bold' }}>
+          {status}
+        </div>
+      )}
+
       {/* SECTION: PERSONAL & BIO */}
-      <section id='profile' className="glass" style={{ padding: '1rem', flexDirection: 'column', display: 'flex', gap: '2rem', width: '100%' }}>
-        
-        <form onSubmit={handleUpdateProfile} style={{ display: 'inline-block', gap: '1.5rem' }}>
-          
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
-            <h2 style={{ marginBottom: '1.5rem' }}>Public Profile</h2>
-            <div style={{ 
-              width: '120px', height: '120px', borderRadius: '50%', 
-              overflow: 'hidden', background: '#222', border: '2px solid var(--accent)' 
-            }}>
-              {user.avatar ? (
-                <img src={user.avatar} alt="Profile" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-              ) : (
-                <div style={{ display: 'grid', placeItems: 'center', height: '100%', opacity: 0.5 }}>No Image</div>
-              )}
+      <section className="glass" style={{ padding: '2rem', width: '100%' }}>
+        <form onSubmit={handleUpdateProfile}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2rem', marginBottom: '2rem' }}>
+            {/* Avatar Column */}
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
+              <div style={{ width: '120px', height: '120px', borderRadius: '50%', overflow: 'hidden', background: '#222', border: '2px solid var(--accent)' }}>
+                {user.avatar ? (
+                  <img src={user.avatar} alt="Profile" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                ) : (
+                  <div style={{ display: 'grid', placeItems: 'center', height: '100%', opacity: 0.5 }}>No Image</div>
+                )}
+              </div>
+              {isEditing && <input type="file" accept="image/*" onChange={handleImageChange} style={{ fontSize: '0.7rem', width: '150px' }} />}
             </div>
-            <div style={{ flex: 1 }}>
-              <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>Profile Picture</label>
-              <input type="file" accept="image/*" onChange={handleImageChange} style={{ fontSize: '0.8rem' }} />
+
+            {/* Info Column */}
+            <div style={{ flex: 1, display: 'grid', gap: '1rem', minWidth: '250px' }}>
+              <div className="input-group">
+                <label>Full Name</label>
+                <input disabled={!isEditing} type="text" value={user.name} onChange={(e) => setUser({...user, name: e.target.value})} />
+              </div>
+              <div className="input-group">
+                <label>Job Title</label>
+                <input disabled={!isEditing} type="text" placeholder="e.g. Full Stack Developer" value={user.title} onChange={(e) => setUser({...user, title: e.target.value})} />
+              </div>
             </div>
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-            <div style={{ display: 'grid', gap: '0.5rem' }}>
-              <label>Full Name</label>
-              <input type="text" value={user.name} onChange={(e) => setUser({...user, name: e.target.value})} />
-            </div>
-            <div style={{ display: 'grid', gap: '0.5rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', marginBottom: '1.5rem' }}>
+            <div className="input-group">
               <label>Email Address</label>
-              <input type="email" value={user.email} onChange={(e) => setUser({...user, email: e.target.value})} />
+              <input disabled={!isEditing} type="email" value={user.email} onChange={(e) => setUser({...user, email: e.target.value})} />
+            </div>
+            <div className="input-group">
+              <label>Location</label>
+              <input disabled={!isEditing} type="text" placeholder="City, Country" value={user.location} onChange={(e) => setUser({...user, location: e.target.value})} />
             </div>
           </div>
 
-          <div style={{ display: 'grid', gap: '0.5rem' }}>
+          <div className="input-group" style={{ marginBottom: '1.5rem' }}>
             <label>Bio / About Me</label>
             <textarea 
-              rows="5" 
+              disabled={!isEditing}
+              rows="4" 
               value={user.bio} 
               onChange={(e) => setUser({...user, bio: e.target.value})}
-              placeholder="This will appear on your homepage..."
-              style={{ background: 'rgba(255,255,255,0.05)', color: 'white', padding: '1rem', borderRadius: '8px', border: '1px solid var(--glass-border)',marginBottom:'1rem' }}
+              style={{ background: 'rgba(255,255,255,0.05)', color: 'white', width: '100%', padding: '1rem', borderRadius: '8px', border: '1px solid var(--glass-border)' }}
             />
           </div>
 
-          <button type="submit" className="modern-btn">Save Profile Changes</button>
+          {/* Missing Model Fields: Socials & Availability */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem', marginBottom: '1.5rem' }}>
+            <div className="input-group">
+              <label>GitHub User</label>
+              <input disabled={!isEditing} type="text" value={user.socials.github} onChange={(e) => setUser({...user, socials: {...user.socials, github: e.target.value}})} />
+            </div>
+            <div className="input-group">
+              <label>LinkedIn</label>
+              <input disabled={!isEditing} type="text" value={user.socials.linkedin} onChange={(e) => setUser({...user, socials: {...user.socials, linkedin: e.target.value}})} />
+            </div>
+            <div className="input-group">
+              <label>Twitter</label>
+              <input disabled={!isEditing} type="text" value={user.socials.twitter} onChange={(e) => setUser({...user, socials: {...user.socials, twitter: e.target.value}})} />
+            </div>
+          </div>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '2rem' }}>
+             <input 
+                disabled={!isEditing} 
+                type="checkbox" 
+                checked={user.available} 
+                onChange={(e) => setUser({...user, available: e.target.checked})} 
+                style={{ width: '20px', height: '20px' }}
+             />
+             <label>Available for Hire / Projects</label>
+          </div>
+
+          {isEditing && (
+            <div style={{ display: 'flex', gap: '1rem' }}>
+              <button type="submit" className="modern-btn">Save Changes</button>
+              <button type="button" onClick={() => setIsEditing(false)} className="modern-btn secondary" style={{ background: '#444' }}>Cancel</button>
+            </div>
+          )}
         </form>
       </section>
 

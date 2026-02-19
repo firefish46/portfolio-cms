@@ -7,7 +7,7 @@ export default function ProjectsSection({ projects }) {
     <section id="work" className="pureglass projects-section">
       <div className="projects-container">
         <h2 className="projects-title">
-          Featured <span className="accent-text">Work</span>
+          Recent <span className="accent-text">Projects</span>
         </h2>
         
         <div className="projects-grid">
