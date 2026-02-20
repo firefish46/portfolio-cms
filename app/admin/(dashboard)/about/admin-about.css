@@ -1,0 +1,90 @@
+.admin-about-container { padding: 2rem; max-width: 1100px; margin: auto; }
+.admin-header h1 { font-size: 2rem; margin-bottom: 0.5rem; color: #fff; }
+.admin-header p { color: #888; margin-bottom: 2rem; }
+*{
+    font-weight:400 ;
+}
+.admin-card { 
+  background: #111; 
+  border: 1px solid #222; 
+  border-radius: 12px; 
+  padding: 1.5rem; 
+  margin-bottom: 2rem; 
+}
+
+.card-header { 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #222;
+  padding-bottom: 1rem;
+}
+
+.list-item-row { 
+  display: flex; 
+  gap: 1rem; 
+  margin-bottom: 1rem; 
+  align-items: flex-end; 
+}
+
+.tools-grid { 
+  display: grid; 
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+  gap: 1.5rem; 
+}
+
+.tool-editor-card { 
+  background: #1a1a1a; 
+  padding: 1.2rem; 
+  border-radius: 8px; 
+  position: relative; 
+  border: 1px solid #333;
+  border-radius: 10px 100px 10px 10px;
+}
+
+.input-group label { display: block; font-size: 0.75rem; color: #666; margin-bottom: 0.3rem; text-transform: uppercase; }
+.input-group input { width: 100%; padding: 0.6rem; background: #000; border: 1px solid #333; color: #fff; border-radius: 4px; }
+.grow { flex-grow: 1; }
+
+.row-split { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem; }
+
+.add-btn { background: #10a37f; color: #fff; padding: 0.5rem 1rem;
+     border-radius: 6px; border: none; cursor: pointer; }
+.save-btn { background: #4285f4; color: #fff; padding: 1rem 2rem; 
+    border-radius: 8px; font-weight: lighter; border: none; cursor: pointer; width: 100%; font-size: 1.1rem; }
+.del-btn, .tool-del-btn {
+
+    
+    padding: 10px 20px;
+    background: #ff4444; color: #fff; border: none; border-radius: 4px; cursor: pointer; }
+
+.tool-del-btn { display: flex; 
+     justify-content: center; 
+     position: absolute;
+     align-items: center;
+     gap: 0.5rem;  right: 0%; 
+     top: 0%;
+     width: 24px; height: 24px;; 
+     border-radius: 5px; }
+
+.status-msg { padding: 1rem; border-radius: 6px; margin-bottom: 1.5rem; text-align: center; }
+.status-msg.ok { background: rgba(16, 163, 127, 0.2); color: #10a37f; border: 1px solid #10a37f; }
+
+.tool-del-btn:hover, .del-btn:hover , .add-btn:hover , .save-btn:hover {
+
+ filter: brightness(.9);
+}
+.tool-del-btn:active, .del-btn:active , .add-btn:active , .save-btn:active {
+
+ transform: scale(.95);
+}
+
+/* When the card HAS a save-btn that is being pressed */
+/* 1. Target all children of the card EXCEPT the save-btn */
+.admin-form:has(.save-btn:active) > *:not(.save-btn) {
+  filter: blur(8px);
+  opacity: 0.6;
+  pointer-events: none; /* Prevents clicking other inputs while blurring */
+  transition: filter 0.2s ease, opacity 0.2s ease;
+}

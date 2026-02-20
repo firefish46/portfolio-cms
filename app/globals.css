@@ -272,7 +272,7 @@ button {
   border: none;
   background: var(--accent);
   color: white;
-  font-weight: 600;
+
   cursor: pointer;
   transition: all 0.2s ease;
 }

@@ -51,6 +51,7 @@ export default function AdminLayout({ children }) {
           <Link href="/admin/projects" className="nav-link">📂 Projects</Link>
           <Link href="/admin/skills" className="nav-link">🛠️ Skills</Link>
           <Link href="/admin/profile" className="nav-link">👤 Profile</Link>
+            <Link href="/admin/about" className="nav-link">📝 about</Link>
           
           {/* NEW CONTACT MESSAGES LINK */}
           <Link href="/admin/messages" className="nav-link">✉️ Messages</Link>
