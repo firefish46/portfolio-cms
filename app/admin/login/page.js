@@ -32,7 +32,7 @@ export default function LoginPage() {
         <h2>Admin Login</h2>
         <input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} required />
         <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} required />
-        <button type="submit" style={{ background: 'var(--accent)', color: 'white', border: 'none', padding: '0.5rem', cursor: 'pointer' }}>Login</button>
+        <button type="submit" style={{  color: 'white',  padding: '0.5rem', cursor: 'pointer' }}>Login</button>
       </form>
     </div>
     </>

@@ -26,11 +26,13 @@
    
     z-index: 900;
     opacity: 1;
+    
 }
 .login-container:hover{
     backdrop-filter: blur(0px);
-    transition: all 0.1s ease;
-   box-shadow: 0 10px 30px rgb(58, 14, 14);
+    transition: all .1s ease;
+   box-shadow: 0px 10px 10px 0px rgb(58, 14, 14);
+
 }
 input{
     border: 1px solid var(--fade1);
@@ -38,16 +40,16 @@ input{
     width: 100% !important;
 }
 button{
-    border: 1px solid var(--accent-choco);
-    background:var(--accent-choco)!important;
+    border: 1px solid transparent;
+    background:var(--accent-choco);
 }
 button:hover{
-   background: transparent!important;
-    border: var(--accent-choco) 1px solid!important;
+   background: transparent;
+    border: var(--accent-choco) 1px solid;
 
 }
 button:active{
-    background: var(--accent-choco)!important;
+    background: var(--accent-choco);
 
     transform: scale(.95);
        opacity: 1;

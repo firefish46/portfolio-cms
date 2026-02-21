@@ -1,90 +1,443 @@
-.admin-about-container { padding: 2rem; max-width: 1100px; margin: auto; }
-.admin-header h1 { font-size: 2rem; margin-bottom: 0.5rem; color: #fff; }
-.admin-header p { color: #888; margin-bottom: 2rem; }
-*{
-    font-weight:400 ;
-}
-.admin-card { 
-  background: #111; 
-  border: 1px solid #222; 
-  border-radius: 12px; 
-  padding: 1.5rem; 
-  margin-bottom: 2rem; 
+/* 1. Theme Variables */
+:root {
+  --bg-primary: #f8f9fa;
+  --bg-secondary: #ffffff;
+  --bg-input: #f1f3f5;
+  --text-main: #212529;
+  --text-muted: #6c757d;
+  --border-color: #dee2e6;
+  --card-bg: #ffffff;
+  --accent-save: #4285f4;
+  --accent-add: #10a37f;
+  --accent-del: #ff4444;
+  --semi-transparent: #d6d6d6;
 }
 
-.card-header { 
-  display: flex; 
-  justify-content: space-between; 
-  align-items: center; 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-primary: #0a0a0a;
+    --bg-secondary: #111111;
+    --bg-input: #000000;
+    --text-main: #ffffff;
+    --text-muted: #888888;
+    --border-color: #222222;
+    --card-bg: #111111;
+    --card-inner: #1a1a1a;
+    --semi-transparent: #1a1a1a;
+  }
+}
+
+/* 2. Global Styles */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-main);
+  transition: background 0.3s ease;
+}
+
+* {
+  font-weight: 400;
+  box-sizing: border-box;
+}
+
+.admin-about-container {
+  padding: 2rem;
+  max-width: 1100px;
+  margin: auto;
+}
+
+.admin-header h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-main);
+}
+
+.admin-header p {
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+}
+
+/* 3. Card & Layout */
+.admin-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 1.5rem;
-  border-bottom: 1px solid #222;
+  border-bottom: 1px solid var(--border-color);
   padding-bottom: 1rem;
 }
 
-.list-item-row { 
-  display: flex; 
-  gap: 1rem; 
-  margin-bottom: 1rem; 
-  align-items: flex-end; 
+/* 
+  .list-item-row direct children: 
+    .input-group | .input-group.grow | .del-btn
+*/
+.list-item-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  align-items: flex-end;
+  transition: all 0.2s ease;
 }
 
-.tools-grid { 
-  display: grid; 
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
-  gap: 1.5rem; 
+.list-item-row > * {
+  transition: opacity 0.2s ease, filter 0.2s ease;
 }
 
-.tool-editor-card { 
-  background: #1a1a1a; 
-  padding: 1.2rem; 
-  border-radius: 8px; 
-  position: relative; 
-  border: 1px solid #333;
-  border-radius: 10px 100px 10px 10px;
+/* dim everything in the row when del is active */
+.list-item-row:has(.del-btn:active) > * {
+  opacity: 0.4;
+  filter: brightness(0.7);
+}
+/* but keep the del-btn itself bright */
+.list-item-row:has(.del-btn:active) > .del-btn {
+  opacity: 1;
+  filter: none;
 }
 
-.input-group label { display: block; font-size: 0.75rem; color: #666; margin-bottom: 0.3rem; text-transform: uppercase; }
-.input-group input { width: 100%; padding: 0.6rem; background: #000; border: 1px solid #333; color: #fff; border-radius: 4px; }
-.grow { flex-grow: 1; }
-
-.row-split { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem; }
-
-.add-btn { background: #10a37f; color: #fff; padding: 0.5rem 1rem;
-     border-radius: 6px; border: none; cursor: pointer; }
-.save-btn { background: #4285f4; color: #fff; padding: 1rem 2rem; 
-    border-radius: 8px; font-weight: lighter; border: none; cursor: pointer; width: 100%; font-size: 1.1rem; }
-.del-btn, .tool-del-btn {
-
-    
-    padding: 10px 20px;
-    background: #ff4444; color: #fff; border: none; border-radius: 4px; cursor: pointer; }
-
-.tool-del-btn { display: flex; 
-     justify-content: center; 
-     position: absolute;
-     align-items: center;
-     gap: 0.5rem;  right: 0%; 
-     top: 0%;
-     width: 24px; height: 24px;; 
-     border-radius: 5px; }
-
-.status-msg { padding: 1rem; border-radius: 6px; margin-bottom: 1.5rem; text-align: center; }
-.status-msg.ok { background: rgba(16, 163, 127, 0.2); color: #10a37f; border: 1px solid #10a37f; }
-
-.tool-del-btn:hover, .del-btn:hover , .add-btn:hover , .save-btn:hover {
-
- filter: brightness(.9);
-}
-.tool-del-btn:active, .del-btn:active , .add-btn:active , .save-btn:active {
-
- transform: scale(.95);
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
 }
 
-/* When the card HAS a save-btn that is being pressed */
-/* 1. Target all children of the card EXCEPT the save-btn */
+/* 4. Inputs & Groups */
+.input-group label {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-bottom: 0.3rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 0.6rem;
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  border-radius: 4px;
+  outline: none;
+}
+
+.input-group input:focus {
+  border-color: var(--accent-save);
+}
+
+.grow {
+  flex-grow: 1;
+}
+
+.row-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+/* 5. Buttons */
+.add-btn {
+  background: transparent;
+  color: var(--text-muted);
+  padding: 1%;
+  border-radius: 6px;
+  border: 1px solid var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.add-btn:hover {
+  border: 1px solid transparent;
+  background: var(--accent-add);
+  color: var(--bg-primary);
+}
+
+.save-btn {
+  background: var(--semi-transparent);
+  padding: 2% 1%;
+  color: var(--accent-save);
+  border-radius: 8px;
+  border: 1px solid var(--accent-save);
+  cursor: pointer;
+  width: 100%;
+  font-size: larger;
+  transition: all 0.2s ease;
+}
+.save-btn:hover {
+  background: var(--accent-save);
+  color: var(--bg-primary);
+  border: 1px solid transparent;
+}
+
+.del-btn {
+  padding: 10px 20px;
+  background: var(--semi-transparent);
+  border: 1px solid var(--accent-del);
+  border-radius: 4px;
+  cursor: pointer;
+  color: var(--text-muted);
+  transition: all 0.2s ease;
+}
+.del-btn:hover {
+  background: var(--accent-del);
+  color: #fff;
+  border: 1px solid transparent;
+}
+
+/* 6. Status */
+.status-msg {
+  padding: 1rem;
+  border-radius: 6px;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.status-msg.success {
+  background: rgba(16, 163, 127, 0.1);
+  color: var(--accent-add);
+  border: 1px solid var(--accent-add);
+}
+
+.status-msg.error {
+  background: rgba(255, 68, 68, 0.1);
+  color: var(--accent-del);
+  border: 1px solid var(--accent-del);
+}
+
+/* 7. Upload */
+.upload-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--bg-input);
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px dashed var(--border-color);
+}
+
+.admin-icon-preview {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  background: #ffffff5b;
+  padding: 4px;
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+}
+
+.file-input-custom {
+  font-size: 0.7rem;
+  width: 100%;
+  cursor: pointer;
+}
+
+/* ============================================
+   TOOL LIST ROW  
+   Direct children: .tool-main-info | .tool-actions
+   ============================================ */
+.tool-list-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--bg-secondary);
+  padding: 0.8rem 1.2rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+}
+
+.tool-list-row > * {
+  transition: opacity 0.3s ease, filter 0.3s ease, transform 0.3s ease;
+}
+
+/* del hovered: dim main info, keep actions bright */
+.tool-list-row:has(.del-mini-btn:hover) > .tool-main-info {
+  opacity: 0.5;
+  filter: brightness(0.6);
+  transform: scale(0.99);
+}
+
+/* edit hovered: dim actions, keep main info bright */
+.tool-list-row:has(.edit-mini-btn:hover) > .tool-actions {
+  opacity: 0.7;
+  filter: brightness(0.8);
+}
+.tool-list-row:has(.edit-mini-btn:hover) > .tool-main-info {
+  transform: translateX(4px);
+}
+
+.tool-main-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.drag-handle {
+  color: var(--text-muted);
+  cursor: grab;
+  font-size: 1.1rem;
+  letter-spacing: -2px;
+}
+
+.list-icon-preview {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  border-radius: 4px;
+  border: 2px solid transparent;
+  background: #ffffff38;
+  padding: 2px;
+}
+
+.list-tool-name {
+  font-weight: 500;
+  color: var(--text-main);
+}
+
+/* ============================================
+   TOOL ACTIONS  
+   Direct children: .edit-mini-btn | .del-mini-btn
+   ============================================ */
+.tool-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.tool-actions > * {
+  transition: opacity 0.2s ease, filter 0.2s ease, transform 0.2s ease;
+}
+
+/* del hovered: dim the edit btn */
+.tool-actions:has(.del-mini-btn:hover) > .edit-mini-btn {
+  opacity: 0.4;
+  filter: brightness(0.6);
+}
+
+/* edit hovered: dim the del btn */
+.tool-actions:has(.edit-mini-btn:hover) > .del-mini-btn {
+  opacity: 0.4;
+  filter: brightness(0.6);
+}
+
+.edit-mini-btn,
+.del-mini-btn,
+.close-edit-btn {
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: all 0.2s ease;
+}
+
+.edit-mini-btn {
+  background: #333;
+  color: white;
+}
+.edit-mini-btn:hover {
+  background: var(--accent-save);
+}
+
+.del-mini-btn {
+  background: rgba(255, 68, 68, 0.1);
+  color: #ff4444;
+}
+.del-mini-btn:hover {
+  background: var(--accent-del);
+  color: white;
+}
+
+.close-edit-btn {
+  background: var(--accent-add);
+  color: white;
+}
+.close-edit-btn:hover {
+  opacity: .9;
+}
+
+/* ============================================
+   TOOL EDITOR CARD  
+   Direct children: .editor-header | .input-group | .row-split
+   ============================================ */
+.tool-editor-card {
+  background: var(--bg-secondary);
+  border: 2px solid var(--accent-save);
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin: 0;
+}
+
+.tool-editor-card > * {
+  transition: opacity 0.3s ease, filter 0.3s ease, transform 0.3s ease;
+}
+
+/* Done btn active: dim everything except the header (which holds the button) */
+.tool-editor-card:has(.close-edit-btn:active) > .input-group,
+.tool-editor-card:has(.close-edit-btn:active) > .row-split {
+  opacity: 0.3;
+  filter: brightness(0.6);
+  transform: scale(0.98);
+}
+
+.editor-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+/* ============================================
+   SAVE BUTTON FORM EFFECT
+   Direct children of .admin-form: sections + .save-btn
+   ============================================ */
+.admin-form > * {
+  transition: all 0.3s ease, opacity 0.3s ease;
+}
+
+.admin-form:has(.save-btn:hover) > *:not(.save-btn) {
+  filter: brightness(0.85);
+}
+
 .admin-form:has(.save-btn:active) > *:not(.save-btn) {
-  filter: blur(8px);
-  opacity: 0.6;
-  pointer-events: none; /* Prevents clicking other inputs while blurring */
-  transition: filter 0.2s ease, opacity 0.2s ease;
+  filter: brightness(0.7);
+  opacity: 0.4;
+  transform: scaleY(0.5);
+  pointer-events: none;
+}
+
+/* ============================================
+   SHARED MICRO-INTERACTIONS
+   ============================================ */
+.add-btn:hover,
+.save-btn:hover,
+.del-btn:hover,
+.del-mini-btn:hover,
+.edit-mini-btn:hover,
+.close-edit-btn:hover {
+  filter: brightness(.9);
+}
+
+.add-btn:active,
+.save-btn:active,
+.del-btn:active,
+.del-mini-btn:active,
+.edit-mini-btn:active,
+.close-edit-btn:active {
+  transform: scale(0.97);
+}
+
+/* ============================================
+   EMPTY STATE
+   ============================================ */
+.empty-hint {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  padding: 1rem;
 }

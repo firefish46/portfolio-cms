@@ -6,7 +6,8 @@ export default function AdminAbout() {
   const [aboutData, setAboutData] = useState({ highlights: [], aiTools: [] });
   const [loading, setLoading] = useState(true);
   const [status, setStatus] = useState({ type: '', msg: '' });
-
+// Add this near your other useState calls
+const [editingIndex, setEditingIndex] = useState(null);
   // 1. Load Data from API
   useEffect(() => {
     async function fetchData() {
@@ -14,8 +15,6 @@ export default function AdminAbout() {
         const res = await fetch('/api/about');
         const data = await res.json();
         
-        console.log("Loaded Data from DB:", data);
-
         if (data && !data.error) {
           setAboutData({
             highlights: data.highlights || [],
@@ -30,6 +29,32 @@ export default function AdminAbout() {
     }
     fetchData();
   }, []);
+
+  // --- NEW: Icon Upload Logic ---
+  const handleIconUpload = async (index, file) => {
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    setStatus({ type: 'info', msg: 'Uploading icon...' });
+
+    try {
+      const res = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData,
+      });
+      const data = await res.json();
+
+      if (res.ok) {
+        updateTool(index, 'image', data.url); 
+        setStatus({ type: 'success', msg: 'Icon uploaded!' });
+        setTimeout(() => setStatus({ type: '', msg: '' }), 2000);
+      }
+    } catch (err) {
+      setStatus({ type: 'error', msg: 'Upload failed' });
+    }
+  };
 
   // 2. Highlights Logic
   const addHighlight = () => {
@@ -56,7 +81,7 @@ export default function AdminAbout() {
   const addTool = () => {
     setAboutData(prev => ({
       ...prev,
-      aiTools: [...prev.aiTools, { name: '', image: '/icons/', color: '#10a37f', delay: '0s' }]
+      aiTools: [...prev.aiTools, { name: '', image: '/icons/default.svg', color: '#10a37f', delay: '0s' }]
     }));
   };
 
@@ -79,14 +104,10 @@ export default function AdminAbout() {
     setStatus({ type: 'info', msg: 'Saving to database...' });
 
     try {
-      // Clean the data: Remove any extra MongoDB fields like _id or __v 
-      // to ensure a clean update
       const payload = {
         highlights: aboutData.highlights.map(({ title, desc }) => ({ title, desc })),
         aiTools: aboutData.aiTools.map(({ name, image, color, delay }) => ({ name, image, color, delay }))
       };
-
-      console.log("Sending Payload:", payload);
 
       const res = await fetch('/api/about', {
         method: 'PUT',
@@ -98,7 +119,6 @@ export default function AdminAbout() {
 
       if (res.ok) {
         setStatus({ type: 'success', msg: 'Updated successfully!' });
-        // Sync state with the fresh data from the server
         setAboutData({
           highlights: result.highlights || [],
           aiTools: result.aiTools || []
@@ -131,7 +151,6 @@ export default function AdminAbout() {
       )}
 
       <form onSubmit={handleSave} className="admin-form">
-        
         {/* HIGHLIGHTS */}
         <section className="admin-card">
           <div className="card-header">
@@ -139,26 +158,19 @@ export default function AdminAbout() {
             <button type="button" onClick={addHighlight} className="add-btn">+ New Highlight</button>
           </div>
           <div className="highlights-list">
-            {aboutData.highlights.length === 0 && <p className="empty-hint">No highlights created yet.</p>}
             {aboutData.highlights.map((h, i) => (
               <div key={i} className="list-item-row">
                 <div className="input-group">
                   <label>Title</label>
-                  <input 
-                    value={h.title || ''} 
-                    onChange={(e) => updateHighlight(i, 'title', e.target.value)} 
-                    required 
-                  />
+                  <input value={h.title || ''} onChange={(e) => updateHighlight(i, 'title', e.target.value)} required />
                 </div>
                 <div className="input-group grow">
                   <label>Description</label>
-                  <input 
-                    value={h.desc || ''} 
-                    onChange={(e) => updateHighlight(i, 'desc', e.target.value)} 
-                    required 
-                  />
+                  <input value={h.desc || ''} onChange={(e) => updateHighlight(i, 'desc', e.target.value)} required />
                 </div>
-                <button type="button" onClick={() => removeHighlight(i)} className="del-btn"><i class="fa-regular fa-trash-can"></i></button>
+                <button type="button" onClick={() => removeHighlight(i)} className="del-btn">
+                  <i className="fa-regular fa-trash-can"></i>
+                </button>
               </div>
             ))}
           </div>
@@ -170,32 +182,64 @@ export default function AdminAbout() {
             <h2>Floating Tech Orbit</h2>
             <button type="button" onClick={addTool} className="add-btn">+ New Tool</button>
           </div>
-          <div className="tools-grid">
-            {aboutData.aiTools.length === 0 && <p className="empty-hint">No tools added to orbit.</p>}
-            {aboutData.aiTools.map((t, i) => (
-              <div key={i} className="tool-editor-card">
-                <button type="button" onClick={() => removeTool(i)} className="tool-del-btn"><i class="fa-regular fa-trash-can"></i></button>
-                <div className="input-group">
-                  <label>Name</label>
-                  <input value={t.name || ''} onChange={(e) => updateTool(i, 'name', e.target.value)} />
-                </div>
-                <div className="input-group">
-                  <label>Icon Path (/icons/filename.svg)</label>
-                  <input value={t.image || ''} onChange={(e) => updateTool(i, 'image', e.target.value)} />
-                </div>
-                <div className="row-split">
-                  <div className="input-group">
-                    <label>Brand Color</label>
-                    <input type="color" value={t.color || '#10a37f'} onChange={(e) => updateTool(i, 'color', e.target.value)} />
-                  </div>
-                  <div className="input-group">
-                    <label>Delay (s)</label>
-                    <input value={t.delay || '0s'} onChange={(e) => updateTool(i, 'delay', e.target.value)} />
-                  </div>
-                </div>
-              </div>
-            ))}
+    <div className="tools-grid">
+  {aboutData.aiTools.length === 0 && <p className="empty-hint">No tools added to orbit.</p>}
+  {aboutData.aiTools.map((t, i) => (
+    <div key={i} className={`tool-item-container ${editingIndex === i ? 'is-editing' : 'is-list'}`}>
+      
+      {/* --- VIEW MODE (Compact List) --- */}
+      {editingIndex !== i ? (
+        <div className="tool-list-row">
+          <div className="tool-main-info">
+             <span className="drag-handle">::</span>
+             <img src={t.image || '/icons/default.svg'} alt="" className="list-icon-preview" style={{borderColor: t.color}} />
+             <span className="list-tool-name">{t.name || 'Unnamed Tool'}</span>
           </div>
+          <div className="tool-actions">
+            <button type="button" onClick={() => setEditingIndex(i)} className="edit-mini-btn">
+              <i className="fa-regular fa-pen-to-square"></i> Edit
+            </button>
+            <button type="button" onClick={() => removeTool(i)} className="del-mini-btn">
+              <i className="fa-regular fa-trash-can"></i>
+            </button>
+          </div>
+        </div>
+      ) : (
+        /* --- EDIT MODE (Full Form) --- */
+        <div className="tool-editor-card">
+          <div className="editor-header">
+            <h3>Editing: {t.name}</h3>
+            <button type="button" onClick={() => setEditingIndex(null)} className="close-edit-btn">Done</button>
+          </div>
+
+          <div className="input-group">
+            <label>Name</label>
+            <input value={t.name || ''} onChange={(e) => updateTool(i, 'name', e.target.value)} />
+          </div>
+
+          <div className="input-group">
+            <label>Icon Upload</label>
+            <div className="upload-container">
+              {t.image && <img src={t.image} alt="preview" className="admin-icon-preview" />}
+              <input type="file" onChange={(e) => handleIconUpload(i, e.target.files[0])} />
+            </div>
+          </div>
+
+          <div className="row-split">
+            <div className="input-group">
+              <label>Color</label>
+              <input type="color" value={t.color || '#10a37f'} onChange={(e) => updateTool(i, 'color', e.target.value)} />
+            </div>
+            <div className="input-group">
+              <label>Delay</label>
+              <input value={t.delay || '0s'} onChange={(e) => updateTool(i, 'delay', e.target.value)} />
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  ))}
+</div>
         </section>
 
         <button type="submit" className="save-btn">Save All Changes</button>

@@ -59,7 +59,7 @@ body {
   border: none;
   background: var(--accent);
   color: white;
-  font-weight: 600;
+  font-weight: 400;
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
