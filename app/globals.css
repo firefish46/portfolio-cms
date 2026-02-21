@@ -26,7 +26,7 @@ a {
   /* Next.js Defaults */
   --background: #ffffff;
   --foreground: #0f172a;
-  --font-family: 'Cal sans' ,'fredoka', sans-serif;
+  --font-family: 'Cal Sans' ,'fredoka', sans-serif;
   --red-accent: #f43f5e;
   --accent-blue: #0ea5e9;
   /* Phase 5 Theme Engine Variables */
@@ -209,7 +209,7 @@ body {
     margin: 10px 10px 10px 10px!important;
      position: sticky !important ;
      top: 2rem !important;
-     z-index: 10000!important;
+     z-index: 1000!important;
      left : 2rem!important;
       transition: all 0.5s ease-in-out;
   }
@@ -329,7 +329,7 @@ button {
     justify-content: space-around!important;
       padding: 8px!important;
     top: 10px !important;
-    z-index: 10000!important;
+    z-index: 100!important;
      transition: all 0.5s ease-in-out;
      align-items: center!important;
      padding: 4px!important;
@@ -443,7 +443,7 @@ p.name{
     align-items: center!important;
      justify-content: space-around!important;
 
-    z-index: 10000!important;
+    z-index: 100!important;
     transition: all 0.5s ease-in-out;
     padding: .5rem!important;
      border: none!important;
@@ -458,6 +458,7 @@ p.name{
     display: flex!important;
     justify-content: center!important;
     align-items: center!important;
+    z-index: 1!important;
   }
   
   .glass-nav:hover {

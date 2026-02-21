@@ -1,6 +1,7 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { createPortal } from 'react-dom';
 
 export default function DeleteButton({ id }) {
   const router = useRouter();
@@ -29,13 +30,13 @@ export default function DeleteButton({ id }) {
 
   return (
     <>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
       <button 
         className='delete-btn'
         onClick={() => setShowConfirm(true)}
         style={{ 
           width: 'fit-content',
-          height:'fit-content',
+          height: 'fit-content',
           padding: '12px 12px',
           background: 'none', 
           border: '1px solid #ff4d4d', 
@@ -44,17 +45,16 @@ export default function DeleteButton({ id }) {
           fontSize: '0.8rem',
           marginTop: '-1rem',
           marginRight: '-1rem',
-      
           borderRadius: '8px',
           transition: 'all 0.2s'
         }}
       >
-        <i class="fa-solid fa-trash-can"></i> 
+        <i className="fa-solid fa-trash-can"></i> 
       </button>
 
-      {/* CONFIRMATION OVERLAY */}
-      {showConfirm && (
-        <div style={{
+      {/* CONFIRMATION OVERLAY — rendered at document.body to escape all stacking contexts */}
+      {showConfirm && createPortal(
+        <div  style={{
           position: 'fixed',
           top: 0, left: 0, right: 0, bottom: 0,
           backgroundColor: 'rgba(0,0,0,0.8)',
@@ -62,7 +62,7 @@ export default function DeleteButton({ id }) {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          zIndex: 9999,
+          zIndex: 9999999,
           padding: '20px'
         }}>
           <div className="glass" style={{ 
@@ -79,7 +79,7 @@ export default function DeleteButton({ id }) {
             
             <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
               <button 
-              className='delete-btn'
+                className='delete-btn'
                 onClick={() => setShowConfirm(false)}
                 style={{ 
                   padding: '0.6rem 1.2rem', 
@@ -93,7 +93,7 @@ export default function DeleteButton({ id }) {
                 Cancel
               </button>
               <button 
-              className='delete-btn'
+                className='delete-btn'
                 onClick={handleDelete}
                 disabled={isDeleting}
                 style={{ 
@@ -103,14 +103,15 @@ export default function DeleteButton({ id }) {
                   color: '#fff', 
                   cursor: 'pointer',
                   borderRadius: '6px',
-                  fontWeight: 'bold'
+                  
                 }}
               >
                 {isDeleting ? 'Deleting...' : 'Yes, Delete'}
               </button>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </>
   );

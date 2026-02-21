@@ -109,7 +109,7 @@ export default function Dashboard() {
           borderRadius: '8px'
         }}>
           <div style={{ flexWrap: 'wrap', border: '1px solid rgba(var(--accent-rgb), 0.2) ', borderRadius: '8px', marginBottom: '1.5rem' }}>
-            <span style={{ fontSize: '2.5rem' }}><i class="fa-solid fa-brush"></i></span>
+            <span style={{ fontSize: '2.5rem' }}><i className="fa-solid fa-brush"></i></span>
             <h2 style={{ fontSize: '1.5rem', margin: '1rem 0 0.5rem' }}>Theme Engine</h2>
             <p style={{ fontSize: '0.9rem', opacity: 0.7,  }}>
               Global Accent: <code style={{

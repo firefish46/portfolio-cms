@@ -74,7 +74,7 @@ export default function SwipeableMessage({ msg }) {
           backgroundColor: 'var(--background, #0a0a0a)' 
         }}
       >
-        <div id='msg' className="glass" style={{ padding: '1.5rem', display: 'flex', gap: '1rem', border: '1px solid rgba(255,255,255,0.05)' }}>
+        <div id='msg'  style={{ padding: '1.5rem', display: 'flex', gap: '1rem',zIndex: -1,border: '1px solid rgba(255,255,255,0.05)' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', flex: 1 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
               <strong style={{ color: 'var(--accent)' }}>{msg.name || "Anonymous"}</strong>

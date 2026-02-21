@@ -1,29 +1,137 @@
+'use client';
+
 import { handleContact } from "../actions";
+import './contact.css';
+import { useFormStatus } from 'react-dom';
+import { useState } from 'react';
+
+function SubmitButton() {
+  const { pending } = useFormStatus();
+  
+  return (
+    <button type="submit" className="contact-submit-btn" disabled={pending}>
+      <span className="btn-text">{pending ? 'Sending...' : 'Send Message'}</span>
+      <span className="btn-icon">→</span>
+    </button>
+  );
+}
 
 export default function ContactPage() {
+  const [showNotification, setShowNotification] = useState(false);
+  const [submittedData, setSubmittedData] = useState(null);
+
+  async function handleSubmit(formData) {
+    const data = {
+      name: formData.get('name'),
+      email: formData.get('email'),
+      message: formData.get('message')
+    };
+    
+    setSubmittedData(data);
+    
+    try {
+      // Call the server action
+      await handleContact(formData);
+      
+      // Show notification
+      setShowNotification(true);
+      
+      // Hide after 5 seconds
+      setTimeout(() => {
+        setShowNotification(false);
+      }, 500000000);
+    } catch (error) {
+      console.error('Error submitting form:', error);
+    }
+  }
+
   return (
-    <div style={{ padding: '1rem 0rem', maxWidth: '600px', margin: '0 0' }}>
-      <h1 style={{ fontFamily: 'var(--font-fredoka)', marginBottom: '1rem' }}>Get in Touch</h1>
-      <p style={{ marginBottom: '3rem', opacity: 0.7 }}>Have a project in mind? Let&apos;s build something great together.</p>
-
-      <form action={handleContact} className="glass" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', padding: '2rem' }}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-          <label>Your Name</label>
-          <input name="name" type="text" required style={{ padding: '0.8rem', borderRadius: '8px', border: '1px solid var(--glass-border)', background: 'transparent' }} />
-        </div>
-        
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-          <label>Email Address</label>
-          <input name="email" type="email" required style={{ padding: '0.8rem', borderRadius: '8px', border: '1px solid var(--glass-border)', background: 'transparent' }} />
+    <>
+      {/* Animated mesh gradient background */}
+      <div className="mesh-background"></div>
+      
+      <div className="contact-page-wrapper">
+        <div className="contact-header">
+          <h1 className="contact-title">Get in Touch</h1>
+          <p className="contact-subtitle">
+            Have a project in mind? Let&apos;s build something great together.
+          </p>
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-          <label>Message</label>
-          <textarea name="message" rows="5" required style={{ padding: '0.8rem', borderRadius: '8px', border: '1px solid var(--glass-border)', background: 'transparent' }}></textarea>
-        </div>
+             <form action={handleSubmit} className="contact-form glass">
+          <div className="form-group">
+            <input 
+              id="name"
+              name="name" 
+              type="text" 
+              required 
+              className="form-input"
+              placeholder=" "
+            />
+            <label htmlFor="name" className="form-label">
+              <span className="label-icon">👤</span>
+              Your Name
+            </label>
+          </div>
+          
+          <div className="form-group">
+            <input 
+              id="email"
+              name="email" 
+              type="email" 
+              required 
+              className="form-input"
+              placeholder=" "
+            />
+            <label htmlFor="email" className="form-label">
+              <span className="label-icon">✉️</span>
+              Email Address
+            </label>
+          </div>
 
-        <button type="submit" className="modern-btn">Send Message</button>
-      </form>
-    </div>
+          <div className="form-group">
+            <textarea 
+              id="message"
+              name="message" 
+              rows="6" 
+              required 
+              className="form-textarea"
+              placeholder=" "
+            ></textarea>
+            <label htmlFor="message" className="form-label">
+              <span className="label-icon">💬</span>
+              Message
+            </label>
+          </div>
+
+          <SubmitButton />
+        </form>
+
+        {/* Success notification will be rendered here */}
+      </div>
+
+      {/* Floating success notification */}
+      {showNotification && submittedData && (
+        <div className="success-notification">
+          <div className="notification-header">
+            <div className="notification-icon">✓</div>
+            <div>
+              <h3>Message Sent Successfully!</h3>
+              <p className="notification-meta">From: {submittedData.name}</p>
+            </div>
+            <button 
+              className="notification-close"
+              onClick={() => setShowNotification(false)}
+            >
+              ×
+            </button>
+          </div>
+          <div className="notification-body">
+            <p className="notification-email">{submittedData.email}</p>
+            <p className="notification-message">&quot;{submittedData.message}&quot;</p>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
