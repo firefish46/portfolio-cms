@@ -42,35 +42,35 @@
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.95);
-  z-index: 100;
+  z-index: 9999; /* ← was 100, might be getting buried under other elements */
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: zoom-out;
-  padding: 0;
-  overflow: auto;
+  overflow: hidden; /* ← was 'auto', causing scroll issues */
 }
 
 .fullscreen-image-container {
   position: relative;
-  width: auto;
-  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 95vw;      /* ← give it explicit size */
+  height: 95vh;     /* ← give it explicit size */
   max-width: 95vw;
   max-height: 95vh;
-  margin: auto;
 }
 
 .fullscreen-image {
   object-fit: contain;
   border-radius: 8px;
-  width: auto !important;
-  height: auto !important;
-  max-width: 100%;
-  max-height: 100%;
-  position: relative !important;
+  max-width: 100%;   /* ← constrain to container */
+  max-height: 100%;  /* ← constrain to container */
+  width: auto;
+  height: auto;
   display: block;
+  position: relative !important;
 }
-
 /* Navigation Buttons */
 .nav-button {
   position: fixed;

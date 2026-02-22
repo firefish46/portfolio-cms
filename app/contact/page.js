@@ -58,7 +58,7 @@ export default function ContactPage() {
           </p>
         </div>
 
-             <form action={handleSubmit} className="contact-form glass">
+             <form action={handleSubmit} className="contact-form pureglass">
           <div className="form-group">
             <input 
               id="name"
