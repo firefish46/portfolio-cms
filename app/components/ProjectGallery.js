@@ -49,10 +49,13 @@ const overlay = selectedImg && createPortal(
         className="fullscreen-image-container"
         onClick={(e) => e.stopPropagation()}
       >
-        <img
+        <Image
           src={selectedImg}
           alt={`${title} - Image ${currentIndex + 1}`}
           className="fullscreen-image"
+          width={800}
+          height={500}
+
         />
       </div>
 

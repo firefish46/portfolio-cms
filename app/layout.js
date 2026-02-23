@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "./components/Navbar";
 import { connectDB } from "@/lib/mongodb";
 import Settings from "@/models/Settings";
+import Footer from "./components/Footer";
 
 // Font initializations
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
@@ -36,6 +37,7 @@ export default async function RootLayout({ children }) {
       <body className={`${calSans.variable}`}suppressHydrationWarning>
         <Navbar/>      
         {children}
+     <Footer/>
       </body>
     </html>
   );

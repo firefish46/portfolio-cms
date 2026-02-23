@@ -29,7 +29,7 @@ export default function Navbar() {
 
       <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
         <NavLink className="nav-link" href="/" active={pathname === '/'}>Home</NavLink>
-        <NavLink className="nav-link" href="/projects" active={pathname === '/projects'}>Work</NavLink>
+        <NavLink className="nav-link" href="#work" active={pathname === '/work'}>Work</NavLink>
         
         {/* Call to Action Button */}
         <Link href="/contact">

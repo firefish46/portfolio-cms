@@ -239,6 +239,8 @@
 .contact-submit-btn:hover {
     transition: all 0.2s ease-in;
 background: transparent;
+color:var(--accent);
+border: 1px solid var(--accent)  ;
 }
 .contact-submit-btn:active {
 transform: scale(.96);
