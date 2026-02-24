@@ -1,0 +1,566 @@
+/* ═══════════════════════════════════════════════════════
+   AdminProjects — Responsive Styles
+   Breakpoints: mobile <480px | tablet <768px | desktop ≥768px
+═══════════════════════════════════════════════════════ */
+
+/* ── Base / Reset ─────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* ── Page Wrapper ─────────────────────────────────────── */
+.admin-projects-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 1.5rem;
+  max-width: 900px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* ── Glass Card ───────────────────────────────────────── */
+.childglass {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.admin-section {
+  padding: 2rem;
+  border: 1px solid var(--light-gray);
+}
+
+/* ── Section Heading ──────────────────────────────────── */
+.admin-section h2 {
+  font-size: clamp(1.2rem, 3vw, 1.6rem);
+  margin: 0 0 1.5rem;
+  color: var(--accent, #7c6fff);
+}
+
+/* ── Form Grid ────────────────────────────────────────── */
+.project-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+}
+
+/* Full-width fields */
+.project-form .full-width {
+border: 1px solid var(--light-gray);
+  grid-column: span 2;
+}
+
+/* ── Inputs & Textarea ────────────────────────────────── */
+.project-form input[type="text"],
+.project-form textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  border: 1px solid var(--light-gray);
+  background: rgba(255, 255, 255, 0.05);
+  color: inherit;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+  resize: vertical;
+}
+
+.project-form input[type="text"]:focus,
+.project-form textarea:focus {
+  border-color: var(--accent, #7c6fff);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.project-form textarea {
+  min-height: 100px;
+}
+
+/* ── Upload Zone ──────────────────────────────────────── */
+.upload-zone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 1.4rem 1rem;
+  border-radius: 12px;
+  border: 2px dashed rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.03);
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  min-height: 88px;
+  text-align: center;
+}
+
+.upload-zone:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.upload-zone.is-processing {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.upload-zone-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.upload-zone-hint {
+  font-size: 0.85rem;
+  opacity: 0.55;
+}
+
+.upload-label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.upload-constraints {
+  margin-left: 0.4rem;
+  font-size: 0.72rem;
+  opacity: 0.45;
+  font-weight: 400;
+}
+
+/* ── Image Preview Grid ───────────────────────────────── */
+.image-preview-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.image-preview-item {
+  position: relative;
+  width: 90px;
+  flex-shrink: 0;
+}
+
+.image-preview-thumb {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  border-radius: 8px;
+  overflow: visible;
+}
+
+.image-preview-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: block;
+}
+
+.image-remove-btn {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: #ff4d4d;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  padding: 1%!important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+  z-index: 2;
+  transition: transform 0.15s, background 0.15s;
+}
+
+.image-remove-btn:hover {
+  transform: scale(1.15);
+  background: #cc2200;
+}
+
+.image-meta {
+  margin-top: 5px;
+  font-size: 0.65rem;
+  text-align: center;
+  line-height: 1.4;
+  opacity: 0.75;
+}
+
+.image-meta-size {
+  color: #aaffaa;
+}
+
+.image-meta-saved {
+  color: #88ccff;
+}
+
+/* ── Submit Button ────────────────────────────────────── */
+.modern-btn {
+  width: 100%;
+  padding: 0.85rem 1.5rem;
+  border-radius: 10px;
+  border: none;
+  background: var(--accent, #7c6fff);
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.15s;
+  letter-spacing: 0.02em;
+}
+
+.modern-btn:hover:not(:disabled) {
+  opacity: 0.88;
+  transform: translateY(-1px);
+}
+
+.modern-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* ── Project List ─────────────────────────────────────── */
+.project-list {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.project-list-item {
+  padding: 1rem 1.2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  border-radius: 12px;
+}
+
+.project-list-item-info {
+  min-width: 0; /* allow text truncation */
+}
+
+.project-list-item-info strong {
+  display: block;
+  color: var(--accent, #7c6fff);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 1rem;
+}
+
+.project-list-item-info p {
+  font-size: 0.8rem;
+  opacity: 0.6;
+  margin: 0.15rem 0 0;
+}
+
+.delete-btn {
+  flex-shrink: 0;
+  color: #ff4d4d;
+  border: 1px solid rgba(255, 77, 77, 0.4);
+  background: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.delete-btn:hover {
+  background: rgba(255, 77, 77, 0.12);
+  border-color: #ff4d4d;
+}
+
+/* ── Toast Notifications ──────────────────────────────── */
+.toast-container {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-width: 480px;
+  width: calc(100% - 2rem);
+  pointer-events: none;
+}
+
+.toast-item {
+  background: #1a0a0a;
+  border: 1px solid #ff4d4d;
+  color: #ffcccc;
+  padding: 0.8rem 1.1rem;
+  border-radius: 10px;
+  font-size: 0.88rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  box-shadow: 0 8px 32px rgba(255, 77, 77, 0.25);
+  animation: toastSlideUp 0.3s ease;
+  pointer-events: all;
+}
+
+.toast-icon {
+  font-size: 1rem;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.toast-text {
+  flex: 1;
+  line-height: 1.45;
+}
+
+.toast-dismiss {
+  background: none;
+  border: none;
+  color: #ff4d4d;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0;
+  flex-shrink: 0;
+  transition: opacity 0.15s;
+}
+
+.toast-dismiss:hover {
+  opacity: 0.7;
+}
+
+@keyframes toastSlideUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Delete Confirmation Modal ────────────────────────── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.82);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.modal-card {
+  padding: 2.5rem 2rem;
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+  animation: modalPop 0.25s ease;
+}
+
+@keyframes modalPop {
+  from { opacity: 0; transform: scale(0.92); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.modal-card h3 {
+  font-size: 1.25rem;
+  margin: 0 0 0.75rem;
+}
+
+.modal-card p {
+  font-size: 0.95rem;
+  opacity: 0.8;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.75rem;
+}
+
+.modal-btn {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  background: rgba(255, 255, 255, 0.06);
+  color: inherit;
+}
+
+.modal-btn:hover { opacity: 0.8; }
+
+.modal-btn-danger {
+  background: #ff4d4d;
+  color: white;
+  border-color: transparent;
+}
+
+.project-form:has(#project-submit-btn:active)>*:not(#project-submit-btn), .project-list-item:has(.delete-btn:active)>*:not(.delete-btn){
+ transform: scale(.95);
+ opacity: 0.4;
+ transition: all 0.1s ease;
+}
+/* ═══════════════════════════════════════════════════════
+   RESPONSIVE BREAKPOINTS
+═══════════════════════════════════════════════════════ */
+
+/* ── Tablet: 481px – 767px ────────────────────────────── */
+@media (max-width: 767px) {
+  .admin-projects-wrapper {
+    gap: 1.5rem;
+    padding: 1rem;
+  }
+
+  .admin-section {
+    padding: 1.5rem;
+  }
+
+  /* Collapse two-column form to single column */
+  .project-form {
+    grid-template-columns: 1fr;
+  }
+
+  .project-form .full-width {
+    grid-column: span 1;
+    padding: 10px;
+  }
+
+  .image-preview-item {
+    width: 80px;
+  }
+
+  .image-preview-thumb {
+    width: 80px;
+    height: 80px;
+  }
+
+  .modal-card {
+    padding: 2rem 1.5rem;
+  }
+}
+
+/* ── Mobile: ≤480px ───────────────────────────────────── */
+@media (max-width: 480px) {
+  .admin-projects-wrapper {
+    padding: 0.75rem;
+    gap: 1rem;
+  }
+
+  .admin-section {
+    padding: 1.2rem 1rem;
+  }
+
+  .admin-section h2 {
+    font-size: 1.15rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .project-form {
+    gap: 0.9rem;
+  }
+
+  .project-form input[type="text"],
+  .project-form textarea {
+    font-size: 0.9rem;
+    padding: 0.65rem 0.85rem;
+  }
+
+  .upload-zone {
+    padding: 1rem 0.75rem;
+    min-height: 76px;
+  }
+
+  .upload-zone-hint {
+    font-size: 0.78rem;
+  }
+
+  .upload-constraints {
+    display: block;
+    margin: 0.2rem 0 0;
+    font-size: 0.7rem;
+  }
+
+  /* Smaller thumbnails on mobile */
+  .image-preview-grid {
+    gap: 10px;
+  }
+
+  .image-preview-item {
+    width: 68px;
+  }
+
+  .image-preview-thumb {
+    width: 68px;
+    height: 68px;
+  }
+
+  .image-meta {
+    font-size: 0.6rem;
+  }
+
+  /* Stack modal buttons vertically on very small screens */
+  .modal-actions {
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+
+  .modal-card {
+    padding: 1.75rem 1.25rem;
+  }
+
+  .modal-card h3 {
+    font-size: 1.1rem;
+  }
+
+  /* Project list tighter */
+  .project-list-item {
+    padding: 0.85rem 1rem;
+  }
+
+  .project-list-item-info strong {
+    font-size: 0.95rem;
+  }
+
+  /* Toast full-width */
+  .toast-container {
+    bottom: 1rem;
+    width: calc(100% - 1.5rem);
+  }
+
+  .toast-item {
+    font-size: 0.82rem;
+    padding: 0.7rem 0.9rem;
+  }
+}
+
+/* ── Large screens: ≥1024px ───────────────────────────── */
+@media (min-width: 1024px) {
+  .admin-projects-wrapper {
+    padding: 2rem;
+  }
+
+  .image-preview-item {
+    width: 100px;
+  }
+
+  .image-preview-thumb {
+    width: 100px;
+    height: 100px;
+  }
+}

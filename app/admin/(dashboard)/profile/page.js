@@ -1,5 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 
 export default function AdminProfile() {
   // 1. Expanded State to match Mongoose Model
@@ -116,7 +117,8 @@ export default function AdminProfile() {
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
               <div style={{ width: '120px', height: '120px', borderRadius: '50%', overflow: 'hidden', background: '#222', border: '2px solid var(--accent)' }}>
                 {user.avatar ? (
-                  <img src={user.avatar} alt="Profile" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <Image src={user.avatar} alt="Profile"  width={500}
+      height={500}style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 ) : (
                   <div style={{ display: 'grid', placeItems: 'center', height: '100%', opacity: 0.5 }}>No Image</div>
                 )}
@@ -127,12 +129,12 @@ export default function AdminProfile() {
             {/* Info Column */}
             <div style={{ flex: 1, display: 'grid', gap: '1rem', minWidth: '250px' }}>
               <div className="input-group">
-                <label>Full Name</label>
-                <input disabled={!isEditing} type="text" value={user.name} onChange={(e) => setUser({...user, name: e.target.value})} />
+                <label style={{width:'100%', }}>Full Name</label>
+                <input  style={{width:'100%', }} disabled={!isEditing} type="text" value={user.name} onChange={(e) => setUser({...user, name: e.target.value})} />
               </div>
               <div className="input-group">
-                <label>Job Title</label>
-                <input disabled={!isEditing} type="text" placeholder="e.g. Full Stack Developer" value={user.title} onChange={(e) => setUser({...user, title: e.target.value})} />
+                <label style={{width:'100%', }}>Job Title</label>
+                <input style={{width:'100%', }} disabled={!isEditing} type="text" placeholder="e.g. Full Stack Developer" value={user.title} onChange={(e) => setUser({...user, title: e.target.value})} />
               </div>
             </div>
           </div>
@@ -155,7 +157,7 @@ export default function AdminProfile() {
               rows="4" 
               value={user.bio} 
               onChange={(e) => setUser({...user, bio: e.target.value})}
-              style={{ background: 'rgba(255,255,255,0.05)', color: 'white', width: '100%', padding: '1rem', borderRadius: '8px', border: '1px solid var(--glass-border)' }}
+              style={{ background: 'rgba(255,255,255,0.05)',  width: '100%', padding: '1rem', borderRadius: '8px', border: '1px solid var(--glass-border)' }}
             />
           </div>
 
