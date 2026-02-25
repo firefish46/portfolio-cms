@@ -39,11 +39,11 @@ export default function Footer() {
         <div className="footer-section">
           <h3>Navigation</h3>
           <ul>
-            <li><Link href="/">Home</Link></li>
-            <li><Link href="/projects">Projects</Link></li>
+            <li><Link href="#home">Home</Link></li>
+            <li><Link href="#work">Projects</Link></li>
             {/* If your about page is public, use /about. If it's admin-only, use /admin/about */}
-            <li><Link href="/about">About</Link></li>
-            <li><Link href="/contact">Contact</Link></li>
+            <li><Link href="#about">About</Link></li>
+            <li><Link href="#message">Contact</Link></li>
           </ul>
         </div>
 
