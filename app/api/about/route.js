@@ -1,35 +1,31 @@
+//app/api/about
 import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/mongodb";
 import About from "@/models/about";
+import { requireAdmin } from "@/lib/adminMiddleware"; // Add this import
 
-// GET: Fetch the About data for the frontend and admin panel
 export async function GET() {
   try {
     await connectDB();
-    
-    // We fetch the first document. Since there's only one "About" section,
-    // we don't need an ID.
-    let about = await About.findOne();
-    
-    if (!about) {
-      // Return an empty structure if nothing exists yet
-      return NextResponse.json({ highlights: [], aiTools: [] });
-    }
-    
-    return NextResponse.json(about);
+    const about = await About.findOne();
+    return NextResponse.json(about || { highlights: [], aiTools: [] });
   } catch (error) {
-    return NextResponse.json({ error: "Failed to fetch about data" }, { status: 500 });
+    return NextResponse.json({ error: "Failed to fetch" }, { status: 500 });
   }
 }
 
-// PUT: Update the highlights and AI tools
 export async function PUT(req) {
   try {
     await connectDB();
+
+    // 1. SECURITY CHECK
+    const admin = requireAdmin(req);
+    if (!admin) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const data = await req.json();
 
-    // { upsert: true } creates the document if it doesn't exist
-    // { new: true } returns the updated document
     const updatedAbout = await About.findOneAndUpdate(
       {}, 
       { 
@@ -41,6 +37,6 @@ export async function PUT(req) {
 
     return NextResponse.json(updatedAbout);
   } catch (error) {
-    return NextResponse.json({ error: "Failed to update about data" }, { status: 500 });
+    return NextResponse.json({ error: "Update failed" }, { status: 500 });
   }
 }
