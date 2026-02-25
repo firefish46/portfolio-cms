@@ -13,11 +13,12 @@ export default function Dashboard() {
     const fetchStats = async () => {
       try {
         // Fetch all three concurrently for maximum speed
-        const [resProj, resSkills, resMsgs] = await Promise.all([
-          fetch('/api/projects'),
-          fetch('/api/skills'),
-          fetch('/api/contact') // Added this fetch
-        ]);
+     // Inside fetchStats function
+const [resProj, resSkills, resMsgs] = await Promise.all([
+  fetch('/api/projects', { credentials: 'include' }), // Critical for Auth
+  fetch('/api/skills', { credentials: 'include' }),   // Critical for Auth
+  fetch('/api/contact', { credentials: 'include' })   // Critical for Auth
+]);
 
         const projData = resProj.ok ? await resProj.json() : [];
         const skillsData = resSkills.ok ? await resSkills.json() : [];
@@ -36,7 +37,14 @@ export default function Dashboard() {
     };
     fetchStats();
   }, []);
-
+if (loading) {
+  return (
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '60vh' }}>
+      <div className="spinner"></div> {/* Use your CSS spinner class */}
+      <p style={{ marginLeft: '1rem', fontFamily: 'var(--font-fredoka)' }}>Analyzing System Data...</p>
+    </div>
+  );
+}
   return (
     <div style={{ padding: '1rem', maxWidth: '1200px', margin: '0 auto' }}>
       <link
