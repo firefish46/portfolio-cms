@@ -47,3 +47,22 @@ export async function DELETE(req) {
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }
+export async function GET(req) {
+  try {
+    await connectDB();
+
+    // 1. Check for admin authorization (optional but recommended)
+    const admin = requireAdmin(req);
+    if (!admin) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    // 2. Fetch all messages, sorted by newest first
+    const messages = await Contact.find({}).sort({ createdAt: -1 });
+
+    return NextResponse.json(messages, { status: 200 });
+  } catch (error) {
+    console.error("GET Error:", error);
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+  }
+}
