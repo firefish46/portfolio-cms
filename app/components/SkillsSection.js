@@ -1,5 +1,4 @@
 'use client';
-import { X } from 'lucide-react';
 import './skill.css'
 // Icon mapping for common technologies
 const getSkillIcon = (skillName) => {
