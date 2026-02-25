@@ -65,15 +65,18 @@ export default function DeleteButton({ id }) {
           zIndex: 9999999,
           padding: '20px'
         }}>
-          <div className="glass" style={{ 
-            padding: '2rem', 
+          <div className="resonsive-card" style={{ 
+            padding: '2rem!important', 
             maxWidth: '400px', 
             width: '100%', 
+            background:'var(--glass-bg2)',
             textAlign: 'center',
+            flexDirection: 'column',
+            borderRadius: '10px',
             border: '1px solid rgba(255, 77, 77, 0.3)' 
           }}>
-            <h3 style={{ marginBottom: '1rem', color: '#fff' }}>Are you sure?</h3>
-            <p style={{ opacity: 0.8, marginBottom: '2rem', fontSize: '0.9rem' }}>
+            <h2 style={{ marginBottom: '1rem', color: '#000000',fontSize: '1.5rem'}}>Are you sure?</h2>
+            <p style={{ opacity: 0.8, marginBottom: '1rem', fontSize: '0.8rem' }}>
               This action cannot be undone. This message will be permanently removed from your database.
             </p>
             
@@ -87,7 +90,8 @@ export default function DeleteButton({ id }) {
                   border: 'none', 
                   color: '#fff', 
                   cursor: 'pointer',
-                  borderRadius: '6px'
+                  borderRadius: '6px',
+                   width:'fit-content'
                 }}
               >
                 Cancel
@@ -103,6 +107,7 @@ export default function DeleteButton({ id }) {
                   color: '#fff', 
                   cursor: 'pointer',
                   borderRadius: '6px',
+                  width:'fit-content'
                   
                 }}
               >
