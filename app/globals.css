@@ -30,7 +30,9 @@ a {
   --red-accent: #f43f5e;
   --accent-blue: #0ea5e9;
   /* Phase 5 Theme Engine Variables */
-  --accent: #0ea5e9; 
+  --accent: #0ea5e9;
+  --accent-light: #259afa;
+
   --bg-secondary: #f1f5f9;
   --glass-bg: rgba(255, 255, 255, 0.7);
   --glass-border: rgba(14, 165, 233, 0.15);
@@ -55,6 +57,14 @@ h1.name {
     background-image: linear-gradient(94deg, #06b6d4, #0ea5e9, #3b82f6, #6366f1)! important;
   -webkit-background-clip: text!important;
     background-clip: text !important;
+}
+.responsive-card{
+  display: flex;
+  flex-direction: column;
+  width: 90dww;
+  border: 1px solid var(--light-gray);
+  overflow: auto;
+  border-radius: 8px;
 }
 .pureglass{
 
@@ -290,6 +300,35 @@ button {
   transition: transform 0.3s ease;
 }
 
+.admin-layout-wrapper:has(#logout:active)>*:not(#logout){
+  transition: all .7s ease;
+  opacity: .1!important;
+}
+.responsive-card:has(.edit-btn:active)>*:not(.edit-btn){
+  transition: all .7s ease;
+  opacity: .8!important;
+}
+@keyframes shimmer {
+  0% { background-position: -468px 0; }
+  100% { background-position: 468px 0; }
+}
+
+.skeleton {
+  background: #b4b4b442; /* Match your dark theme */
+  background-image: linear-gradient(
+    to right, 
+    rgba(255, 255, 255, 0.05) 0%, 
+    rgba(255, 255, 255, 0.1) 20%, 
+    rgba(255, 255, 255, 0.05) 40%, 
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  background-repeat: no-repeat;
+  background-size: 800px 100%;
+  display: inline-block;
+  position: relative;
+  animation: shimmer 1.5s linear infinite forwards;
+  border-radius: 8px;
+}
 /* Entry Animation */
 @keyframes fadeInUp {
   from {
@@ -345,6 +384,17 @@ button {
     gap: 8px!important;
     align-items: stretch!important;
      width: 98% !important;
+  }
+  .signlerowdiv{
+    display: flex!important;
+    gap: 8px!important;
+    flex-direction: column!important;
+    width: 90dvw;
+  }
+  .responsive-card{
+    font-size: smaller!important;
+    display: flex!important;
+    flex-direction: column!important;
   }
   .image-container{
     display: contents;

@@ -71,10 +71,10 @@ export default function SwipeableMessage({ msg }) {
           position: 'relative',
           zIndex: 2,
           cursor: isDragging ? 'grabbing' : 'grab',
-          backgroundColor: 'var(--background, #0a0a0a)' 
+          backgroundColor: 'transparent' 
         }}
       >
-        <div id='msg'  style={{ padding: '1.5rem', display: 'flex', gap: '1rem',zIndex: -1,border: '1px solid rgba(255,255,255,0.05)' }}>
+        <div id='msg'  style={{ background:'var(--background)', padding: '1.5rem', display: 'flex', gap: '1rem',zIndex: -1,border: '1px solid rgba(90, 87, 87, 0.86)',borderRadius:'16px' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', flex: 1 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
               <strong style={{ color: 'var(--accent)' }}>{msg.name || "Anonymous"}</strong>

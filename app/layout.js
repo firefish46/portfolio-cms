@@ -10,7 +10,7 @@ const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 const gfsNeo = GFS_Neohellenic({ weight: ["400", "700"], subsets: ["greek", "latin"], variable: "--font-gfs-neo" });
 const fredoka = Fredoka({ weight: ["300", "400", "500", "600", "700"], subsets: ["latin"],display: 'swap', variable: "--font-fredoka" });
-const calSans = Cal_Sans({ weight: [ "400"], subsets: ["latin"],display: 'swap', variable: "--font-cal-sans" });
+const calSans = Cal_Sans({ weight: [ "400"], subsets: ["latin"],display: 'swap', variable: "--font-cal-sans",adjustFontFallback: false, });
 
 
 export const metadata = {

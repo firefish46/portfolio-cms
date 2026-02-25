@@ -6,12 +6,14 @@ export default function AdminAbout() {
   const [aboutData, setAboutData] = useState({ highlights: [], aiTools: [] });
   const [loading, setLoading] = useState(true);
   const [status, setStatus] = useState({ type: '', msg: '' });
+  const [isLoading, setIsLoading] = useState(true); 
 // Add this near your other useState calls
 const [editingIndex, setEditingIndex] = useState(null);
   // 1. Load Data from API
   useEffect(() => {
     async function fetchData() {
       try {
+         setIsLoading(true);
         const res = await fetch('/api/about');
         const data = await res.json();
         
@@ -19,7 +21,9 @@ const [editingIndex, setEditingIndex] = useState(null);
           setAboutData({
             highlights: data.highlights || [],
             aiTools: data.aiTools || []
+            
           });
+            setIsLoading(false);
         }
       } catch (error) {
         console.error("Fetch error:", error);
@@ -133,7 +137,58 @@ const [editingIndex, setEditingIndex] = useState(null);
     }
   };
 
-  if (loading) return <div className="admin-loading">Connecting to database...</div>;
+if (isLoading) {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', maxWidth: '800px', margin: '0 auto' }}>
+      
+      {/* ── SECTION: PROFESSIONAL HIGHLIGHTS SKELETON ── */}
+      <section className='responsive-card' style={{ padding: '2rem' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+          <div className="skeleton" style={{ height: '28px', width: '220px' }} />
+          <div className="skeleton" style={{ height: '32px', width: '110px', borderRadius: '20px' }} />
+        </div>
+        
+        {/* Repeating Highlight Rows (3 items) */}
+        {[1, 2, 3].map((i) => (
+          <div key={i} style={{ display: 'flex', gap: '1rem', marginBottom: '1rem', alignItems: 'flex-end' }}>
+            <div style={{ flex: 1 }}>
+              <div className="skeleton" style={{ height: '12px', width: '40px', marginBottom: '6px' }} />
+              <div className="skeleton" style={{ height: '45px', width: '100%' }} />
+            </div>
+            <div style={{ flex: 2 }}>
+              <div className="skeleton" style={{ height: '12px', width: '80px', marginBottom: '6px' }} />
+              <div className="skeleton" style={{ height: '45px', width: '100%' }} />
+            </div>
+            <div className="skeleton" style={{ height: '45px', width: '45px', borderRadius: '8px' }} />
+          </div>
+        ))}
+      </section>
+
+      {/* ── SECTION: FLOATING TECH ORBIT SKELETON ── */}
+      <section className='responsive-card' style={{ padding: '2rem' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+          <div className="skeleton" style={{ height: '28px', width: '180px' }} />
+          <div className="skeleton" style={{ height: '32px', width: '90px', borderRadius: '20px' }} />
+        </div>
+
+        {/* Repeating Tech Rows (3 items) */}
+        {[1, 2, 3].map((i) => (
+          <div key={i} className='responsive-card' style={{ 
+            display: 'flex', alignItems: 'center', padding: '1rem', marginBottom: '1rem', gap: '1rem', border: '1px solid #eee' 
+          }}>
+            <div className="skeleton" style={{ height: '20px', width: '10px' }} /> {/* Drag handle */}
+            <div className="skeleton" style={{ height: '35px', width: '35px', borderRadius: '4px' }} /> {/* Logo */}
+            <div className="skeleton" style={{ height: '20px', width: '100px' }} /> {/* Name */}
+            <div style={{ marginLeft: 'auto', display: 'flex', gap: '0.5rem' }}>
+              <div className="skeleton" style={{ height: '35px', width: '70px', borderRadius: '6px' }} /> {/* Edit btn */}
+              <div className="skeleton" style={{ height: '35px', width: '35px', borderRadius: '6px' }} /> {/* Delete btn */}
+            </div>
+          </div>
+        ))}
+      </section>
+    </div>
+  );
+}
 
   return (
     <div className="admin-about-container">

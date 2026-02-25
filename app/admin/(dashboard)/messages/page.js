@@ -9,7 +9,7 @@ export default async function AdminMessages() {
   const messages = JSON.parse(JSON.stringify(rawMessages));
 
   return (
-    <div style={{ maxWidth: '800px', margin: '0 auto', position: 'relative', padding: '1rem' }}>
+    <div className="responsive-card" style={{width:'90dvw', maxWidth: '800px', margin: '0 auto', position: 'relative', padding: '1rem' }}>
       <h1 style={{ fontFamily: 'var(--font-fredoka)', marginBottom: '2rem' }}>Inbox</h1>
       
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
