@@ -5,16 +5,24 @@ import SwipeableMessage from "./SwipeableMessage";
 export default async function AdminMessages() {
   await connectDB();
   
+  // .lean() is good for performance
   const rawMessages = await Contact.find().sort({ createdAt: -1 }).lean();
-  const messages = JSON.parse(JSON.stringify(rawMessages));
+  
+  // Manually convert _id to string to avoid serialization warnings in Next.js
+  const messages = rawMessages.map(msg => ({
+    ...msg,
+    _id: msg._id.toString(),
+  }));
 
   return (
-    <div className="responsive-card" style={{width:'90dvw', maxWidth: '800px', margin: '0 auto', position: 'relative', padding: '1rem' }}>
-      <h1 style={{ fontFamily: 'var(--font-fredoka)', marginBottom: '2rem' }}>Inbox</h1>
+    <div className="responsive-card" style={{ width: '90dvw', maxWidth: '800px', margin: '0 auto', position: 'relative', padding: '1rem' }}>
+      <h1 className="fredoka-regular" style={{ marginBottom: '2rem' }}>Inbox</h1>
       
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
         {messages.length === 0 ? (
-          <p style={{ opacity: 0.5 }}>No messages in your inbox yet.</p>
+          <div className="glass" style={{ padding: '2rem', textAlign: 'center' }}>
+            <p style={{ opacity: 0.5 }}>No messages in your inbox yet.</p>
+          </div>
         ) : (
           messages.map((msg) => (
             <SwipeableMessage key={msg._id} msg={msg} />

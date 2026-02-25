@@ -39,7 +39,7 @@ export default function ContactPage() {
       // Hide after 5 seconds
       setTimeout(() => {
         setShowNotification(false);
-      }, 500000000);
+      }, 5000);
     } catch (error) {
       console.error('Error submitting form:', error);
     }
