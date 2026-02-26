@@ -64,7 +64,7 @@ export default function Footer() {
           <p className="footer-cta-text">
             Open to internships, collaborations, and challenging projects.
           </p>
-          <Link href="#contact-section" className="footer-btn">
+          <Link href="#message" className="footer-btn">
             Get In Touch
             <ArrowUpRight size={16} />
           </Link>
