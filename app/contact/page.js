@@ -48,7 +48,7 @@ export default function ContactPage() {
   return (
     <>
       {/* Animated mesh gradient background */}
-      <div className="mesh-background"></div>
+      <div  id="contact-section" className="mesh-background"></div>
       
       <div className="contact-page-wrapper">
         <div className="contact-header">
