@@ -1,3 +1,4 @@
+//app/api/contact
 import { connectDB } from "@/lib/mongodb";
 import Contact from "@/models/contact";
 import { NextResponse } from "next/server";

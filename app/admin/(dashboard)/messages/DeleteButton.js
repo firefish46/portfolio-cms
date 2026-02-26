@@ -15,6 +15,7 @@ export default function DeleteButton({ id }) {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id }),
+        credentials: 'include',
       });
 
       if (res.ok) {
