@@ -1,7 +1,8 @@
 import { connectDB } from "@/lib/mongodb";
 import Contact from "@/models/contact";
 import SwipeableMessage from "./SwipeableMessage";
-
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 export default async function AdminMessages() {
   await connectDB();
   
