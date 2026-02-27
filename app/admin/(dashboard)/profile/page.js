@@ -155,7 +155,7 @@ export default function AdminProfile() {
     setPwStatus({ type: 'loading', title: 'Verifying & updating…', detail: 'Please wait while we securely apply the change.' });
 
     try {
-      const res  = await fetch('/api/admin/profile/password', {
+      const res  = await fetch('/api/profile/password', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ current: passwords.current, new: passwords.new }),
