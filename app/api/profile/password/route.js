@@ -2,14 +2,22 @@ import { connectDB } from "@/lib/mongodb";
 import User from "@/models/User"; 
 import bcrypt from "bcryptjs";
 import { NextResponse } from "next/server";
-
+export async function GET() {
+  return NextResponse.json({ message: "route is alive" });
+}
 export async function POST(req) {
+  console.log("POST /api/profile/password hit"); // add this first
   try {
+    console.log("Connecting to DB...");
     await connectDB();
-    const { current, new: newPassword } = await req.json();
-
-    // 1. Find the admin user (assuming role 'admin' or by fixed ID)
-    const admin = await User.findOne({ role: 'admin' });
+    console.log("DB connected");
+    
+    const body = await req.json();
+    console.log("Body received:", body);
+    const current = body.current;
+    const newPassword = body.new;
+    const admin = await User.findOne({ email: "admin@mehedi" });
+    console.log("Admin found:", admin);
     if (!admin) return NextResponse.json({ error: "Admin not found" }, { status: 404 });
 
     // 2. Verify current password
