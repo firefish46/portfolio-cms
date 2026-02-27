@@ -6,18 +6,18 @@ export async function GET() {
   return NextResponse.json({ message: "route is alive" });
 }
 export async function POST(req) {
-  console.log("POST /api/profile/password hit"); // add this first
+  //console.log("POST /api/profile/password hit"); // add this first
   try {
     console.log("Connecting to DB...");
     await connectDB();
     console.log("DB connected");
     
     const body = await req.json();
-    console.log("Body received:", body);
+  //  console.log("Body received:", body);
     const current = body.current;
     const newPassword = body.new;
     const admin = await User.findOne({ email: "admin@mehedi" });
-    console.log("Admin found:", admin);
+   // console.log("Admin found:", admin);
     if (!admin) return NextResponse.json({ error: "Admin not found" }, { status: 404 });
 
     // 2. Verify current password
