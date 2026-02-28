@@ -10,7 +10,7 @@ export async function POST(req) {
   try {
     console.log("Connecting to DB...");
     await connectDB();
-    console.log("DB connected");
+    console.log("DB connected");          
     
     const body = await req.json();
   //  console.log("Body received:", body);

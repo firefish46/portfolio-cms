@@ -1,13 +1,9 @@
-'use client';
-
-import { useState, useEffect } from 'react';
 import Link from "next/link";
 import { Github, Linkedin, Mail, ArrowUpRight } from "lucide-react";
 import "./Footer.css";
 
 export default function Footer() {
-  // Initialize with the current year directly
-  const [year] = useState(new Date().getFullYear().toString());
+  const year = new Date().getFullYear();
 
   return (
     <footer className="footer">
@@ -20,28 +16,25 @@ export default function Footer() {
             Building scalable web applications with modern technologies.
             Focused on performance, clean architecture, and real-world impact.
           </p>
-
           <div className="footer-socials">
-            <a href="https://github.com/firefish46" target="_blank" rel="noopener noreferrer">
+            <a href="https://github.com/firefish46" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
               <Github size={18} />
             </a>
-            {/* Added https:// to fix the broken LinkedIn link */}
-            <a href="https://www.linkedin.com/in/mehedi-hasan526" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.linkedin.com/in/mehedi-hasan526" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
               <Linkedin size={18} />
             </a>
-            <a href="mailto:mehedi7hasan10134@gmail.com">
+            <a href="mailto:mehedi7hasan10134@gmail.com" aria-label="Email">
               <Mail size={18} />
             </a>
           </div>
         </div>
 
-        {/* Navigation - Make sure these match your app folder structure */}
+        {/* Navigation */}
         <div className="footer-section">
           <h3>Navigation</h3>
           <ul>
             <li><Link href="#home">Home</Link></li>
             <li><Link href="#work">Projects</Link></li>
-            {/* If your about page is public, use /about. If it's admin-only, use /admin/about */}
             <li><Link href="#about">About</Link></li>
             <li><Link href="#message">Contact</Link></li>
           </ul>
@@ -60,7 +53,7 @@ export default function Footer() {
 
         {/* CTA */}
         <div className="footer-section">
-          <h3>Let’s Work</h3>
+          <h3>Let&apos;s Work</h3>
           <p className="footer-cta-text">
             Open to internships, collaborations, and challenging projects.
           </p>
@@ -73,8 +66,7 @@ export default function Footer() {
       </div>
 
       <div className="footer-bottom">
-        {/* We use a fallback "2026" or similar if year isn't set yet to avoid jumping text */}
-        © {year || "2026"} Mehedi. All rights reserved.
+        © {year} Mehedi. All rights reserved.
         <span>Built with Next.js & MongoDB.</span>
       </div>
     </footer>

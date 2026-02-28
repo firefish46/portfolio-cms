@@ -1,43 +1,53 @@
-import { Geist, Geist_Mono, GFS_Neohellenic, Fredoka,Cal_Sans } from "next/font/google";
+import { Cal_Sans } from "next/font/google";
+import { unstable_cache } from "next/cache";
 import "./globals.css";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 import { connectDB } from "@/lib/mongodb";
 import Settings from "@/models/Settings";
-import Footer from "./components/Footer";
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
-// Font initializations
-const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
-const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
-const gfsNeo = GFS_Neohellenic({ weight: ["400", "700"], subsets: ["greek", "latin"], variable: "--font-gfs-neo" });
-const fredoka = Fredoka({ weight: ["300", "400", "500", "600", "700"], subsets: ["latin"],display: 'swap', variable: "--font-fredoka" });
-const calSans = Cal_Sans({ weight: [ "400"], subsets: ["latin"],display: 'swap', variable: "--font-cal-sans",adjustFontFallback: false, });
+const calSans = Cal_Sans({
+  weight: ["400"],
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-cal-sans",
+  preload: true,
+  adjustFontFallback: false,
+});
 
+const getAccentColor = unstable_cache(
+  async () => {
+    await connectDB();
+    const settings = await Settings.findOne().select("accentColor").lean();
+    return settings?.accentColor ?? "#3b82f6";
+  },
+  ["site-settings"],
+  { revalidate: 900 }
+);
 
 export const metadata = {
-  title: " Mehedi Hasan | Portfolio",
+  title: "Mehedi Hasan | Portfolio",
   description: "Showcasing digital excellence and modern web solutions",
 };
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
+
 export default async function RootLayout({ children }) {
-  // THEME ENGINE SYNC: Fetch accent color from your DB
-  await connectDB();
-  const siteSettings = await Settings.findOne();
-  const accentColor = siteSettings?.accentColor || "#3b82f6";
+  const accentColor = await getAccentColor();
 
   return (
-    <html lang="en">
+    <html lang="en" className={calSans.variable}>
       <head>
-        {/* Injects the custom accent color into CSS variables dynamically */}
-        <style>{`
-          :root {
-            --accent: ${accentColor};
-          }
-        `}</style>
+        <style>{`:root { --accent: ${accentColor}; }`}</style>
       </head>
-      <body className={`${calSans.variable}`}suppressHydrationWarning>
-        <Navbar/>      
+      <body suppressHydrationWarning>
+        <Navbar />
         {children}
-     <Footer/>
+        <Footer />
       </body>
     </html>
   );
