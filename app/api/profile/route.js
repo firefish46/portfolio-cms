@@ -1,8 +1,9 @@
+//app/api/profile
 import { connectDB } from "@/lib/mongodb";
 import Profile from "@/models/Profile";
 import { requireAdmin } from "@/lib/adminMiddleware";
 import { NextResponse } from "next/server";
-
+import { revalidateTag } from "next/cache";
 export async function GET() {
   await connectDB();
   const profile = await Profile.findOne().lean();
@@ -30,7 +31,7 @@ export async function PUT(req) {
     { $set: data }, 
     { upsert: true, new: true }
   );
-
+  revalidateTag("admin-profile"); // ← bust the cache after save
   return NextResponse.json(updatedProfile);
 }
 
