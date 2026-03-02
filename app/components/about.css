@@ -263,8 +263,7 @@
   background: var(--ab-float-bg);
   border: 1px solid var(--ab-float-border);
   border-radius: 12px;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
   transition: background 0.4s ease, border-color 0.4s ease;
   animation: abFloatBob 4s ease-in-out infinite;
@@ -343,8 +342,7 @@
 .tech-float-card {
   position: absolute;
   padding: 12px 20px;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
+  background: rgb(255, 255, 255);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
   display: flex;

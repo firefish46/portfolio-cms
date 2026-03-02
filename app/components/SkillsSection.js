@@ -171,9 +171,10 @@ export default function SkillsSection({ skills }) {
             background: 'linear-gradient(135deg, var(--text) 0%, var(--accent) 100%)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text'
+            backgroundClip: 'text',
+            letterSpacing:'normal !important'
           }}>
-            My Toolbox
+            My Skillset
           </h2>
           
           <p style={{
@@ -182,9 +183,10 @@ export default function SkillsSection({ skills }) {
             opacity: 0.7,
             fontSize: '1.1rem',
             maxWidth: '600px',
-            margin: '0 auto 4rem'
+            margin: '0 auto 4rem',
+            letterSpacing:'1px'
           }}>
-            Technologies and tools I use to bring ideas to life
+           Languages and Frameworks i&apos;ve used and familiar with 
           </p>
 
           <div style={{ 

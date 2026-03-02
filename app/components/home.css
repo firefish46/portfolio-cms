@@ -242,6 +242,9 @@
   letter-spacing: 0.06em;
   font-family: 'Courier New', monospace;
   transition: color 0.4s ease;
+  text-align: -webkit-center;
+
+  
 }
 .hs-cursor {
   display: inline-block;

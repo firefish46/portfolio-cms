@@ -39,10 +39,9 @@ const [resProj, resSkills, resMsgs] = await Promise.all([
   }, []);
 if (loading) {
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '60vh' }}>
-      <div className="spinner"></div> {/* Use your CSS spinner class */}
-      <p style={{ marginLeft: '1rem', fontFamily: 'var(--font-fredoka)' }}>Analyzing System Data...</p>
-    </div>
+    <div style={{display:'flex', alignItems:'center',justifyContent:'center',height:'90dvh'}}>
+     <div style={{alignItems:'center'}} className="loader"></div>
+     </div>
   );
 }
   return (
