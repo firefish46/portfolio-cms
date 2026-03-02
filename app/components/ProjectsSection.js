@@ -1,8 +1,45 @@
 'use client';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './projects.css';
 import ProjectGallery from './ProjectGallery';
 
+// ─── Collapsible description ──────────────────────────────────
+function ProjectDescription({ role, description }) {
+  const [expanded, setExpanded] = useState(false);
+  const needsClamp = description?.length > 150;
+
+  return (
+    <div>
+      <p
+        className="project-description"
+        style={{
+          display: '-webkit-box',
+          WebkitLineClamp: expanded ? 'unset' : 3,
+          WebkitBoxOrient: 'vertical',
+          overflow: expanded ? 'visible' : 'hidden',
+          transition: 'all 0.3s ease',
+        }}
+      >
+        <strong>Role:</strong> {role || 'Developer'}<br />
+        {description}
+      </p>
+      {needsClamp && (
+        <button
+          onClick={() => setExpanded(!expanded)}
+          style={{
+            background: 'none', border: 'none', cursor: 'pointer',
+            color: 'var(--accent)', fontSize: '0.82rem', fontWeight: 600,
+            padding: '0.2rem 0', marginTop: '0.25rem',
+          }}
+        >
+          {expanded ? 'Show less ↑' : 'See more ↓'}
+        </button>
+      )}
+    </div>
+  );
+}
+
+// ─── ProjectsSection ──────────────────────────────────────────
 export default function ProjectsSection({ projects }) {
   const cardRefs = useRef([]);
 
@@ -11,23 +48,15 @@ export default function ProjectsSection({ projects }) {
 
     const update = () => {
       const viewportCenter = window.innerHeight / 2;
-
       cards.forEach((card) => {
         if (!card) return;
-
         const rect = card.getBoundingClientRect();
         const cardCenter = rect.top + rect.height / 2;
-
-        // Distance from viewport center, normalized 0–1
         const distance = Math.abs(cardCenter - viewportCenter);
         const maxDistance = window.innerHeight * 0.75;
         const proximity = Math.max(0, 1 - distance / maxDistance);
-
-        // Scale: 0.82 when far, 1.0 when centered
         const scale = 0.82 + proximity * 0.18;
-        // Opacity: 0.45 when far, 1.0 when centered
         const opacity = 0.45 + proximity * 0.55;
-
         card.style.transform = `scale(${scale.toFixed(3)})`;
         card.style.opacity = opacity.toFixed(3);
         card.style.transition = 'transform 0.15s ease-out, opacity 0.15s ease-out';
@@ -35,9 +64,7 @@ export default function ProjectsSection({ projects }) {
     };
 
     window.addEventListener('scroll', update, { passive: true });
-    // Also run on resize
     window.addEventListener('resize', update, { passive: true });
-    // Run immediately after paint
     requestAnimationFrame(update);
 
     return () => {
@@ -55,9 +82,7 @@ export default function ProjectsSection({ projects }) {
         </h2>
 
         {projects.length > 1 && (
-          <div className="scroll-hint">
-            Scroll down to explore ↓
-          </div>
+          <div className="scroll-hint">Scroll down to explore ↓</div>
         )}
 
         <div className="projects-grid">
@@ -87,10 +112,11 @@ export default function ProjectsSection({ projects }) {
                   )}
                 </div>
 
-                <p className="project-description">
-                  <strong>Role:</strong> {project.role || 'Developer'}<br />
-                  {project.description}
-                </p>
+                {/* ✅ Replaced <p> with collapsible component */}
+                <ProjectDescription
+                  role={project.role}
+                  description={project.description}
+                />
 
                 <div className="project-tools">
                   {project.tools?.map((tool, i) => (

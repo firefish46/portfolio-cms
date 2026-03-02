@@ -155,7 +155,7 @@
 
 /* Each card sticks at the top and scales as next card arrives */
 .project-card {
-  position: sticky;
+  position: relative;
   top: 10%;
   border-radius: 20px;
   overflow: hidden;
