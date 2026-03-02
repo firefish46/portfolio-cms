@@ -13,9 +13,13 @@ export default function AdminSettings() {
   useEffect(() => {
     fetch('/api/settings')
       .then((res) => res.json())
-      .then((data) => {
-        if (data) setSettings(data);
-      });
+     .then((data) => {
+  if (data) setSettings({
+    siteName:    data.siteName    ?? '',
+    heroTitle:   data.heroTitle   ?? '',
+    accentColor: data.accentColor ?? '#3b82f6',
+  });
+});
   }, []);
 
 const handleSave = async (e) => {
