@@ -339,20 +339,6 @@
   z-index: -1;
 }
 
-.tech-float-card {
-  position: absolute;
-  padding: 12px 20px;
-  background: rgb(255, 255, 255);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  animation: floatAround 8s infinite ease-in-out;
-  animation-delay: var(--delay);
-  border-left: 4px solid var(--color);
-}
 
 
 
@@ -411,7 +397,7 @@
   position: absolute;
   padding: 14px 24px;
   background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(15px);
+  backdrop-filter: blur(0px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 20px;
   display: flex;
