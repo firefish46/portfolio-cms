@@ -89,8 +89,8 @@ export default function SwipeableMessage({ msg }) {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        border: '1px solid rgba(255, 77, 77, 0.4)',
-        background: 'rgba(255, 77, 77, 0.05)',
+        border: '1px solid color-mix(in srgb, var(--danger) 40%, transparent)',
+        background: 'color-mix(in srgb, var(--danger) 5%, transparent)',
         marginBottom: '1rem',
         animation: 'fadeIn 0.3s ease',
         gap: '1rem',
@@ -105,7 +105,7 @@ export default function SwipeableMessage({ msg }) {
           <span style={{ fontSize: '0.9rem', opacity: 0.8 }}>message deleted</span>
           <div style={{
             width: '100%', height: '4px', borderRadius: '2px',
-            background: 'rgba(255, 77, 77, 0.15)', overflow: 'hidden'
+            background: 'color-mix(in srgb, var(--danger) 15%, transparent)', overflow: 'hidden'
           }}>
             <div style={{
               height: '100%',
@@ -119,7 +119,7 @@ export default function SwipeableMessage({ msg }) {
           onClick={handleUndo}
           style={{
             background: 'var(--accent)',
-            color: 'white', border: 'none',
+            color: 'var(--on-accent)', border: 'none',
             padding: '8px 16px', borderRadius: '8px',
             cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px', fontWeight: '600',
             flexShrink: 0,
@@ -139,7 +139,7 @@ export default function SwipeableMessage({ msg }) {
       {/* BACKGROUND ACTION LAYER */}
       <div style={{
         position: 'absolute', right: 0, top: 0, bottom: 0, width: '100px',
-        background: 'rgba(255, 77, 77, 0.1)', display: 'flex',
+        background: 'color-mix(in srgb, var(--danger) 10%, transparent)', display: 'flex',
         alignItems: 'center', justifyContent: 'center', zIndex: 1
       }}>
         <div onClick={(e) => { e.stopPropagation(); triggerDeleteSequence(); }}>
@@ -161,11 +161,11 @@ export default function SwipeableMessage({ msg }) {
       >
         <div style={{
           background: 'var(--background)', padding: '1.5rem', display: 'flex',
-          gap: '1rem', border: '1px solid rgba(90, 87, 87, 0.3)', borderRadius: '16px'
+          gap: '1rem', border: '1px solid var(--border)', borderRadius: '16px'
         }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', flex: 1 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <strong style={{ color: 'var(--accent)' }}>{msg.name || "Anonymous"}</strong>
+              <strong style={{ color: 'var(--foreground)' }}>{msg.name || "Anonymous"}</strong>
               <span style={{ fontSize: '0.8rem', opacity: 0.5 }}>
                 {mounted && msg.createdAt
                   ? new Date(msg.createdAt).toLocaleDateString()

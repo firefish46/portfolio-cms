@@ -11,7 +11,7 @@
   border-radius: 16px;
 }
 .axp-form-panel h2 {
-  color: var(--accent);
+  color: var(--foreground);
   margin: 0 0 1.5rem;
   font-family: var(--font-fredoka);
   font-size: clamp(1.1rem, 2.5vw, 1.5rem);
@@ -33,12 +33,12 @@
   font-size: 0.95rem;
   box-sizing: border-box;
 }
-.axp-field select option { color: #0f172a; }
+.axp-field select option { color: var(--foreground); }
 .axp-field input:disabled { opacity: 0.4; }
 .axp-field textarea { resize: vertical; }
 .axp-field input:focus,
 .axp-field select:focus,
-.axp-field textarea:focus { outline: none; border-color: var(--accent); }
+.axp-field textarea:focus { outline: none; border-color: var(--foreground); }
 
 .axp-check { display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; cursor: pointer; }
 .axp-check input { accent-color: var(--accent); width: 16px; height: 16px; }
@@ -50,9 +50,9 @@
   border-radius: 10px;
   background: var(--light-gray);
 }
-.axp-preview b { color: var(--accent); }
+.axp-preview b { color: var(--foreground); }
 
-.axp-error { margin: 0; color: #ef4444; font-size: 0.85rem; }
+.axp-error { margin: 0; color: var(--danger); font-size: 0.85rem; }
 
 .axp-actions { display: flex; gap: 0.75rem; justify-content: flex-end; }
 .axp-actions .modern-btn { width: auto; }
@@ -68,7 +68,7 @@
   background: var(--light-gray);
 }
 .axp-summary > div { display: flex; flex-direction: column; gap: 0.2rem; }
-.axp-summary-value { font-size: 1.5rem; font-weight: 700; color: var(--accent); }
+.axp-summary-value { font-size: 1.5rem; font-weight: 700; color: var(--foreground); }
 .axp-summary-label, .axp-summary-count { font-size: 0.8rem; opacity: 0.7; }
 
 .axp-list { display: flex; flex-direction: column; gap: 0.75rem; }
@@ -81,7 +81,7 @@
   border-radius: 12px;
   border: 1px solid var(--light-gray);
 }
-.axp-item-active { border-color: var(--accent); }
+.axp-item-active { border-color: var(--foreground); }
 .axp-item-info { display: flex; flex-direction: column; gap: 0.2rem; min-width: 0; }
 .axp-item-info span { font-size: 0.88rem; opacity: 0.85; }
 .axp-item-info small { font-size: 0.78rem; opacity: 0.6; }
@@ -94,13 +94,13 @@
   color: var(--foreground);
   cursor: pointer;
 }
-.axp-item-actions button:hover { border-color: var(--accent); color: var(--accent); }
-.axp-item-actions .axp-danger:hover { border-color: #ef4444; color: #ef4444; }
+.axp-item-actions button:hover { border-color: var(--border-strong); background: var(--surface-2); }
+.axp-item-actions .axp-danger:hover { border-color: var(--danger); color: var(--danger); }
 .axp-empty { text-align: center; opacity: 0.6; padding: 2rem 0; }
 
 .axp-modal-overlay {
   position: fixed; inset: 0;
-  background: rgba(0, 0, 0, 0.55);
+  background: rgba(10, 10, 10, 0.55);
   display: grid; place-items: center;
   z-index: 2000;
   padding: 1rem;
@@ -115,7 +115,7 @@
 }
 .axp-modal h3 { margin: 0 0 0.5rem; }
 .axp-modal p { margin: 0 0 1.5rem; opacity: 0.7; }
-.axp-delete-btn { background: #ef4444 !important; border-color: #ef4444 !important; }
+.axp-delete-btn { background: var(--danger) !important; border-color: var(--danger) !important; }
 
 @media (max-width: 900px) {
   .axp-layout { grid-template-columns: 1fr; padding: 0; }

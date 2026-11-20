@@ -70,10 +70,6 @@ export default function HomeSection({ profile }) {
       className={`hs-section ${isDark ? "hs-dark" : "hs-light"}`}
       suppressHydrationWarning
     >
-      {/* Subtle background blobs */}
-      <div className="hs-blob hs-blob-1" />
-      <div className="hs-blob hs-blob-2" />
-
       <div className="hs-card">
 
         {/* Avatar */}

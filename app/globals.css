@@ -1,8 +1,6 @@
-
-
-
 a {
   text-decoration: none;
+  color: inherit;
 }
 
 .fredoka-regular {
@@ -14,51 +12,62 @@ a {
     "wdth" 100;
 }
 :root {
-  --light-gray:#0ea5e91a ;
-    --light-gray2:#0ea5e94d ;
-  --light-text: #64748b;
-  /* Next.js Defaults */
-  --background: #ffffff;
-  --foreground: #0f172a;
-  --font-family: var(--font-cal-sans), var(--font-fredoka), sans-serif;
-  --red-accent: #f43f5e;
-  --accent-blue: #0ea5e9;
-  /* Phase 5 Theme Engine Variables */
-  --accent: #0ea5e9;
-  --accent-light: #259afa;
-    --hs-bg: #f5f5f7;
-  --hs-text: #1a1a2e;
+  /* ══════════════════════════════════════════════════════════
+     Colour system — 60 / 30 / 10
+     60%  --background            page canvas
+     30%  --surface / --surface-2  cards, panels, inputs, text
+     10%  --accent                 primary buttons, active state, focus
+     Neutrals are pure greys (R = G = B), never #000 or #fff.
+     --accent is overridden at runtime from Admin → Settings.
+     ══════════════════════════════════════════════════════════ */
+  --background:    rgb(246, 246, 246);
+  --surface:       rgb(252, 252, 252);
+  --surface-2:     rgb(236, 236, 236);
+  --foreground:    rgb(20, 20, 20);
+  --muted:         rgb(110, 110, 110);
+  --border:        rgb(224, 224, 224);
+  --border-strong: rgb(196, 196, 196);
+  --shadow:        0 1px 2px rgba(0, 0, 0, 0.04), 0 4px 16px rgba(0, 0, 0, 0.05);
 
-  --bg-secondary: #f1f5f9;
-  --glass-bg: rgba(255, 255, 255, 0.7);
-  --glass-bg2: rgba(197, 197, 197, 0.397);
-  --glass-border: rgba(14, 165, 233, 0.15);
+  --accent:        rgb(14, 165, 233);
+  --on-accent:     rgb(250, 250, 250);
+  --accent-soft:   color-mix(in srgb, var(--accent) 12%, transparent);
+  --danger:        rgb(220, 38, 38);
+
+  --font-family: var(--font-cal-sans), var(--font-fredoka), sans-serif;
+
+  /* Legacy names used across components — mapped onto the neutral system */
+  --light-gray:   var(--surface-2);
+  --light-gray2:  var(--border-strong);
+  --light-text:   var(--muted);
+  --bg-secondary: var(--surface-2);
+  --glass-bg:     var(--surface);
+  --glass-bg2:    var(--surface-2);
+  --glass-border: var(--border);
+  --text:         var(--foreground);
+  --red-accent:   var(--danger);
+  --accent-blue:  var(--accent);
+  --hs-bg:        var(--background);
+  --hs-text:      var(--foreground);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0f172a;
-    --foreground: #f1f5f9;
-    
-    /* Dark Mode Glassmorphism */
-    --bg-secondary: #1e293b;
-    --glass-bg: rgba(15, 23, 42, 0.6);
-    --glass-border: rgba(14, 165, 233, 0.2);
-    --light-gray:#0ea5e922 ;
-    --light-gray2:#0ea5e955 ;
-  }
-  .hs-section {
-    --hs-bg: #0c0c14;
-    --hs-text: #f0f0f0;
-    /* ...rest of your dark tokens */
+    --background:    rgb(14, 14, 14);
+    --surface:       rgb(24, 24, 24);
+    --surface-2:     rgb(34, 34, 34);
+    --foreground:    rgb(238, 238, 238);
+    --muted:         rgb(150, 150, 150);
+    --border:        rgb(44, 44, 44);
+    --border-strong: rgb(70, 70, 70);
+    --shadow:        0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.25);
+    --on-accent:     rgb(250, 250, 250);
+    --danger:        rgb(239, 68, 68);
   }
 }
 h1.name {
   font-family: var(--font-family);
- color: transparent;
-    background-image: linear-gradient(94deg, #06b6d4, #0ea5e9, #3b82f6, #6366f1)! important;
-  -webkit-background-clip: text!important;
-    background-clip: text !important;
+  color: var(--foreground);
 }
 .responsive-card{
   display: flex;
@@ -111,8 +120,7 @@ h1.name {
 }
 
 .nav-link:hover {
-  background: var(--glass-border);
-  color: var(--accent);
+  background: var(--surface-2);
 }
 /* Create the underline but hide it (scaleX 0) */
 
@@ -158,7 +166,7 @@ body {
   border-radius: 12px;
   border: none;
   background: var(--accent);
-  color: white;
+  color: var(--on-accent);
   font-weight: 400;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -168,7 +176,7 @@ body {
    border: 1px solid transparent;
 }
 .delete-btn:hover {
-  background: #f43f5e;
+  background: var(--danger);
   transform:scale(.95);
   filter: brightness(.742);
  
@@ -186,8 +194,8 @@ body {
 
 .modern-btn.secondary {
   background: transparent;
-  border: 1px solid var(--accent);
-  color: var(--accent);
+  border: 1px solid var(--border-strong);
+  color: var(--foreground);
 }
 .glass {
   background: var(--glass-bg); /* e.g., rgba(255, 255, 255, 0.05) */
@@ -207,14 +215,14 @@ body {
 .glass-nav:hover {
   transform: none;
   transition:  border 0.2s ease-in;
-  border: 1px solid var(--accent)!important;
+  border: 1px solid var(--border-strong)!important;
 }
   .navbar{
     min-height: 1rem!important;
       gap: 8px !important  ;
-      background: var(--light-gray) !important;
+      background: color-mix(in srgb, var(--surface) 85%, transparent) !important;
       backdrop-filter: blur(10px) !important;
-      border: none!important;
+      border: 1px solid var(--border) !important;
       border-radius: 8px!important;
     justify-content: space-between;
     align-items: center;
@@ -226,18 +234,18 @@ body {
       transition: all 0.5s ease-in-out;
   }
   .navbar:hover {
-    background: var(--light-gray2) !important;
+    background: var(--surface) !important;
      backdrop-filter: blur(10px) !important;
      border-radius: 8px!important;
      transform: none;
       transition: all 0.5s ease-in-out;
-    border: none!important;
+    border: 1px solid var(--border-strong) !important;
    
   }
 #msg.glass {
   margin-right: 10%!important;
   width: 40dvw!important;
-  border: #0ea5e9 1px solid!important;
+  border: var(--border) 1px solid!important;
   display: flex!important;
 }
 #msg.glass:active {
@@ -245,17 +253,11 @@ body {
   transform: scale(.95);
 }
 .project-card:hover {
-  transform: translateY(-8px);
-  border-color: var(--accent);
-}
-
-.modern-btn.secondary {
-  background: transparent;
-  border: 1px solid var(--glass-border);
+  border-color: var(--border-strong);
 }
 
 .modern-btn.secondary:hover {
-  background: var(--glass-border);
+  background: var(--surface-2);
 }
 input,select,textarea {
   width:inherit;
@@ -269,7 +271,7 @@ input,select,textarea {
 }
 select:focus, input:focus, textarea:focus {
   outline: none;
-  border-color: var(--accent);
+  border-color: var(--foreground);
   transition:all 0.2s ease;
 }
 select option {
@@ -283,7 +285,7 @@ button {
   border-radius: 8px;
   border: none;
   background: var(--accent);
-  color: white;
+  color: var(--on-accent);
 
   cursor: pointer;
   transition: all 0.2s ease;
@@ -295,9 +297,9 @@ button {
   font-family: monospace;
   font-weight: bold;
   text-transform: uppercase;
-  color: #0000;
-  -webkit-text-stroke: 1px #000;
-  --g:conic-gradient(#000 0 0) no-repeat text;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--foreground);
+  --g:conic-gradient(var(--foreground) 0 0) no-repeat text;
   background:var(--g) 0,var(--g) 1ch,var(--g) 2ch,var(--g) 3ch,var(--g) 4ch,var(--g) 5ch,var(--g) 6ch;
   animation: 
     l17-0 1s linear infinite alternate,
@@ -316,10 +318,9 @@ button {
 }
 /* Skill Card Hover Effect */
 .skill-card:hover {
-  transform: translateY(-10px) scale(1.05) !important;
-  border-color: var(--accent) !important;
-  box-shadow: 0 10px 30px rgba(14, 165, 233, 0.2);
-  background: rgba(14, 165, 233, 0.08) !important;
+  transform: translateY(-4px) !important;
+  border-color: var(--border-strong) !important;
+  box-shadow: var(--shadow);
 }
 
 .skill-card:hover i {
@@ -341,13 +342,13 @@ button {
 }
 
 .skeleton {
-  background: #b4b4b442; /* Match your dark theme */
+  background: var(--surface-2);
   background-image: linear-gradient(
-    to right, 
-    rgba(255, 255, 255, 0.05) 0%, 
-    rgba(255, 255, 255, 0.1) 20%, 
-    rgba(255, 255, 255, 0.05) 40%, 
-    rgba(255, 255, 255, 0.05) 100%
+    to right,
+    transparent 0%,
+    color-mix(in srgb, var(--foreground) 6%, transparent) 20%,
+    transparent 40%,
+    transparent 100%
   );
   background-repeat: no-repeat;
   background-size: 800px 100%;
@@ -490,7 +491,7 @@ p.name{
   .techspans{
     width: 8rem!important ;
     height: 4rem!important;
-    background:rgba(14, 165, 233, 0.096)!important;
+    background: var(--surface-2)!important;
     gap: 2px!important;
     display: flex !important;
     flex-direction: column!important;
@@ -558,7 +559,6 @@ p.name{
     font-size: small;
     padding: 0.6rem!important;
       border-radius: 8px!important;
-      background: var(--accent-blue);
   }
   .nav-link {
     font-size: small;

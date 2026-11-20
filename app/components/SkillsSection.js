@@ -153,12 +153,8 @@ export default function SkillsSection({ skills }) {
             marginBottom: '1rem', 
             fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', 
             fontFamily: 'var(--font-fredoka)',
-            letterSpacing: '-2px',
-            background: 'linear-gradient(135deg, var(--text) 0%, var(--accent) 100%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text',
-            letterSpacing:'normal !important'
+            letterSpacing: 'normal',
+            color: 'var(--foreground)',
           }}>
             My Skillset
           </h2>
@@ -166,7 +162,7 @@ export default function SkillsSection({ skills }) {
           <p style={{
             textAlign: 'center',
             marginBottom: '4rem',
-            opacity: 0.7,
+            color: 'var(--muted)',
             fontSize: '1.1rem',
             maxWidth: '600px',
             margin: '0 auto 4rem',

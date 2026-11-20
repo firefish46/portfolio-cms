@@ -55,8 +55,8 @@ export default function DeleteButton({ id }) {
           height: 'fit-content',
           padding: '12px',
           background: 'none', 
-          border: '1px solid #ff4d4d', 
-          color: '#ff4d4d', 
+          border: '1px solid var(--danger)', 
+          color: 'var(--danger)', 
           cursor: 'pointer',
           fontSize: '0.8rem',
           marginTop: '-1rem',
@@ -73,7 +73,7 @@ export default function DeleteButton({ id }) {
         <div style={{
           position: 'fixed',
           top: 0, left: 0, right: 0, bottom: 0,
-          backgroundColor: 'rgba(0,0,0,0.85)',
+          backgroundColor: 'rgba(10, 10, 10, 0.85)',
           backdropFilter: 'blur(6px)',
           display: 'flex',
           alignItems: 'center',
@@ -85,18 +85,18 @@ export default function DeleteButton({ id }) {
             padding: '2rem', 
             maxWidth: '400px', 
             width: '100%', 
-            background: 'var(--glass-bg2, #fff)', // Fallback to white if var missing
+            background: 'var(--surface)',
             textAlign: 'center',
             display: 'flex',
             flexDirection: 'column',
             borderRadius: '16px',
-            border: '1px solid rgba(255, 77, 77, 0.3)',
-            boxShadow: '0 20px 40px rgba(0,0,0,0.4)'
+            border: '1px solid color-mix(in srgb, var(--danger) 30%, transparent)',
+            boxShadow: 'var(--shadow)'
           }}>
-            <h2 style={{ marginBottom: '1rem', color: '#ff4d4d', fontSize: '1.5rem', fontFamily: 'var(--font-fredoka)' }}>
+            <h2 style={{ marginBottom: '1rem', color: 'var(--danger)', fontSize: '1.5rem', fontFamily: 'var(--font-fredoka)' }}>
               Are you sure?
             </h2>
-            <p style={{ opacity: 0.8, marginBottom: '2rem', fontSize: '0.9rem', lineHeight: '1.5', color: '#333' }}>
+            <p style={{ opacity: 0.8, marginBottom: '2rem', fontSize: '0.9rem', lineHeight: '1.5', color: 'var(--foreground)' }}>
               This action cannot be undone. This message will be permanently removed from your database.
             </p>
             
@@ -105,9 +105,9 @@ export default function DeleteButton({ id }) {
                 onClick={() => setShowConfirm(false)}
                 style={{ 
                   padding: '0.8rem 1.5rem', 
-                  background: '#f3f4f6', 
+                  background: 'var(--surface-2)', 
                   border: 'none', 
-                  color: '#374151', 
+                  color: 'var(--muted)', 
                   cursor: 'pointer',
                   borderRadius: '8px',
                   fontWeight: '600',
@@ -121,9 +121,9 @@ export default function DeleteButton({ id }) {
                 disabled={isDeleting}
                 style={{ 
                   padding: '0.8rem 1.5rem', 
-                  background: '#ff4d4d', 
+                  background: 'var(--danger)', 
                   border: 'none', 
-                  color: '#fff', 
+                  color: 'var(--on-accent)', 
                   cursor: isDeleting ? 'not-allowed' : 'pointer',
                   borderRadius: '8px',
                   fontWeight: '600',

@@ -24,7 +24,7 @@ export default function Navbar() {
         fontWeight: '700',
         letterSpacing: '-0.5px'
       }}>
-        Mehedi<span style={{ color: 'var(--accent)' }}>.</span>
+        Mehedi<span style={{ color: 'var(--muted)' }}>.</span>
       </div>
 
       <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
@@ -50,11 +50,11 @@ function NavLink({ href, children, active }) {
   return (
     <Link href={href} style={{
       textDecoration: 'none',
-      color: active ? 'var(--accent)' : 'var(--foreground)',
+      color: 'var(--foreground)',
       fontSize: active ? '1.05rem' : '1rem',  
       fontWeight: active ? '600' : '500',
       position: 'relative',
-      opacity: active ? 1 : 0.5,
+      opacity: active ? 1 : 0.6,
       paddingBottom: '4px',
     }} className="group">
       {children}
