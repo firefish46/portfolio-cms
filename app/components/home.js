@@ -11,15 +11,18 @@ function useTypewriter(text = "", speed = 65, delay = 800) {
   useEffect(() => {
     setDisplayed("");
     let i = 0;
+    let interval;
     const timeout = setTimeout(() => {
-      const interval = setInterval(() => {
+      interval = setInterval(() => {
         setDisplayed(text.slice(0, i + 1));
         i++;
         if (i >= text.length) clearInterval(interval);
       }, speed);
-      return () => clearInterval(interval);
     }, delay);
-    return () => clearTimeout(timeout);
+    return () => {
+      clearTimeout(timeout);
+      clearInterval(interval);
+    };
   }, [text, speed, delay]);
 
   return displayed;

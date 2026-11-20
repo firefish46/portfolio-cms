@@ -1,4 +1,4 @@
-import { Cal_Sans } from "next/font/google";
+import { Cal_Sans, Fredoka } from "next/font/google";
 import { unstable_cache } from "next/cache";
 import "./globals.css";
 import Navbar from "./components/Navbar";
@@ -14,6 +14,13 @@ const calSans = Cal_Sans({
   variable: "--font-cal-sans",
   preload: true,
   adjustFontFallback: false,
+});
+
+const fredoka = Fredoka({
+  weight: ["300", "400", "500", "600", "700"],
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-fredoka",
 });
 
 const getAccentColor = unstable_cache(
@@ -40,7 +47,7 @@ export default async function RootLayout({ children }) {
   const accentColor = await getAccentColor();
 
   return (
-    <html lang="en" className={calSans.variable}>
+    <html lang="en" className={`${calSans.variable} ${fredoka.variable}`}>
       <head>
         <style>{`:root { --accent: ${accentColor}; }`}</style>
       </head>

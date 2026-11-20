@@ -165,8 +165,8 @@
   background: var(--background);
   margin-bottom: 2rem;
   transform-origin: top center;
-  transition: transform 0.1s linear, filter 0.1s linear;
-  will-change: transform;
+  transition: transform 0.15s ease-out, opacity 0.15s ease-out, filter 0.1s linear;
+  will-change: transform, opacity;
 }
 
 /* JS adds this class to cards being pushed behind */

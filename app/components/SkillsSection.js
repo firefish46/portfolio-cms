@@ -147,20 +147,6 @@ export default function SkillsSection({ skills }) {
   return (
     <>
       <section id="skills" style={{ padding: '100px 2rem', position: 'relative', overflow: 'hidden' }}>
-        {/* Animated background elements */}
-        <div style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          opacity: 0.03,
-          pointerEvents: 'none'
-        }}>
-          <div className="bg-orb bg-orb-1"></div>
-          <div className="bg-orb bg-orb-2"></div>
-        </div>
-
         <div style={{ maxWidth: '1200px', margin: '0 auto', position: 'relative' }}>
           <h2 style={{ 
             textAlign: 'center', 

@@ -57,7 +57,9 @@
 .hs-blob {
   position: absolute;
   border-radius: 50%;
-  filter: blur(80px);
+  /* Soft edge from the gradient itself; filter: blur on large animated layers was very expensive */
+  -webkit-mask-image: radial-gradient(circle, #000 0%, transparent 70%);
+  mask-image: radial-gradient(circle, #000 0%, transparent 70%);
   pointer-events: none;
   animation: hsBlobDrift 12s ease-in-out infinite alternate;
 }
