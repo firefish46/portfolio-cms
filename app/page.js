@@ -4,12 +4,14 @@ import Profile from "@/models/Profile";
 import Project from "@/models/Projects";
 import Skill from "@/models/Skill";
 import About from "@/models/about";
+import Experience from "@/models/Experience";
 
 // Components
 import HomeSection from "@/app/components/home";
 import AboutSection from "./components/about";
 import ProjectsSection from "@/app/components/ProjectsSection";
 import SkillsSection from "@/app/components/SkillsSection";
+import ExperienceSection from "@/app/components/ExperienceSection";
 import ContactPage from "./contact/page";
 
 
@@ -20,11 +22,12 @@ const getPageData = unstable_cache(
   async () => {
     await connectDB();
 
- const [profileData, aboutDataDoc, skillsData, projectsData] = await Promise.all([
+    const [profileData, aboutDataDoc, skillsData, projectsData, experienceData] = await Promise.all([
   Profile.findOne().lean(),
   About.findOne().lean(),
   Skill.find().sort({ order: 1 }).lean(),
   Project.find().sort({ order: 1 }).lean(),
+  Experience.find().sort({ current: -1, startDate: -1 }).lean(),
 ]);
     // Serialize once here, not in the component
     const serialize = (doc) => (doc ? JSON.parse(JSON.stringify(doc)) : null);
@@ -34,6 +37,7 @@ const getPageData = unstable_cache(
       aboutData: serialize(aboutDataDoc),
       skills:   serialize(skillsData) ?? [],
       projects: serialize(projectsData) ?? [],
+      experience: serialize(experienceData) ?? [],
     };
   },
   ["home-page-data"],
@@ -42,7 +46,7 @@ const getPageData = unstable_cache(
 
 // ── Page ───────────────────────────────────────────────────────────────────
 export default async function HomePage() {
-  const { profile, aboutData, skills, projects } = await getPageData();
+  const { profile, aboutData, skills, projects, experience } = await getPageData();
 
   return (
     <main>
@@ -51,6 +55,9 @@ export default async function HomePage() {
 
       {/* ── ABOUT ── */}
       <AboutSection profile={profile} aboutData={aboutData} />
+
+      {/* ── EXPERIENCE ── */}
+      <ExperienceSection experience={experience} />
 
       {/* ── SKILLS ── */}
       <SkillsSection skills={skills} />
