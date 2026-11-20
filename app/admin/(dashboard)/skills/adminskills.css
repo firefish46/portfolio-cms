@@ -29,7 +29,7 @@
 }
 
 .skills-form-panel h2 {
-  color: var(--accent);
+  color: var(--foreground);
   margin-bottom: 1.5rem;
   font-family: var(--font-fredoka);
   font-size: clamp(1.1rem, 2.5vw, 1.5rem);
@@ -41,14 +41,14 @@
   flex-direction: column;
   align-items: center;
   padding: 2rem;
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--surface-2);
   border-radius: 16px;
   margin-bottom: 2rem;
   border: 1px solid var(--light-gray);
 }
 
 .skills-icon-preview i {
-  color: var(--accent);
+  color: var(--foreground);
   transition: all 0.3s ease;
 }
 
@@ -85,8 +85,8 @@
   width: 100%;
   padding: 0.75rem 1rem;
   border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border);
+  background: var(--surface-2);
   color: inherit;
   font-size: 0.95rem;
   outline: none;
@@ -94,8 +94,8 @@
 }
 
 .skills-input-group input:focus {
-  border-color: var(--accent, #7c6fff);
-  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--accent);
+  background: var(--surface-2);
 }
 
 /* ── Select Row ───────────────────────────────────────── */
@@ -114,8 +114,8 @@
   width: 100%;
   padding: 0.75rem 1rem;
   border-radius: 10px;
-  border: 1px solid rgba(102, 103, 104, 0.12);
-  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border);
+  background: var(--surface-2);
   color: inherit;
   font-size: 0.9rem;
   outline: none;
@@ -130,8 +130,8 @@
   padding: 0.85rem 1.5rem;
   border-radius: 10px;
   border: none;
-  background: var(--accent-light, #7c6fff);
-  color: white;
+  background: var(--accent);
+  color: var(--on-accent);
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
@@ -171,15 +171,15 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
   border-radius: 12px;
   gap: 1rem;
   transition: border-color 0.2s;
 }
 
 .skill-card:hover {
-  border-color: rgba(255, 255, 255, 0.1)!important;
+  border-color: var(--border)!important;
   box-shadow: none!important;
   background: var(--light-gray)!important;
 }
@@ -197,12 +197,12 @@
   flex-shrink: 0;
   display: grid;
   place-items: center;
-  background: rgba(var(--accent-rgb, 124, 111, 255), 0.1);
+  background: var(--surface-2);
   border-radius: 10px;
 }
 
 .skill-card-icon i {
-  color: var(--accent);
+  color: var(--foreground);
 }
 
 .skill-card-info {
@@ -230,8 +230,8 @@
 /* ── Delete Button ────────────────────────────────────── */
 .skill-delete-btn {
   flex-shrink: 0;
-  background: rgba(255, 77, 77, 0.1);
-  color: #6b6b6b;
+  background: color-mix(in srgb, var(--danger) 10%, transparent);
+  color: var(--muted);
   border: none;
   cursor: pointer;
   padding: 10px 12px;
@@ -243,8 +243,8 @@
 }
 
 .skill-delete-btn:hover {
-  background: #ff6565;
-  color: white;
+  background: var(--danger);
+  color: var(--on-accent);
   transform: scale(1.05);
 }
 
@@ -264,7 +264,7 @@
 .skills-modal-overlay {
   position: fixed;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.85);
+  background-color: rgba(10, 10, 10, 0.85);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   display: flex;
@@ -289,8 +289,8 @@
   text-align: center;
   max-width: 380px;
   width: 100%;
-  border: 1px solid rgba(255, 77, 77, 0.3);
-  box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+  border: 1px solid color-mix(in srgb, var(--danger) 30%, transparent);
+  box-shadow: 0 0 40px rgba(10, 10, 10, 0.5);
   border-radius: 16px;
   animation: skillsModalPop 0.25s ease;
 }
@@ -301,14 +301,14 @@
 }
 
 .skills-modal-icon {
-  color: #ff4d4d;
+  color: var(--danger);
   font-size: 3.5rem;
   margin-bottom: 1rem;
 }
 
 .skills-modal-card h3 {
   font-size: 1.5rem;
-  color: #fff;
+  color: var(--on-accent);
   margin: 0 0 0.5rem;
 }
 
@@ -333,18 +333,18 @@
   font-weight: 600;
   cursor: pointer;
   transition: opacity 0.2s, transform 0.15s;
-  color: white;
+  color: var(--on-accent);
 }
 
 .skills-modal-btn:hover { opacity: 0.85; transform: translateY(-1px); }
 
 .skills-modal-btn-cancel {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
 }
 
 .skills-modal-btn-delete {
-  background: #ff4d4d;
+  background: var(--danger);
 }
 
 /* ═══════════════════════════════════════════════════════

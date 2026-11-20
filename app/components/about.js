@@ -66,10 +66,6 @@ export default function AboutSection({ profile, aboutData }) {
       className={`ab-section ${isDark ? "ab-dark" : "ab-light"} ${inView ? "ab-visible" : ""}`}
       suppressHydrationWarning
     >
-      {/* Background accents */}
-      <div className="ab-blob ab-blob-1" />
-      <div className="ab-blob ab-blob-2" />
-
       <div className="ab-container">
         
         {/* ── LEFT: CONTENT ── */}

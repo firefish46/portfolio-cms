@@ -13,11 +13,11 @@ function getPasswordStrength(pw) {
   if (/[0-9]/.test(pw))         score++;
   if (/[^A-Za-z0-9]/.test(pw))  score++;
 
-  if (score <= 1) return { label: 'Very Weak',  color: '#ff4d4d', width: '20%' };
-  if (score === 2) return { label: 'Weak',       color: '#ff944d', width: '40%' };
-  if (score === 3) return { label: 'Fair',       color: '#ffd84d', width: '60%' };
-  if (score === 4) return { label: 'Strong',     color: '#7cdd6f', width: '80%' };
-  return              { label: 'Very Strong', color: '#4dffb4', width: '100%' };
+  if (score <= 1) return { label: 'Very Weak',  color: 'var(--danger)', width: '20%' };
+  if (score === 2) return { label: 'Weak',       color: 'var(--muted)', width: '40%' };
+  if (score === 3) return { label: 'Fair',       color: 'var(--muted)', width: '60%' };
+  if (score === 4) return { label: 'Strong',     color: 'var(--accent)', width: '80%' };
+  return              { label: 'Very Strong', color: 'var(--accent)', width: '100%' };
 }
 
 // ─── Step banner shown inside the security section ─────
@@ -25,11 +25,11 @@ function PasswordBanner({ state }) {
   if (!state) return null;
 
   const map = {
-    idle:    { bg: 'rgba(255,255,255,0.05)', border: 'rgba(255,255,255,0.1)',  icon: '🔒', color: 'inherit'       },
-    loading: { bg: 'rgba(124,111,255,0.12)', border: 'var(--accent,#7c6fff)', icon: '⏳', color: 'var(--accent)'  },
-    success: { bg: 'rgba(77,255,180,0.1)',   border: '#4dffb4',               icon: '✅', color: '#4dffb4'        },
-    error:   { bg: 'rgba(255,77,77,0.1)',    border: '#ff4d4d',               icon: '❌', color: '#ff4d4d'        },
-    warning: { bg: 'rgba(255,212,77,0.1)',   border: '#ffd44d',               icon: '⚠️', color: '#ffd44d'        },
+    idle:    { bg: 'var(--surface-2)', border: 'var(--border)',  icon: '🔒', color: 'inherit'       },
+    loading: { bg: 'color-mix(in srgb, var(--accent) 12%, transparent)', border: 'var(--accent)', icon: '⏳', color: 'var(--accent)'  },
+    success: { bg: 'color-mix(in srgb, var(--accent) 10%, transparent)',   border: 'var(--accent)',               icon: '✅', color: 'var(--accent)'        },
+    error:   { bg: 'color-mix(in srgb, var(--danger) 10%, transparent)',    border: 'var(--danger)',               icon: '❌', color: 'var(--danger)'        },
+    warning: { bg: 'var(--surface-2)',   border: 'var(--muted)',               icon: '⚠️', color: 'var(--muted)'        },
   };
 
   const s = map[state.type] || map.idle;
@@ -266,7 +266,7 @@ if (isLoading) {
       </section>
 
       {/* Security Section Skeleton */}
-      <section className='responsive-card' style={{ padding: '2rem', borderTop: '4px solid #333' }}>
+      <section className='responsive-card' style={{ padding: '2rem', borderTop: '4px solid var(--border-strong)' }}>
         <div className="skeleton" style={{ height: '24px', width: '180px', marginBottom: '1rem' }} />
         <div className="skeleton" style={{ height: '12px', width: '100%', marginBottom: '0.5rem' }} />
         <div className="skeleton" style={{ height: '12px', width: '80%', marginBottom: '2rem' }} />
@@ -293,7 +293,7 @@ if (isLoading) {
         )}
       {/* Profile save status */}
       {profileStatus && (
-        <div className='responsive-card' style={{ padding: '1rem', background: 'rgba(var(--accent-rgb),0.1)', borderLeft: '4px solid var(--accent)', fontWeight: 'bold' }}>
+        <div className='responsive-card' style={{ padding: '1rem', background: 'var(--accent-soft)', borderLeft: '4px solid var(--accent)', fontWeight: 'bold' }}>
           {profileStatus}
         </div>
       )}
@@ -304,7 +304,7 @@ if (isLoading) {
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2rem', marginBottom: '2rem' }}>
             {/* Avatar */}
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
-              <div style={{ width: '120px', height: '120px', borderRadius: '50%', overflow: 'hidden', background: '#222', border: '2px solid var(--accent)' }}>
+              <div style={{ width: '120px', height: '120px', borderRadius: '50%', overflow: 'hidden', background: 'var(--surface-2)', border: '2px solid var(--accent)' }}>
                 {user.avatar
                   ? <Image src={user.avatar} alt="Profile" width={500} height={500} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                   : <div style={{ display: 'grid', placeItems: 'center', height: '100%', opacity: 0.5 }}>No Image</div>
@@ -342,7 +342,7 @@ if (isLoading) {
             <textarea
               disabled={!isEditing} rows="4" value={user.bio}
               onChange={(e) => setUser({ ...user, bio: e.target.value })}
-              style={{ background: 'rgba(255,255,255,0.05)', width: '100%', padding: '1rem', borderRadius: '8px', border: '1px solid var(--glass-border)' }}
+              style={{ background: 'var(--surface-2)', width: '100%', padding: '1rem', borderRadius: '8px', border: '1px solid var(--glass-border)' }}
             />
           </div>
 
@@ -367,14 +367,14 @@ if (isLoading) {
           {isEditing && (
             <div style={{ display: 'flex', gap: '1rem' }}>
               <button type="submit" className="modern-btn">Save Changes</button>
-              <button type="button" onClick={() => setIsEditing(false)} className="modern-btn secondary" style={{ background: '#44444469' }}>Cancel</button>
+              <button type="button" onClick={() => setIsEditing(false)} className="modern-btn secondary" style={{ background: 'var(--surface-2)' }}>Cancel</button>
             </div>
           )}
         </form>
       </section>
 
       {/* ── SECTION: SECURITY ── */}
-      <section  className='responsive-card' style={{ padding: '2rem', borderTop: '4px solid #ff4444' }}>
+      <section  className='responsive-card' style={{ padding: '2rem', borderTop: '4px solid var(--danger)' }}>
         <h2 style={{ marginBottom: '0.4rem' }}>Security & Password</h2>
         <p style={{ opacity: 0.45, fontSize: '0.82rem', marginBottom: '1.75rem', lineHeight: 1.5 }}>
           Use a strong, unique password — at least 8 characters with a mix of uppercase letters, numbers, and symbols.
@@ -416,7 +416,7 @@ if (isLoading) {
                 autoComplete="new-password"
                 style={{
                   width: '100%', paddingRight: '2.5rem',
-                  borderColor: newTooShort ? '#ff4d4d' : sameAsCurrent ? '#ffd44d' : undefined
+                  borderColor: newTooShort ? 'var(--danger)' : sameAsCurrent ? 'var(--muted)' : undefined
                 }}
                 onChange={(e) => { setPasswords({ ...passwords, new: e.target.value }); setPwStatus(null); }}
               />
@@ -426,7 +426,7 @@ if (isLoading) {
             {/* Strength bar — only visible when typing */}
             {passwords.new && strength && (
               <div style={{ marginTop: '8px' }}>
-                <div style={{ height: '4px', borderRadius: '99px', background: 'rgba(255,255,255,0.08)', overflow: 'hidden' }}>
+                <div style={{ height: '4px', borderRadius: '99px', background: 'var(--surface-2)', overflow: 'hidden' }}>
                   <div style={{
                     height: '100%', borderRadius: '99px',
                     width: strength.width, background: strength.color,
@@ -437,8 +437,8 @@ if (isLoading) {
                   <span style={{ fontSize: '0.72rem', color: strength.color, fontWeight: 600 }}>
                     {strength.label}
                   </span>
-                  {newTooShort   && <span style={{ fontSize: '0.72rem', color: '#ff4d4d' }}>Min. 8 characters required</span>}
-                  {sameAsCurrent && <span style={{ fontSize: '0.72rem', color: '#ffd44d' }}>Must differ from current password</span>}
+                  {newTooShort   && <span style={{ fontSize: '0.72rem', color: 'var(--danger)' }}>Min. 8 characters required</span>}
+                  {sameAsCurrent && <span style={{ fontSize: '0.72rem', color: 'var(--muted)' }}>Must differ from current password</span>}
                 </div>
               </div>
             )}
@@ -457,14 +457,14 @@ if (isLoading) {
                 autoComplete="new-password"
                 style={{
                   width: '100%', paddingRight: '2.5rem',
-                  borderColor: newMismatch ? '#ff4d4d' : newMatch ? '#4dffb4' : undefined
+                  borderColor: newMismatch ? 'var(--danger)' : newMatch ? 'var(--accent)' : undefined
                 }}
                 onChange={(e) => { setPasswords({ ...passwords, confirm: e.target.value }); setPwStatus(null); }}
               />
               <EyeBtn field="confirm" />
             </div>
-            {newMismatch && <p style={{ margin: '5px 0 0', fontSize: '0.72rem', color: '#ff4d4d' }}>✗ Passwords do not match</p>}
-            {newMatch    && <p style={{ margin: '5px 0 0', fontSize: '0.72rem', color: '#4dffb4' }}>✓ Passwords match</p>}
+            {newMismatch && <p style={{ margin: '5px 0 0', fontSize: '0.72rem', color: 'var(--danger)' }}>✗ Passwords do not match</p>}
+            {newMatch    && <p style={{ margin: '5px 0 0', fontSize: '0.72rem', color: 'var(--accent)' }}>✓ Passwords match</p>}
           </div>
 
           {/* Submit */}

@@ -1,8 +1,4 @@
-/* Skills Section Styles */
-:root{
-  --accent: #3b82f6;
-  --text:grey
-}
+/* Skills Section Styles — neutral tiles, no accent (60/30/10) */
 #skills{
   z-index: 100;
 }
@@ -19,34 +15,17 @@
   opacity: 1;
   transform: translateY(30px) rotateY(40deg);
   position: relative;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
 }
 
 #skills .skill-card:hover {
-  box-shadow: 0 20px 60px rgba(var(--accent-rgb), 0.3);
-  border-color: rgba(var(--accent-rgb), 0.5);
-}
-
-#skills .skill-card:hover .skill-glow {
-  opacity: 1;
-}
-
-#skills .skill-card:hover .skill-icon {
-  transform: rotate(360deg);
+  border-color: var(--border-strong);
 }
 
 #skills .skill-glow {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: radial-gradient(circle at center, rgba(var(--accent-rgb), 0.15) 0%, transparent 70%);
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  border-radius: 20px;
-  pointer-events: none;
+  display: none;
 }
 
 #skills .skill-icon {
@@ -55,28 +34,20 @@
   display: grid;
   place-items: center;
   font-size: 2.5rem;
-  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.2) 0%, rgba(var(--accent-rgb), 0.05) 100%);
+  background: var(--surface-2);
   border-radius: 16px;
   position: relative;
-  transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  animation: iconFloat 3s ease-in-out infinite;
+  transition: transform 0.3s ease;
 }
 
 #skills .icon-pulse {
-  position: absolute;
-  inset: -4px;
-  background: linear-gradient(135deg, var(--accent), transparent);
-  border-radius: 16px;
-  opacity: 0.3;
-  animation: pulse 2s ease-in-out infinite;
-  z-index: 0;
+  display: none;
 }
 
-/* FIXED: Icon styling - removed gradient effect that was hiding icons */
 #skills .skill-icon i {
   position: relative;
   z-index: 1;
-  color: var(--accent);
+  color: var(--foreground);
 }
 
 #skills .skill-name {
@@ -99,8 +70,7 @@
   width: 10px;
   height: 1px;
   border-radius: 10%;
-  background: var(--accent);
-  opacity: 0.3;
+  background: var(--border-strong);
   animation: dotPulse 1.5s ease-in-out infinite;
 }
 

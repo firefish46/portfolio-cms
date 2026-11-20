@@ -174,7 +174,7 @@ if (isLoading) {
         {/* Repeating Tech Rows (3 items) */}
         {[1, 2, 3].map((i) => (
           <div key={i} className='responsive-card' style={{ 
-            display: 'flex', alignItems: 'center', padding: '1rem', marginBottom: '1rem', gap: '1rem', border: '1px solid #eee' 
+            display: 'flex', alignItems: 'center', padding: '1rem', marginBottom: '1rem', gap: '1rem', border: '1px solid var(--border)' 
           }}>
             <div className="skeleton" style={{ height: '20px', width: '10px' }} /> {/* Drag handle */}
             <div className="skeleton" style={{ height: '35px', width: '35px', borderRadius: '4px' }} /> {/* Logo */}

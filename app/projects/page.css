@@ -34,9 +34,9 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.5rem 1.25rem;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--surface);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border);
   border-radius: 50px;
   font-size: 0.875rem;
   font-weight: 400;
@@ -68,7 +68,7 @@
 }
 
 .highlight {
-  color: var(--accent, #6366f1);
+  color: var(--foreground);
   position: relative;
   display: inline-block;
 }
@@ -80,7 +80,7 @@
   left: 0;
   width: 100%;
   height: 0.15em;
-  background: var(--accent, #6366f1);
+  background: var(--foreground);
   opacity: 0.3;
   border-radius: 2px;
   animation: underlineExpand 0.6s ease-out 0.8s both;
@@ -127,7 +127,7 @@
 .floating-circle {
   position: absolute;
   border-radius: 50%;
-  background: radial-gradient(circle, var(--accent, #6366f1), transparent);
+  background: radial-gradient(circle, var(--border-strong), transparent);
   opacity: 0.1;
   animation: float 20s infinite ease-in-out;
 }
@@ -184,14 +184,14 @@
 }
 
 .btn-primary {
-  background: var(--accent, #6366f1);
-  color: white;
-  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.3);
+  background: var(--accent);
+  color: var(--on-accent);
+  box-shadow: var(--shadow);
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(99, 102, 241, 0.4);
+  box-shadow: var(--shadow);
 }
 
 .btn-primary:active {
@@ -199,15 +199,15 @@
 }
 
 .btn-secondary {
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--surface-2);
   backdrop-filter: blur(10px);
-  border: 2px solid rgba(255, 255, 255, 0.1);
+  border: 2px solid var(--border);
   color: inherit;
 }
 
 .btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.2);
+  background: var(--surface-2);
+  border-color: var(--border-strong);
   transform: translateY(-2px);
 }
 
@@ -230,8 +230,8 @@
 .section-label {
   display: inline-block;
   padding: 0.5rem 1rem;
-  background: rgba(99, 102, 241, 0.1);
-  color: var(--accent, #6366f1);
+  background: var(--surface-2);
+  color: var(--foreground);
   border-radius: 50px;
   font-size: 0.875rem;
   font-weight: 400;
@@ -268,9 +268,9 @@
 }
 
 .skill-card {
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--surface);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border);
   padding: 1.5rem;
   border-radius: 16px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -280,9 +280,9 @@
 
 .skill-card:hover {
   transform: translateY(-4px);
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(99, 102, 241, 0.3);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+  background: var(--surface);
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow);
 }
 
 .skill-name {
@@ -295,14 +295,14 @@
 .skill-level {
   width: 100%;
   height: 4px;
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--surface-2);
   border-radius: 2px;
   overflow: hidden;
 }
 
 .skill-level-bar {
   height: 100%;
-  background: linear-gradient(90deg, var(--accent, #6366f1), #8b5cf6);
+  background: var(--accent);
   border-radius: 2px;
   transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -325,7 +325,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  color: var(--accent, #6366f1);
+  color: var(--foreground);
   font-weight: 400;
   text-decoration: none;
   transition: gap 0.3s ease;
@@ -342,9 +342,9 @@
 }
 
 .project-card {
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--surface);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border);
   border-radius: 20px;
   overflow: hidden;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -356,14 +356,14 @@
 
 .project-card:hover {
   transform: translateY(-8px);
-  border-color: rgba(99, 102, 241, 0.3);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow);
 }
 
 .project-image {
   position: relative;
   height: 240px;
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+  background: var(--surface-2);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -371,7 +371,7 @@
 }
 
 .project-image-placeholder {
-  color: var(--accent, #6366f1);
+  color: var(--foreground);
   opacity: 0.4;
   transition: all 0.3s ease;
 }
@@ -386,9 +386,9 @@
   top: 1rem;
   right: 1rem;
   padding: 0.5rem 1rem;
-  background: rgba(99, 102, 241, 0.9);
+  background: var(--foreground);
   backdrop-filter: blur(10px);
-  color: white;
+  color: var(--background);
   border-radius: 50px;
   font-size: 0.75rem;
   font-weight: 400;
@@ -427,8 +427,8 @@
 
 .project-tag {
   padding: 0.4rem 0.875rem;
-  background: rgba(99, 102, 241, 0.1);
-  color: var(--accent, #6366f1);
+  background: var(--surface-2);
+  color: var(--foreground);
   border-radius: 50px;
   font-size: 0.8125rem;
   font-weight: 400;
@@ -436,7 +436,7 @@
 
 .project-tag-more {
   padding: 0.4rem 0.875rem;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--surface-2);
   border-radius: 50px;
   font-size: 0.8125rem;
   font-weight: 400;
@@ -448,14 +448,14 @@
   gap: 1rem;
   margin-top: 1rem;
   padding-top: 1rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid var(--border);
 }
 
 .project-link {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  color: var(--accent, #6366f1);
+  color: var(--foreground);
   text-decoration: none;
   font-weight: 400;
   font-size: 0.9375rem;
@@ -478,9 +478,9 @@
 }
 
 .cta-content {
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+  background: var(--surface-2);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border);
   border-radius: 24px;
   padding: 4rem 2rem;
   text-align: center;
@@ -616,12 +616,12 @@
 @media (prefers-color-scheme: dark) {
   .skill-card,
   .project-card {
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--shadow);
   }
 
   .skill-card:hover,
   .project-card:hover {
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    box-shadow: var(--shadow);
   }
 }
 
@@ -644,6 +644,6 @@
 .btn-secondary:focus-visible,
 .project-link:focus-visible,
 .view-all-link:focus-visible {
-  outline: 2px solid var(--accent, #6366f1);
+  outline: 2px solid var(--accent);
   outline-offset: 4px;
 }

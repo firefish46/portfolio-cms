@@ -54,9 +54,7 @@ if (loading) {
         <h1 style={{ 
           fontSize: '2.5rem', 
           fontWeight: '800', 
-          background: 'linear-gradient(to right, var(--foreground), var(--accent))',
-          WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent',
+          color: 'var(--foreground)',
           marginBottom: '0.5rem',
           fontFamily: 'var(--font-fredoka)'
         }}>
@@ -111,17 +109,17 @@ if (loading) {
           display: 'flex', 
           flexDirection: 'column', 
           justifyContent: 'space-between',
-          borderTop: '4px solid var(--accent)'
+          borderTop: '4px solid var(--border-strong)'
           ,background: 'var(--light-gray)',
           borderRadius: '8px'
         }}>
-          <div style={{ flexWrap: 'wrap', border: '1px solid rgba(var(--accent-rgb), 0.2) ', borderRadius: '8px', marginBottom: '1.5rem' }}>
+          <div style={{ flexWrap: 'wrap', border: '1px solid var(--border)', borderRadius: '8px', marginBottom: '1.5rem' }}>
             <span style={{ fontSize: '2.5rem' }}><i className="fa-solid fa-brush"></i></span>
             <h2 style={{ fontSize: '1.5rem', margin: '1rem 0 0.5rem' }}>Theme Engine</h2>
             <p style={{ fontSize: '0.9rem', opacity: 0.7,  }}>
               Global Accent: <code style={{
 
-                background: 'rgba(var(--accent-rgb), 0.1)', 
+                background: 'var(--accent-soft)', 
                 color: 'var(--accent)', 
                 padding: '2px 6px', 
                 borderRadius: '4px'
@@ -139,8 +137,8 @@ if (loading) {
         display: 'flex', 
         alignItems: 'center', 
         gap: '1.5rem',
-        border: '1px solid rgba(var(--accent-rgb), 0.2)',
-        background: 'linear-gradient(135deg, var(--glass-bg), rgba(var(--accent-rgb), 0.05))'
+        border: '1px solid var(--border)',
+        background: 'var(--surface)'
       }}>
         <div style={{ fontSize: '2rem' }}>💡</div>
         <div>
@@ -159,10 +157,10 @@ function StatCard({ icon, title, count, desc, link, btnText, highlight }) {
     <div className="glass" style={{ 
       padding: '2rem', 
       transition: 'transform 0.3s ease',
-      border: highlight ? '1px solid var(--accent)' : '1px solid transparent'
+      border: highlight ? '1px solid var(--border-strong)' : '1px solid var(--border)'
     }}>
       <div className='techspans' style={{ fontSize: '2.5rem' }}>
-      <span style={{ fontSize: '2.5rem', color: 'var(--accent)' }}>{icon}</span>
+      <span style={{ fontSize: '2.5rem', color: 'var(--foreground)' }}>{icon}</span>
       <h3 style={{ opacity: 0.7, fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '1px', marginTop: '1rem' }}>{title}</h3>
      </div>
      <div className='techspans'>

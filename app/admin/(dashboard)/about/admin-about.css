@@ -1,30 +1,18 @@
 /* 1. Theme Variables */
 :root {
-  --bg-primary: #f8f9fa;
-  --bg-secondary: #ffffff;
-  --bg-input: #f1f3f5;
-  --text-main: #212529;
-  --text-muted: #6c757d;
-  --border-color: #dee2e6;
-  --card-bg: #ffffff;
-  --accent-save: #4285f4;
-  --accent-add: #10a37f;
-  --accent-del: #ff4444;
-  --semi-transparent: #d6d6d6;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg-primary: #0a0a0a;
-    --bg-secondary: #111111;
-    --bg-input: #000000;
-    --text-main: #ffffff;
-    --text-muted: #888888;
-    --border-color: #222222;
-    --card-bg: #111111;
-    --card-inner: #1a1a1a;
-    --semi-transparent: #1a1a1a;
-  }
+  /* Mapped onto the global neutral system (globals.css) */
+  --bg-primary: var(--background);
+  --bg-secondary: var(--surface);
+  --bg-input: var(--surface-2);
+  --text-main: var(--foreground);
+  --text-muted: var(--muted);
+  --border-color: var(--border);
+  --card-bg: var(--surface);
+  --card-inner: var(--surface-2);
+  --accent-save: var(--accent);
+  --accent-add: var(--foreground);
+  --accent-del: var(--danger);
+  --semi-transparent: var(--surface-2);
 }
 
 /* 2. Global Styles */
@@ -187,7 +175,7 @@ body {
 }
 .del-btn:hover {
   background: var(--accent-del);
-  color: #fff;
+  color: var(--on-accent);
   border: 1px solid transparent;
 }
 
@@ -200,13 +188,13 @@ body {
 }
 
 .status-msg.success {
-  background: rgba(16, 163, 127, 0.1);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
   color: var(--accent-add);
   border: 1px solid var(--accent-add);
 }
 
 .status-msg.error {
-  background: rgba(255, 68, 68, 0.1);
+  background: color-mix(in srgb, var(--danger) 10%, transparent);
   color: var(--accent-del);
   border: 1px solid var(--accent-del);
 }
@@ -226,7 +214,7 @@ body {
   width: 32px;
   height: 32px;
   object-fit: contain;
-  background: #ffffff5b;
+  background: var(--surface-2);
   padding: 4px;
   border-radius: 4px;
   border: 1px solid var(--border-color);
@@ -292,7 +280,7 @@ body {
   object-fit: contain;
   border-radius: 4px;
   border: 2px solid transparent;
-  background: #ffffff38;
+  background: var(--surface-2);
   padding: 2px;
 }
 
@@ -338,25 +326,25 @@ body {
 }
 
 .edit-mini-btn {
-  background: #333;
-  color: white;
+  background: var(--border-strong);
+  color: var(--on-accent);
 }
 .edit-mini-btn:hover {
   background: var(--accent-save);
 }
 
 .del-mini-btn {
-  background: rgba(255, 68, 68, 0.1);
-  color: #ff4444;
+  background: color-mix(in srgb, var(--danger) 10%, transparent);
+  color: var(--danger);
 }
 .del-mini-btn:hover {
   background: var(--accent-del);
-  color: white;
+  color: var(--on-accent);
 }
 
 .close-edit-btn {
   background: var(--accent-add);
-  color: white;
+  color: var(--on-accent);
 }
 .close-edit-btn:hover {
   opacity: .9;

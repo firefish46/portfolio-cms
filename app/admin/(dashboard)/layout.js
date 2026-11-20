@@ -32,13 +32,13 @@ export default function AdminLayout({ children }) {
         height: 'calc(100vh - 2rem)',
         position: 'sticky',
         top: '1rem',
-        border: '1px solid rgba(255, 255, 255, 0.05)',
+        border: '1px solid var(--border)',
         borderRadius: '16px',
-        background: 'rgba(255, 255, 255, 0.05)',
+        background: 'var(--surface-2)',
 
       }}>
         <h2 style={{ 
-          color: 'var(--accent)', 
+          color: 'var(--foreground)', 
           fontSize: '1.8rem', 
           marginBottom: '2rem',
           fontFamily: 'var(--font-fredoka)'
@@ -50,6 +50,7 @@ export default function AdminLayout({ children }) {
           <Link href="/admin/dashboard" className="nav-link">📊 Dashboard</Link>
           <Link href="/admin/projects" className="nav-link">📂 Projects</Link>
           <Link href="/admin/skills" className="nav-link">🛠️ Skills</Link>
+          <Link href="/admin/experience" className="nav-link">💼 Experience</Link>
           <Link href="/admin/profile" className="nav-link">👤 Profile</Link>
             <Link href="/admin/about" className="nav-link">📝 about</Link>
           
@@ -64,8 +65,8 @@ export default function AdminLayout({ children }) {
               id='logout'
               style={{ 
                 width: '100%',
-                borderColor: 'rgba(255, 77, 77, 0.4)', 
-                color: '#ff4d4d' 
+                borderColor: 'color-mix(in srgb, var(--danger) 40%, transparent)', 
+                color: 'var(--danger)' 
               }}
               onClick={handleLogout}
             >
