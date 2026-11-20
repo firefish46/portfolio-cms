@@ -59,7 +59,9 @@
 .ab-blob {
   position: absolute;
   border-radius: 50%;
-  filter: blur(90px);
+  /* Soft edge from the gradient itself; filter: blur on large animated layers was very expensive */
+  -webkit-mask-image: radial-gradient(circle, #000 0%, transparent 70%);
+  mask-image: radial-gradient(circle, #000 0%, transparent 70%);
   pointer-events: none;
   animation: abBlobDrift 14s ease-in-out infinite alternate;
 }
@@ -370,7 +372,6 @@
   inset: 0;
   z-index: 1;
   opacity: 0.4;
-  filter: blur(40px);
   background-image: 
     radial-gradient(at 80% 10%, rgb(255, 0, 0) 0px,transparent 50%), 
     radial-gradient(at 0% 0%, rgb(0, 15, 231) 0px, transparent 50%), 
@@ -510,7 +511,7 @@
 @media (max-width: 480px) {
   .ab-tech-orbit { height: 350px; }
   .tech-float-card { scale: 0.85;
-  backdrop-filter: hide; /* Mobile GPUs hate backdrop-filter */
+  backdrop-filter: none; /* Mobile GPUs hate backdrop-filter */
    background: var(--ab-float-bg);
     box-shadow: none; /* Shadows are heavy on mobile */
   }

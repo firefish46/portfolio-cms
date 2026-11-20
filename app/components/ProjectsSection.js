@@ -44,32 +44,41 @@ export default function ProjectsSection({ projects }) {
   const cardRefs = useRef([]);
 
   useEffect(() => {
-    const cards = cardRefs.current;
+    const cards = cardRefs.current.filter(Boolean);
+    let frame = 0;
 
     const update = () => {
-      const viewportCenter = window.innerHeight / 2;
-      cards.forEach((card) => {
-        if (!card) return;
-        const rect = card.getBoundingClientRect();
+      frame = 0;
+      const viewportHeight = window.innerHeight;
+      const viewportCenter = viewportHeight / 2;
+      const maxDistance = viewportHeight * 0.75;
+
+      // Read all layout first, then write, so the browser lays out once per frame
+      const rects = cards.map((card) => card.getBoundingClientRect());
+      rects.forEach((rect, i) => {
         const cardCenter = rect.top + rect.height / 2;
         const distance = Math.abs(cardCenter - viewportCenter);
-        const maxDistance = window.innerHeight * 0.75;
         const proximity = Math.max(0, 1 - distance / maxDistance);
         const scale = 0.82 + proximity * 0.18;
         const opacity = 0.45 + proximity * 0.55;
-        card.style.transform = `scale(${scale.toFixed(3)})`;
-        card.style.opacity = opacity.toFixed(3);
-        card.style.transition = 'transform 0.15s ease-out, opacity 0.15s ease-out';
+        cards[i].style.transform = `scale(${scale.toFixed(3)})`;
+        cards[i].style.opacity = opacity.toFixed(3);
       });
     };
 
-    window.addEventListener('scroll', update, { passive: true });
-    window.addEventListener('resize', update, { passive: true });
-    requestAnimationFrame(update);
+    // At most one update per animation frame, however many scroll events fire
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule, { passive: true });
+    schedule();
 
     return () => {
-      window.removeEventListener('scroll', update);
-      window.removeEventListener('resize', update);
+      window.removeEventListener('scroll', schedule);
+      window.removeEventListener('resize', schedule);
+      if (frame) cancelAnimationFrame(frame);
     };
   }, [projects]);
 

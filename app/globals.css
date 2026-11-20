@@ -1,10 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cal+Sans&family=Fredoka:wght@300..700&family=GFS+Neohellenic:ital,wght@0,400;0,700;1,400;1,700&family=Hubot+Sans:ital,wght@0,200..900;1,200..900&family=Metamorphous&display=swap');
 
-.gfs-neohellenic-regular {
-  font-family: "GFS Neohellenic";
-  font-weight: 400;
-  font-style: normal;
-}
 
 
 a {
@@ -12,7 +6,7 @@ a {
 }
 
 .fredoka-regular {
-  font-family: "Fredoka", sans-serif;
+  font-family: var(--font-fredoka), sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
@@ -26,7 +20,7 @@ a {
   /* Next.js Defaults */
   --background: #ffffff;
   --foreground: #0f172a;
-  --font-family: 'Cal Sans' ,'fredoka', sans-serif;
+  --font-family: var(--font-cal-sans), var(--font-fredoka), sans-serif;
   --red-accent: #f43f5e;
   --accent-blue: #0ea5e9;
   /* Phase 5 Theme Engine Variables */
@@ -611,4 +605,16 @@ p.name{
      margin-bottom: 0px!important;    
   }  
 
+}
+
+/* Respect users who ask for less motion: stop decorative looping animations */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

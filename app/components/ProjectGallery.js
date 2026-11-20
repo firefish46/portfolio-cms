@@ -103,7 +103,6 @@ const overlay = selectedImg && createPortal(
               height={500}
               sizes="(max-width: 768px) 100vw, 800px"
               className="gallery-image"
-              priority={index === 0}
             />
           </div>
         ))}
