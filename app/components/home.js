@@ -4,30 +4,6 @@ import Image from "next/image";
 import { useEffect, useState, useCallback, useSyncExternalStore } from "react";
 import "./home.css";
 
-// ─── Typewriter hook ──────────────────────────────────────────────────────────
-function useTypewriter(text = "", speed = 65, delay = 800) {
-  const [displayed, setDisplayed] = useState(text);
-
-  useEffect(() => {
-    setDisplayed("");
-    let i = 0;
-    let interval;
-    const timeout = setTimeout(() => {
-      interval = setInterval(() => {
-        setDisplayed(text.slice(0, i + 1));
-        i++;
-        if (i >= text.length) clearInterval(interval);
-      }, speed);
-    }, delay);
-    return () => {
-      clearTimeout(timeout);
-      clearInterval(interval);
-    };
-  }, [text, speed, delay]);
-
-  return displayed;
-}
-
 // ─── System theme hook ────────────────────────────────────────────────────────
 function useSystemTheme() {
   return useSyncExternalStore(
@@ -43,7 +19,7 @@ function useSystemTheme() {
 
 // ─── HomeSection ─────────────────────────────────────────────────────────────
 export default function HomeSection({ profile }) {
-  const typedTitle = useTypewriter(profile?.title || "Full Stack Developer", 65, 1200);
+  const title = profile?.title || "Full Stack Developer";
   const isDark = useSystemTheme();
   const [waving, setWaving] = useState(false);
   const [hasWaved, setHasWaved] = useState(false);
@@ -110,13 +86,10 @@ export default function HomeSection({ profile }) {
         {/* Divider */}
         <div className="hs-divider" />
 
-        {/* Title with typewriter */}
-        <div className="hs-title-row" suppressHydrationWarning>
+        {/* Title */}
+        <div className="hs-title-row">
           <i className="fa-solid fa-layer-group hs-title-icon" />
-          <span className="hs-title-text" suppressHydrationWarning>
-            {typedTitle}
-            <span className="hs-cursor" />
-          </span>
+          <span className="hs-title-text">{title}</span>
         </div>
 {/* Social links */}
         <div className="hs-socials">

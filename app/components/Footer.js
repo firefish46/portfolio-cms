@@ -34,7 +34,7 @@ export default function Footer() {
           <h3>Navigation</h3>
           <ul>
             <li><Link href="#home">Home</Link></li>
-            <li><Link href="#work">Projects</Link></li>
+            <li><Link href="/works">Work</Link></li>
             <li><Link href="#about">About</Link></li>
             <li><Link href="#experience">Experience</Link></li>
             <li><Link href="#message">Contact</Link></li>

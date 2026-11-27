@@ -1,4 +1,4 @@
-import { Cal_Sans, Fredoka } from "next/font/google";
+import { Cal_Sans, Fredoka, Inter } from "next/font/google";
 import { unstable_cache } from "next/cache";
 import "./globals.css";
 import Navbar from "./components/Navbar";
@@ -14,6 +14,13 @@ const calSans = Cal_Sans({
   variable: "--font-cal-sans",
   preload: true,
   adjustFontFallback: false,
+});
+
+// Body text: a true regular-weight text face. Cal Sans is display-only.
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
 });
 
 const fredoka = Fredoka({
@@ -47,7 +54,7 @@ export default async function RootLayout({ children }) {
   const accentColor = await getAccentColor();
 
   return (
-    <html lang="en" className={`${calSans.variable} ${fredoka.variable}`}>
+    <html lang="en" className={`${calSans.variable} ${fredoka.variable} ${inter.variable}`}>
       <head>
         <style>{`:root { --accent: ${accentColor}; }`}</style>
       </head>

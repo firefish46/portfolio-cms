@@ -34,7 +34,9 @@ a {
   --accent-soft:   color-mix(in srgb, var(--accent) 12%, transparent);
   --danger:        rgb(220, 38, 38);
 
-  --font-family: var(--font-cal-sans), var(--font-fredoka), sans-serif;
+  /* Body copy is regular Inter; Cal Sans is reserved for display titles */
+  --font-family: var(--font-inter), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-heading: var(--font-cal-sans), var(--font-inter), sans-serif;
 
   /* Legacy names used across components — mapped onto the neutral system */
   --light-gray:   var(--surface-2);
@@ -66,8 +68,23 @@ a {
   }
 }
 h1.name {
-  font-family: var(--font-family);
+  font-family: var(--font-heading);
   color: var(--foreground);
+}
+
+/* ── Type weights ─────────────────────────────────────────────
+   Regular by default; medium for small titles; display titles use
+   Cal Sans at its single natural weight (never faux-bolded). */
+body { font-weight: 400; }
+h1, h2, h3, h4, h5, h6 { font-weight: 500; }
+b, strong { font-weight: 600; }
+.display-title,
+.hs-name, .ab-heading, .xp-heading, .projects-title, #skills h2,
+.contact-title, .footer-logo, .navlink-container {
+  font-family: var(--font-heading) !important;
+  font-weight: 400 !important;
+  font-synthesis: none;
+  letter-spacing: -0.01em;
 }
 .responsive-card{
   display: flex;

@@ -21,7 +21,7 @@ export default function Navbar() {
       <div className='navlink-container' style={{ 
         fontFamily: 'var(--font-family)', 
         fontSize: '1.4rem', 
-        fontWeight: '700',
+        fontWeight: '400',
         letterSpacing: '-0.5px'
       }}>
         Mehedi<span style={{ color: 'var(--muted)' }}>.</span>
@@ -29,7 +29,7 @@ export default function Navbar() {
 
       <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
         <NavLink className="nav-link" href="/" active={pathname === '/'}>Home</NavLink>
-        <NavLink className="nav-link" href="#work" active={pathname === '/work'}>Work</NavLink>
+        <NavLink className="nav-link" href="/works" active={pathname.startsWith('/works')}>Work</NavLink>
         
         {/* Call to Action Button */}
         <Link href="/contact">

@@ -318,7 +318,7 @@ transform: scale(.96);
 
 .notification-header h3 {
   font-size: 1.1rem;
-  font-weight: 700;
+  font-weight: 500;
   color: var(--foreground);
   margin: 0 0 0.25rem 0;
 }
