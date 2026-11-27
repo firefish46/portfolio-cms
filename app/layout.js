@@ -1,5 +1,6 @@
 import { Cal_Sans, Elms_Sans } from "next/font/google";
 import { unstable_cache } from "next/cache";
+import { TAGS } from "@/lib/cache";
 import "./globals.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -30,7 +31,7 @@ const getAccentColor = unstable_cache(
     return settings?.accentColor ?? "#3b82f6";
   },
   ["site-settings"],
-  { revalidate: 900 }
+  { revalidate: 86400, tags: [TAGS.settings] }
 );
 
 export const metadata = {
@@ -41,7 +42,19 @@ export const metadata = {
 export const viewport = {
   width: "device-width",
   initialScale: 1,
+  colorScheme: "light dark",
+  // Browser chrome (mobile address bar) matches the page background
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "rgb(246, 246, 246)" },
+    { media: "(prefers-color-scheme: dark)", color: "rgb(14, 14, 14)" },
+  ],
 };
+
+// Painted before any stylesheet arrives, so there is never a white/black flash
+const criticalCss = `
+html{background:rgb(246,246,246);color:rgb(20,20,20)}
+@media (prefers-color-scheme:dark){html{background:rgb(14,14,14);color:rgb(238,238,238)}}
+`;
 
 export default async function RootLayout({ children }) {
   const accentColor = await getAccentColor();
@@ -49,7 +62,7 @@ export default async function RootLayout({ children }) {
   return (
     <html lang="en" className={`${elmsSans.variable} ${calSans.variable}`}>
       <head>
-        <style>{`:root { --accent: ${accentColor}; }`}</style>
+        <style>{`${criticalCss}:root { --accent: ${accentColor}; }`}</style>
       </head>
       <body suppressHydrationWarning>
         <Navbar />

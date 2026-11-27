@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/mongodb";
 import About from "@/models/about";
 import { requireAdmin } from "@/lib/adminMiddleware"; // Add this import
+import { refresh, TAGS } from "@/lib/cache";
 
 export async function GET() {
   try {
@@ -35,6 +36,7 @@ export async function PUT(req) {
       { upsert: true, new: true }
     );
 
+    refresh(TAGS.content);
     return NextResponse.json(updatedAbout);
   } catch (error) {
     return NextResponse.json({ error: "Update failed" }, { status: 500 });
