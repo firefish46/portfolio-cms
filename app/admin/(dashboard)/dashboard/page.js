@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import ImageMigration from './ImageMigration';
 import { Radius } from 'lucide-react';
 
 
@@ -46,10 +47,6 @@ if (loading) {
 }
   return (
     <div style={{ padding: '1rem', maxWidth: '1200px', margin: '0 auto' }}>
-      <link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-/>
       <header style={{ marginBottom: '3rem' }}>
         <h1 style={{ 
           fontSize: '2.5rem', 
@@ -64,6 +61,8 @@ if (loading) {
           Welcome back. Your portfolio is currently performing as follows:
         </p>
       </header>
+
+      <ImageMigration />
 
       {/* Stats Grid */}
       <div className='homepage' style={{ 

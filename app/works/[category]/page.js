@@ -6,7 +6,7 @@ import { CATEGORY_ICONS } from "@/app/components/WorkIcons";
 import ProjectGallery from "@/app/components/ProjectGallery";
 import "../works.css";
 
-export const revalidate = 60;
+export const revalidate = 3600;
 
 export function generateStaticParams() {
   return WORK_CATEGORIES.map((c) => ({ category: c.slug }));

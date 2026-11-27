@@ -1,4 +1,5 @@
 import { unstable_cache } from "next/cache";
+import { TAGS, CONTENT_TTL } from "@/lib/cache";
 import { connectDB } from "@/lib/mongodb";
 import Profile from "@/models/Profile";
 import Project from "@/models/Projects";
@@ -15,7 +16,8 @@ import ExperienceSection from "@/app/components/ExperienceSection";
 import ContactPage from "./contact/page";
 
 
-export const revalidate = 60;
+// Cached for an hour; admin saves clear the "content" tag immediately.
+export const revalidate = 3600;
 
 // ── Cached, parallel data fetcher ──────────────────────────────────────────
 const getPageData = unstable_cache(
@@ -41,7 +43,7 @@ const getPageData = unstable_cache(
     };
   },
   ["home-page-data"],
-  { revalidate: 60 }
+  { revalidate: CONTENT_TTL, tags: [TAGS.content] }
 );
 
 // ── Page ───────────────────────────────────────────────────────────────────

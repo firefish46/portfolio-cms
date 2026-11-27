@@ -2,10 +2,11 @@ import { connectDB } from "@/lib/mongodb";
 import Skill from "@/models/Skill"; // Use singular 'Skill' to match standard naming
 import { requireAdmin } from "@/lib/adminMiddleware";
 import { NextResponse } from "next/server";
+import { refresh, TAGS } from "@/lib/cache";
 
 export async function GET() {
   await connectDB();
-  const skillsList = await Skill.find().sort({ order: 1 });
+  const skillsList = await Skill.find().sort({ order: 1 }).lean();
   return NextResponse.json(skillsList);
 }
 
@@ -19,6 +20,7 @@ export async function POST(req) {
     const data = await req.json();
     // Ensure 'level' in your Mongoose model is String, not Number
     const skill = await Skill.create(data);
+    refresh(TAGS.content);
     return NextResponse.json(skill);
   } catch (error) {
     return NextResponse.json({ error: error.message }, { status: 400 });
@@ -32,6 +34,7 @@ export async function PUT(req) {
 
   const { id, ...data } = await req.json();
   await Skill.findByIdAndUpdate(id, data);
+  refresh(TAGS.content);
   return NextResponse.json({ message: "Updated" });
 }
 
@@ -49,5 +52,6 @@ export async function DELETE(req) {
   }
 
   await Skill.findByIdAndDelete(id);
+  refresh(TAGS.content);
   return NextResponse.json({ message: "Deleted" });
 }

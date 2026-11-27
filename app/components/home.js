@@ -88,7 +88,6 @@ export default function HomeSection({ profile }) {
 
         {/* Title */}
         <div className="hs-title-row">
-          <i className="fa-solid fa-layer-group hs-title-icon" />
           <span className="hs-title-text">{title}</span>
         </div>
 {/* Social links */}

@@ -4,7 +4,7 @@ import { getWorks, countByCategory } from "@/lib/works";
 import { CATEGORY_ICONS } from "@/app/components/WorkIcons";
 import "./works.css";
 
-export const revalidate = 60;
+export const revalidate = 3600;
 
 export const metadata = {
   title: "Work | Mehedi Hasan",

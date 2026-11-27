@@ -2,6 +2,7 @@ import { connectDB } from "@/lib/mongodb";
 import Profile from "@/models/Profile";
 import { requireAdmin } from "@/lib/adminMiddleware";
 import { NextResponse } from "next/server";
+import { refresh, TAGS } from "@/lib/cache";
 
 export async function GET() {
   await connectDB();
@@ -31,6 +32,7 @@ export async function PUT(req) {
     { upsert: true, new: true }
   );
 
+  refresh(TAGS.content);
   return NextResponse.json(updatedProfile);
 }
 
@@ -42,5 +44,6 @@ export async function POST(req) {
 
   const data = await req.json();
   const project = await Profile.create(data);
+  refresh(TAGS.content);
   return NextResponse.json(project);
 }

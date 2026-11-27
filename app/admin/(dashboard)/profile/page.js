@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Eye, EyeOff,Loader2 } from 'lucide-react';
+import { resizeImage, uploadImage } from '@/lib/uploadImage';
 
 // ─── Password strength checker ─────────────────────────
 function getPasswordStrength(pw) {
@@ -106,12 +107,23 @@ export default function AdminProfile() {
       .finally(() => setIsLoading(false));
   }, []);
 
-  const handleImageChange = (e) => {
+  // Resize to 512px, upload to Cloudinary, keep only the URL
+  const handleImageChange = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
-    const reader = new FileReader();
-    reader.onloadend = () => setUser({ ...user, avatar: reader.result });
-    reader.readAsDataURL(file);
+    if (!file.type.startsWith('image/')) {
+      setProfileStatus('Please choose an image file.');
+      return;
+    }
+    try {
+      setProfileStatus('Uploading photo...');
+      const blob = await resizeImage(file, 512, 0.9);
+      const url = await uploadImage(blob, { folder: 'portfolio_profile', name: file.name });
+      setUser((u) => ({ ...u, avatar: url }));
+      setProfileStatus('Photo ready — save to apply.');
+    } catch (err) {
+      setProfileStatus(`Upload failed: ${err.message}`);
+    }
   };
 
   const handleUpdateProfile = async (e) => {
@@ -280,7 +292,6 @@ if (isLoading) {
       maxWidth: '800px', margin: '2rem auto', width: '90dvw',
       display: 'flex', flexDirection: 'column', gap: '2rem', paddingBottom: '4rem'
     }}>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
       {/* Header */}
       <header className='singlerowdiv' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <h1 style={{ fontFamily: 'var(--font-fredoka)' }}>Account Settings</h1>

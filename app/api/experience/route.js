@@ -1,7 +1,7 @@
 import { connectDB } from "@/lib/mongodb";
 import Experience from "@/models/Experience";
 import { requireAdmin } from "@/lib/adminMiddleware";
-import { revalidatePath } from "next/cache";
+import { refresh, TAGS } from "@/lib/cache";
 import { NextResponse } from "next/server";
 
 const FIELDS = [
@@ -47,7 +47,7 @@ export async function POST(req) {
   try {
     await connectDB();
     const item = await Experience.create(clean(await req.json()));
-    revalidatePath("/");
+    refresh(TAGS.content);
     return NextResponse.json(item);
   } catch (error) {
     return NextResponse.json({ error: error.message }, { status: 400 });
@@ -68,7 +68,7 @@ export async function PUT(req) {
       runValidators: true,
     });
     if (!item) return NextResponse.json({ error: "Not found" }, { status: 404 });
-    revalidatePath("/");
+    refresh(TAGS.content);
     return NextResponse.json(item);
   } catch (error) {
     return NextResponse.json({ error: error.message }, { status: 400 });
@@ -84,6 +84,6 @@ export async function DELETE(req) {
 
   await connectDB();
   await Experience.findByIdAndDelete(id);
-  revalidatePath("/");
+  refresh(TAGS.content);
   return NextResponse.json({ message: "Deleted" });
 }

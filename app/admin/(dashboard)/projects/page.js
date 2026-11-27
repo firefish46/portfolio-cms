@@ -3,6 +3,7 @@ import './page.css';
 import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { WORK_CATEGORIES } from '@/lib/workCategories';
+import { uploadImage } from '@/lib/uploadImage';
 
 // ─── Image Processing Utilities ────────────────────────────────────────────────
 
@@ -120,7 +121,11 @@ export default function AdminProjects() {
     setProcessing(true);
     try {
       const results = await Promise.all(validFiles.map(processImage));
-      setFormData(prev => ({ ...prev, images: [...prev.images, ...results.map(r => r.dataUrl)] }));
+      // Compress in the browser, then store on Cloudinary — only the URL goes to the database
+      const urls = await Promise.all(
+        results.map(r => uploadImage(r.dataUrl, { folder: 'portfolio_projects', name: r.name }))
+      );
+      setFormData(prev => ({ ...prev, images: [...prev.images, ...urls] }));
       setImagesMeta(prev => [...prev, ...results.map(({ originalSize, compressedSize, name }) => ({ originalSize, compressedSize, name }))]);
     } catch (err) {
       setErrors(prev => [...prev, err.message]);
@@ -176,7 +181,6 @@ export default function AdminProjects() {
 
   return (
     <div className="admin-projects-wrapper">
-      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
 
       <Toast messages={errors} onDismiss={dismissError} />
 
@@ -248,7 +252,7 @@ export default function AdminProjects() {
             >
               <span className="upload-zone-icon">{processing ? '⚙️' : '📁'}</span>
               <span className="upload-zone-hint">
-                {processing ? 'Processing images…' : 'Click to browse or drag & drop images here'}
+                {processing ? 'Compressing & uploading…' : 'Click to browse or drag & drop images here'}
               </span>
               <input
                 ref={fileInputRef}

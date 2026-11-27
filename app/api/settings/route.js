@@ -2,6 +2,7 @@
 import { connectDB } from "@/lib/mongodb";
 import settings from "@/models/Settings";
 import { requireAdmin } from "@/lib/adminMiddleware";
+import { refresh, TAGS } from "@/lib/cache";
 
 export async function GET() {
   await connectDB();
@@ -24,6 +25,7 @@ export async function PUT(req) {
     upsert: true // Creates the document if the DB is empty
   });
 
+  refresh(TAGS.settings);
   return Response.json(updated);
 }
 export async function POST(req) {
@@ -33,6 +35,7 @@ export async function POST(req) {
 
   const data = await req.json();
   const setting = await settings.create(data);
+  refresh(TAGS.settings);
   return Response.json(setting);
 }
 
@@ -44,5 +47,6 @@ export async function DELETE(req) {
 
   const { id } = await req.json();
   await settings.findByIdAndDelete(id);
+  refresh(TAGS.settings);
   return Response.json({ message: "Deleted" });
 }

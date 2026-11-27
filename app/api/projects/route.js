@@ -3,10 +3,11 @@ import { connectDB } from "@/lib/mongodb";
 import Project from "@/models/Projects";
 import { requireAdmin } from "@/lib/adminMiddleware";
 import { NextResponse } from "next/server"; // Import this
+import { refresh, TAGS } from "@/lib/cache";
 
 export async function GET() {
   await connectDB();
-  const projects = await Project.find().sort({ order: 1 });
+  const projects = await Project.find().sort({ order: 1 }).lean();
   return NextResponse.json(projects);
 }
 
@@ -17,6 +18,7 @@ export async function POST(req) {
 
   const data = await req.json();
   const project = await Project.create(data);
+  refresh(TAGS.content);
   return NextResponse.json(project);
 }
 
@@ -27,6 +29,7 @@ export async function PUT(req) {
 
   const { id, ...data } = await req.json();
   await Project.findByIdAndUpdate(id, data);
+  refresh(TAGS.content);
   return NextResponse.json({ message: "Updated" });
 }
 
@@ -44,5 +47,6 @@ export async function DELETE(req) {
   }
 
   await Project.findByIdAndDelete(id);
+  refresh(TAGS.content);
   return NextResponse.json({ message: "Deleted" });
 }
