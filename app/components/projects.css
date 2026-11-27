@@ -89,7 +89,7 @@
 .project-category {
   font-size: 0.7rem;
   color: var(--muted);
-  font-weight: 600;
+  font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 1.5px;
   display: block;
@@ -147,4 +147,14 @@
   .project-card { top: 60px; border-radius: 16px; }
   .project-content { padding: 1rem; }
   .project-title { font-size: 1.2rem; }
+}
+.projects-more {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+.projects-more-link {
+  width: auto;
+  padding: 0.7rem 1.3rem;
+  border-radius: 999px;
 }

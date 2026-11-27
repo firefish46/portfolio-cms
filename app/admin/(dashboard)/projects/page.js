@@ -2,6 +2,7 @@
 import './page.css';
 import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
+import { WORK_CATEGORIES } from '@/lib/workCategories';
 
 // ─── Image Processing Utilities ────────────────────────────────────────────────
 
@@ -189,11 +190,20 @@ export default function AdminProjects() {
             value={formData.title} required
             onChange={(e) => setFormData({ ...formData, title: e.target.value })}
           />
-          <input
-            type="text" placeholder="Category"
+          <select
             value={formData.category}
             onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-          />
+            required
+          >
+            <option value="" disabled>Category (shown on the Work page)</option>
+            {WORK_CATEGORIES.map((c) => (
+              <option key={c.slug} value={c.label}>{c.label}</option>
+            ))}
+            {/* Keep an older free-text category selectable while editing */}
+            {formData.category && !WORK_CATEGORIES.some((c) => c.label === formData.category) && (
+              <option value={formData.category}>{formData.category} (old)</option>
+            )}
+          </select>
           <input
             type="text" placeholder="My Role"
             value={formData.role}

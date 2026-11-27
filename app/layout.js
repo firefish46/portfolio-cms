@@ -1,4 +1,4 @@
-import { Cal_Sans, Fredoka } from "next/font/google";
+import { Elms_Sans } from "next/font/google";
 import { unstable_cache } from "next/cache";
 import "./globals.css";
 import Navbar from "./components/Navbar";
@@ -7,20 +7,11 @@ import { connectDB } from "@/lib/mongodb";
 import Settings from "@/models/Settings";
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
-const calSans = Cal_Sans({
-  weight: ["400"],
+// One variable family (100–900) for body text and display titles.
+const elmsSans = Elms_Sans({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-cal-sans",
-  preload: true,
-  adjustFontFallback: false,
-});
-
-const fredoka = Fredoka({
-  weight: ["300", "400", "500", "600", "700"],
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-fredoka",
+  variable: "--font-elms",
 });
 
 const getAccentColor = unstable_cache(
@@ -47,7 +38,7 @@ export default async function RootLayout({ children }) {
   const accentColor = await getAccentColor();
 
   return (
-    <html lang="en" className={`${calSans.variable} ${fredoka.variable}`}>
+    <html lang="en" className={elmsSans.variable}>
       <head>
         <style>{`:root { --accent: ${accentColor}; }`}</style>
       </head>

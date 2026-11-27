@@ -31,10 +31,10 @@
   letter-spacing: 2px;
   text-transform: uppercase;
   color: var(--xp-muted);
-  font-weight: 600;
+  font-weight: 500;
 }
 .xp-heading {
-  font-family: var(--font-fredoka), var(--font-family);
+  font-family: var(--font-heading);
   font-size: clamp(2rem, 5vw, 3rem);
   line-height: 1.1;
   margin: 0;
@@ -65,16 +65,16 @@
 .xp-stat-main .xp-stat-value { color: var(--background); }
 .xp-stat-main .xp-stat-sub { color: color-mix(in srgb, var(--background) 65%, transparent); }
 .xp-stat-value {
-  font-family: var(--font-fredoka), var(--font-family);
+  font-family: var(--font-heading);
   font-size: clamp(2rem, 6vw, 3.25rem);
-  font-weight: 600;
+  font-weight: 400;
   line-height: 1;
   color: var(--foreground);
   font-variant-numeric: tabular-nums;
 }
 .xp-stat-label {
   font-size: 0.95rem;
-  font-weight: 500;
+  font-weight: 400;
 }
 .xp-stat-sub {
   font-size: 0.8rem;
@@ -141,11 +141,11 @@
 .xp-role {
   margin: 0;
   font-size: 1.2rem;
-  font-weight: 600;
+  font-weight: 500;
 }
 .xp-company {
   margin: 0.25rem 0 0;
-  font-weight: 500;
+  font-weight: 400;
   color: var(--foreground);
   opacity: 0.85;
 }
@@ -156,7 +156,7 @@
 .xp-badge {
   flex-shrink: 0;
   font-size: 0.72rem;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0.5px;
   text-transform: uppercase;
   padding: 0.3rem 0.65rem;
@@ -189,7 +189,7 @@
   border-radius: 6px;
   background: var(--surface-2);
   color: var(--foreground);
-  font-weight: 500;
+  font-weight: 400;
 }
 
 .xp-desc {

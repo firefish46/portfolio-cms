@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from 'react';
 import './projects.css';
 import ProjectGallery from './ProjectGallery';
+import Link from 'next/link';
 
 // ─── Collapsible description ──────────────────────────────────
 function ProjectDescription({ role, description }) {
@@ -135,6 +136,12 @@ export default function ProjectsSection({ projects }) {
               </div>
             </div>
           ))}
+        </div>
+
+        <div className="projects-more">
+          <Link href="/works" className="modern-btn secondary projects-more-link">
+            Browse all work by category →
+          </Link>
         </div>
 
       </div>

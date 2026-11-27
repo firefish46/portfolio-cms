@@ -167,7 +167,7 @@
 /* ── Name ────────────────────────────────────────────────────── */
 .hs-name {
   font-size: clamp(2rem, 9vw, 3.2rem);
-  font-weight: 800;
+  font-weight: 400;
   letter-spacing: -0.02em;
   line-height: 1;
   text-align: center;
@@ -204,8 +204,7 @@
 .hs-title-text {
   color: var(--hs-text-muted);
   font-size: 1rem;
-  letter-spacing: 0.06em;
-  font-family: 'Courier New', monospace;
+  letter-spacing: 0.01em;
   transition: color 0.4s ease;
   text-align: -webkit-center;
 

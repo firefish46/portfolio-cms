@@ -117,38 +117,23 @@ export default function AboutSection({ profile, aboutData }) {
           </div>
         </div>
 
-        {/* ── RIGHT: FLOATING TECH ORBIT ── */}
-        <div className="ab-tech-orbit">
-          <div className="orbit-center">
-             <div className="center-pulse"></div>
-             <i className="fa-solid fa-bolt center-icon"></i>
-          </div>
-          
-          {aiTools.map((tool, index) => (
-            <div 
-              key={index} 
-              className="tech-float-card"
-              style={{ 
-                '--delay': tool.delay || '0s', 
-                '--color': tool.color || 'var(--accent)',
-                '--idx': index 
-              }}
-            >
-              <div className="tech-icon-container">
-                <Image 
-                  src={tool.image} 
-                  alt={tool.name}
-                  height={24}
-                  width={24} 
-                  className="tech-svg-icon"
+        {/* ── RIGHT: TOOLS GRID ── */}
+        <div className="ab-tools">
+          <div className="ab-tools-lines" aria-hidden="true" />
+          <ul className="ab-tools-grid" aria-label="Tools I use">
+            {aiTools.map((tool, index) => (
+              <li key={tool.name || index} className="ab-tool">
+                <Image
+                  src={tool.image}
+                  alt=""
+                  height={28}
+                  width={28}
+                  className="ab-tool-icon"
                 />
-              </div>
-              <span className="tech-name">{tool.name}</span>
-            </div>
-          ))}
-
-          {/* Mesh Gradient Background */}
-          <div className="ab-mesh-bg"></div>
+                <span className="ab-tool-name">{tool.name}</span>
+              </li>
+            ))}
+          </ul>
         </div>
 
       </div>

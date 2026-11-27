@@ -34,7 +34,13 @@ a {
   --accent-soft:   color-mix(in srgb, var(--accent) 12%, transparent);
   --danger:        rgb(220, 38, 38);
 
-  --font-family: var(--font-cal-sans), var(--font-fredoka), sans-serif;
+  /* Elms Sans everywhere: regular for body, heavier weights for titles */
+  --font-family: var(--font-elms), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-heading: var(--font-family);
+  /* Older names still referenced by components → same family */
+  --font-fredoka: var(--font-family);
+  --font-cal-sans: var(--font-family);
+  --font-inter: var(--font-family);
 
   /* Legacy names used across components — mapped onto the neutral system */
   --light-gray:   var(--surface-2);
@@ -66,8 +72,22 @@ a {
   }
 }
 h1.name {
-  font-family: var(--font-family);
+  font-family: var(--font-heading);
   color: var(--foreground);
+}
+
+/* ── Type weights ─────────────────────────────────────────────
+   Regular by default; medium for small titles; display titles
+   semibold with tighter tracking. */
+body { font-weight: 400; }
+h1, h2, h3, h4, h5, h6 { font-weight: 500; }
+b, strong { font-weight: 600; }
+.display-title,
+.hs-name, .ab-heading, .xp-heading, .projects-title, #skills h2,
+.contact-title, .footer-logo, .navlink-container {
+  font-family: var(--font-heading) !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.03em;
 }
 .responsive-card{
   display: flex;
