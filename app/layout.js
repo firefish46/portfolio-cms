@@ -1,4 +1,4 @@
-import { Elms_Sans } from "next/font/google";
+import { Cal_Sans, Elms_Sans } from "next/font/google";
 import { unstable_cache } from "next/cache";
 import "./globals.css";
 import Navbar from "./components/Navbar";
@@ -7,11 +7,20 @@ import { connectDB } from "@/lib/mongodb";
 import Settings from "@/models/Settings";
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
-// One variable family (100–900) for body text and display titles.
+// Elms Sans: body text and small headings (variable 100–900).
 const elmsSans = Elms_Sans({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-elms",
+});
+
+// Cal Sans: heavy display face for the name and section titles only.
+// It ships in a single weight, so it is used at 400 and never faux-bolded.
+const calSans = Cal_Sans({
+  weight: ["400"],
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-cal-sans",
 });
 
 const getAccentColor = unstable_cache(
@@ -38,7 +47,7 @@ export default async function RootLayout({ children }) {
   const accentColor = await getAccentColor();
 
   return (
-    <html lang="en" className={elmsSans.variable}>
+    <html lang="en" className={`${elmsSans.variable} ${calSans.variable}`}>
       <head>
         <style>{`:root { --accent: ${accentColor}; }`}</style>
       </head>
